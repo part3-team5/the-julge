@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --black: #111322;
     --gray50: #7d7986;
@@ -17,7 +21,6 @@
     --green10: #d4f7d4;
     --kakao: #fee500;
     font-family: "NanumSquareNeo", sans-serif;
-    box-sizing: border-box;
 }
 
 @font-face {

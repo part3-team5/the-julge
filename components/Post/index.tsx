@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import classNames from "classnames";
+import classNames from "classnames/bind";
 import moment from "moment";
 import styles from "./Post.module.scss";
 import { PostProps } from "@/types/interface";
+
+const cx = classNames.bind(styles);
 
 const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
     // 시작 시간 string -> Date 객체
@@ -43,24 +45,24 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
         : "/image/icon/post_arrow_icon.svg";
 
     return (
-        <div className={classNames(styles.postContainer, { [styles.disabled]: isPast })}>
-            <div className={styles.postImageContainer}>
+        <div className={cx("postContainer", { disabled: isPast })}>
+            <div className={cx("postImageContainer")}>
                 <Image
-                    className={styles.postImage}
+                    className={cx("postImage")}
                     src="/image/sample.jpg"
                     width={280}
                     height={160}
                     alt="공고 이미지"
                 />
-                {isPast && <div className={styles.overlay}>지난 공고</div>}
+                {isPast && <div className={cx("overlay")}>지난 공고</div>}
             </div>
-            <p className={classNames(styles.postStoreText, { [styles.disabled]: isPast })}>
+            <p className={cx("postStoreText", { disabled: isPast })}>
                 엄청진짜많이 이름이 긴 가게가 있을수도
             </p>
-            <div className={classNames(styles.postTextContainer, { [styles.disabled]: isPast })}>
-                <div className={classNames(styles.postStoreSubtext, { [styles.disabled]: isPast })}>
+            <div className={cx("postTextContainer", { disabled: isPast })}>
+                <div className={cx("postStoreSubtext", { disabled: isPast })}>
                     <Image
-                        className={styles.icon}
+                        className={cx("icon")}
                         src={`/image/icon/post_clock_icon${isPast ? "_disabled" : ""}.svg`}
                         width={20}
                         height={20}
@@ -68,9 +70,9 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
                     />
                     {`${startTimeFormatted}~${endTimeFormatted} (${duration})`}
                 </div>
-                <div className={classNames(styles.postStoreSubtext, { [styles.disabled]: isPast })}>
+                <div className={cx("postStoreSubtext", { disabled: isPast })}>
                     <Image
-                        className={styles.icon}
+                        className={cx("icon")}
                         src={`/image/icon/post_location_icon${isPast ? "_disabled" : ""}.svg`}
                         width={20}
                         height={20}
@@ -78,11 +80,9 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
                     />
                     서울시 어딘가
                 </div>
-                <div className={classNames(styles.postFooter, { [styles.disabled]: isPast })}>
-                    <p className={classNames(styles.postPrice, { [styles.disabled]: isPast })}>
-                        15,000원
-                    </p>
-                    <div className={classNames(styles.postBtn, { [styles.disabled]: isPast })}>
+                <div className={cx("postFooter", { disabled: isPast })}>
+                    <p className={cx("postPrice", { disabled: isPast })}>15,000원</p>
+                    <div className={cx("postBtn", { disabled: isPast })}>
                         기존 시급보다 100%
                         <Image
                             src={arrowIconSrc}

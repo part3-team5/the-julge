@@ -3,10 +3,12 @@
   width: 350px;
   height: 58px;
 }
-
+.dropdown__inputWrapper {
+  position: relative;
+  width: 100%;
+  height: 52px;
+}
 .dropdown__input {
-  background: url(@/public/image/icon/Arrow-down.svg);
-
   font-weight: 400;
   font-size: 16px;
   width: 100%;
@@ -18,7 +20,12 @@
     color: #a4a1aa;
   }
 }
-
+.dropdown__icon {
+  position: absolute;
+  top: 40%;
+  right: 10%;
+  transform: translate(-50%);
+}
 .dropdown__optionBox {
   border-radius: 8px;
   height: 230px;

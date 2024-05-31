@@ -1,4 +1,4 @@
-.postContainer {
+.post__container {
     width: 312px;
     height: 348px;
     padding: 16px;
@@ -12,7 +12,7 @@
     position: relative;
 }
 
-.postImageContainer {
+.postImage__container {
     width: 100%;
     height: 160px;
     border-radius: 12px;
@@ -58,13 +58,13 @@
     }
 }
 
-.postTextContainer {
+.postText__container {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.postStoreSubtext {
+.postText__subtext {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -76,7 +76,7 @@
     }
 }
 
-.postFooter {
+.post__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -92,7 +92,7 @@
     }
 }
 
-.postBtn {
+.post__btn {
     width: auto;
     height: 36px;
     border-radius: 20px;
@@ -112,14 +112,14 @@
 
 //mobile
 @media (max-width: 767px) {
-    .postContainer {
+    .post__container {
         width: 171px;
         height: 260px;
         padding: 12px;
         gap: 0px;
     }
 
-    .postImageContainer {
+    .postImage__container {
         width: 147px;
         height: 84px;
     }
@@ -143,11 +143,11 @@
         max-width: 170px;
     }
 
-    .postStoreSubtext {
+    .postText__subtext {
         font-size: 12px;
     }
 
-    .postFooter {
+    .post__footer {
         flex-direction: column;
         align-items: flex-start;
     }
@@ -156,7 +156,7 @@
         font-size: 18px;
     }
 
-    .postBtn {
+    .post__btn {
         width: auto;
         height: auto;
         border-radius: 0;

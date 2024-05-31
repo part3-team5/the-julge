@@ -16,21 +16,21 @@
     --green20: #20a81e;
     --green10: #d4f7d4;
     --kakao: #fee500;
+    font-family: "NanumSquareNeo", sans-serif;
+    box-sizing: border-box;
 }
 
 @font-face {
-    font-family: "SCoreDream";
+    font-family: "NanumSquareNeo";
+    font-weight: 400;
     font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot?#iefix")
+    src: url("https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-bRg.eot");
+    src: url("https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-bRg.eot?#iefix")
             format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.ttf")
+        url("https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-bRg.woff2")
+            format("woff2"),
+        url("https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-bRg.woff") format("woff"),
+        url("https://webfontworld.github.io/NanumSquareNeo/NanumSquareNeo-bRg.ttf")
             format("truetype");
     font-display: swap;
-}
-
-body {
-    font-family: "SCoreDream", sans-serif;
 }

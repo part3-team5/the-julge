@@ -1,36 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
-    --black: #111322;
-    --gray50: #7d7986;
-    --gray40: #a4a1aa;
-    --gray30: #cbc9cf;
-    --gray20: #e5e4e7;
-    --gray10: #f2f2f3;
-    --gray5: #fafafa;
-    --white: #ffffff;
-    --red40: #ff4040;
-    --red30: #ff8d72;
-    --red20: #ffaf9b;
-    --red10: #ffebe7;
-    --blue20: #0080ff;
-    --blue10: #cce6ff;
-    --green20: #20a81e;
-    --green10: #d4f7d4;
-    --kakao: #fee500;
+  --black: #111322;
+  --gray50: #7d7986;
+  --gray40: #a4a1aa;
+  --gray30: #cbc9cf;
+  --gray20: #e5e4e7;
+  --gray10: #f2f2f3;
+  --gray5: #fafafa;
+  --white: #ffffff;
+  --red40: #ff4040;
+  --red30: #ff8d72;
+  --red20: #ffaf9b;
+  --red10: #ffebe7;
+  --blue20: #0080ff;
+  --blue10: #cce6ff;
+  --green20: #20a81e;
+  --green10: #d4f7d4;
+  --kakao: #fee500;
 }
 
 @font-face {
-    font-family: "SCoreDream";
-    font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.ttf")
-            format("truetype");
-    font-display: swap;
+  font-family: "SCoreDream";
+  font-style: normal;
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot");
+  src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot?#iefix")
+      format("embedded-opentype"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff2")
+      format("woff2"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff")
+      format("woff"),
+    url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.ttf")
+      format("truetype");
+  font-display: swap;
 }
 
 body {
-    font-family: "SCoreDream", sans-serif;
+  font-family: "SCoreDream", sans-serif;
 }

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :root {
     --black: #111322;
     --gray50: #7d7986;

@@ -26,13 +26,13 @@ export default function Input({
 }
 
 const commonStyles = `
-color: var(--The-julge-black);
+color: var(--black);
 font-family: Abel;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
 line-height: 26px;
-  color: var(--The-julge-black);
+  color: var(--black);
   font-family: Abel;
   font-size: 16px;
   font-style: normal;
@@ -57,11 +57,10 @@ const StyledInput = styled.input<{ hasError: boolean }>`
   align-self: stretch;
   border-radius: 6px;
   border: 1px solid
-    ${({ hasError }) =>
-      hasError ? "var(--The-julge-red)" : "var(--The-julge-gray-30)"};
-  background: var(--The-julge-white);
+    ${({ hasError }) => (hasError ? "var(--red40)" : "var(--gray30)")};
+  background: var(--white);
   ::placeholder {
-    color: var(--The-julge-gray-40);
+    color: var(--gray40);
   }
 `;
 const StyledLabel = styled.label`
@@ -72,7 +71,7 @@ const StyledWarning = styled.span`
   padding-left: 8px;
   align-items: flex-start;
   gap: 8px;
-  color: var(--The-julge-red);
+  color: var(--red40);
   font-size: 12px;
   font-family: Abel;
   font-style: normal;

@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import classNames from "classnames/bind";
 import moment from "moment";
 import styles from "./Post.module.scss";
 import { PostProps } from "@/types/interface";
+import HourlyPayincreaseButton from "../HourlyPayincreaseButton";
 
 const cx = classNames.bind(styles);
 
-const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
+const Post: React.FC<PostProps> = ({ startsAt, workhour, increasePercent }) => {
     // 시작 시간 string -> Date 객체
     const startTime = moment(startsAt);
     const endTime = moment(startTime).add(workhour, "hours");
@@ -21,28 +22,6 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
     const endTimeFormatted = endTime.format("HH:mm");
 
     const duration = `${workhour}시간`;
-
-    const [isMobile, setIsMobile] = useState(false);
-
-    // 화면 크기에 따른 아이콘 크기 및 색 변경 위함
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 767);
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const arrowIconSrc = isMobile
-        ? isPast
-            ? "/image/icon/post_arrow_mobile_disabled.svg"
-            : "/image/icon/post_arrow_mobile.svg"
-        : "/image/icon/post_arrow_icon.svg";
 
     return (
         <div className={cx("post__container", { disabled: isPast })}>
@@ -82,15 +61,7 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
                 </div>
                 <div className={cx("post__footer", { disabled: isPast })}>
                     <p className={cx("postPrice", { disabled: isPast })}>15,000원</p>
-                    <div className={cx("post__btn", { disabled: isPast })}>
-                        기존 시급보다 100%
-                        <Image
-                            src={arrowIconSrc}
-                            width={isMobile ? 16 : 20}
-                            height={isMobile ? 16 : 20}
-                            alt="arrow icon"
-                        />
-                    </div>
+                    <HourlyPayincreaseButton isPast={isPast} increasePercent={increasePercent} />
                 </div>
             </div>
         </div>

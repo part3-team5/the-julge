@@ -45,8 +45,8 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
         : "/image/icon/post_arrow_icon.svg";
 
     return (
-        <div className={cx("postContainer", { disabled: isPast })}>
-            <div className={cx("postImageContainer")}>
+        <div className={cx("post__container", { disabled: isPast })}>
+            <div className={cx("postImage__container")}>
                 <Image
                     className={cx("postImage")}
                     src="/image/sample.jpg"
@@ -59,8 +59,8 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
             <p className={cx("postStoreText", { disabled: isPast })}>
                 엄청진짜많이 이름이 긴 가게가 있을수도
             </p>
-            <div className={cx("postTextContainer", { disabled: isPast })}>
-                <div className={cx("postStoreSubtext", { disabled: isPast })}>
+            <div className={cx("postText__container", { disabled: isPast })}>
+                <div className={cx("postText__subtext", { disabled: isPast })}>
                     <Image
                         className={cx("icon")}
                         src={`/image/icon/post_clock_icon${isPast ? "_disabled" : ""}.svg`}
@@ -70,7 +70,7 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
                     />
                     {`${startTimeFormatted}~${endTimeFormatted} (${duration})`}
                 </div>
-                <div className={cx("postStoreSubtext", { disabled: isPast })}>
+                <div className={cx("postText__subtext", { disabled: isPast })}>
                     <Image
                         className={cx("icon")}
                         src={`/image/icon/post_location_icon${isPast ? "_disabled" : ""}.svg`}
@@ -80,9 +80,9 @@ const Post: React.FC<PostProps> = ({ startsAt, workhour }) => {
                     />
                     서울시 어딘가
                 </div>
-                <div className={cx("postFooter", { disabled: isPast })}>
+                <div className={cx("post__footer", { disabled: isPast })}>
                     <p className={cx("postPrice", { disabled: isPast })}>15,000원</p>
-                    <div className={cx("postBtn", { disabled: isPast })}>
+                    <div className={cx("post__btn", { disabled: isPast })}>
                         기존 시급보다 100%
                         <Image
                             src={arrowIconSrc}

@@ -20,34 +20,36 @@
 }
 
 .post__container {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 14px;
     overflow: hidden;
     width: 100%;
-    position: relative;
     transition: transform 0.5s ease;
+    justify-items: center;
 }
 
 //tablet
-@media (max-width: 1199px) and (min-width: 768px) {
+@media (max-width: 1199px) {
     .customNotice__container {
         margin: 0 32px;
     }
     .post__container {
-        justify-content: center;
-        gap: 60px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0;
     }
 }
 
 //mobile
 @media (max-width: 767px) {
     .customNotice__container {
-        margin: 0 32px;
-        max-width: 350px;
+        margin: 0;
+        padding: 40px 12px;
+        width: 100%;
     }
     .post__container {
-        justify-content: center;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
     }
     .title {
         font-size: 20px;

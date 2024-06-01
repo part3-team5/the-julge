@@ -1,0 +1,55 @@
+.customNotice__wrapper {
+    width: 100%;
+    background-color: var(--red10);
+}
+
+.customNotice__container {
+    position: relative;
+    max-width: 964px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.post__container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+//tablet
+@media (max-width: 1199px) and (min-width: 768px) {
+    .customNotice__container {
+        margin: 0 32px;
+    }
+    .post__container {
+        justify-content: center;
+        gap: 60px;
+    }
+}
+
+//mobile
+@media (max-width: 767px) {
+    .customNotice__container {
+        margin: 0 32px;
+        max-width: 350px;
+    }
+    .post__container {
+        justify-content: center;
+    }
+    .title {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,173 @@
+.postContainer {
+    width: 312px;
+    height: 348px;
+    padding: 16px;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--white);
+    gap: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.postImageContainer {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.postImage {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.overlay {
+    border-radius: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    color: var(--gray30);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.postStoreText {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--black);
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &.disabled {
+        color: var(--gray30);
+    }
+}
+
+.postTextContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.postStoreSubtext {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--gray50);
+
+    &.disabled {
+        color: var(--gray30);
+    }
+}
+
+.postFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postPrice {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--black);
+
+    &.disabled {
+        color: var(--gray30);
+    }
+}
+
+.postBtn {
+    width: auto;
+    height: 36px;
+    border-radius: 20px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--red40);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 600;
+
+    &.disabled {
+        background-color: var(--gray20);
+    }
+}
+
+//mobile
+@media (max-width: 767px) {
+    .postContainer {
+        width: 171px;
+        height: 260px;
+        padding: 12px;
+        gap: 0px;
+    }
+
+    .postImageContainer {
+        width: 147px;
+        height: 84px;
+    }
+
+    .postImage {
+        width: 147px;
+        height: 84px;
+    }
+
+    .overlay {
+        font-size: 20px;
+    }
+
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    .postStoreText {
+        font-size: 16px;
+        max-width: 170px;
+    }
+
+    .postStoreSubtext {
+        font-size: 12px;
+    }
+
+    .postFooter {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .postPrice {
+        font-size: 18px;
+    }
+
+    .postBtn {
+        width: auto;
+        height: auto;
+        border-radius: 0;
+        padding: 0;
+        font-size: 12px;
+        background: none;
+        color: var(--red40);
+
+        &.disabled {
+            background: none;
+            color: var(--gray20);
+        }
+    }
+}

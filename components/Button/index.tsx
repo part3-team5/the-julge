@@ -11,7 +11,11 @@ const Button = ({
   btnCustom,
 }: ButtonProps) => {
   return (
-    <button className={cx(btnColorType, btnCustom)} onClick={onClick}>
+    <button
+      className={cx(btnColorType, btnCustom)}
+      onClick={onClick}
+      disabled={btnColorType === "gray"}
+    >
       {children}
     </button>
   );

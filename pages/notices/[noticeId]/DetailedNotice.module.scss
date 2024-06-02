@@ -23,7 +23,7 @@
   line-height: 20px;
 }
 
-.notice--head__store-name {
+.notice--head__name {
   font-size: 28px;
   font-weight: 700;
   line-height: 33.6px;
@@ -106,4 +106,13 @@
 // ---------------------
 .recentlt-viewed {
   margin: 120px 0 120px;
+}
+
+.post__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 14px;
+  justify-items: center;
+  width: 100%;
+  margin-top: 32px;
 }

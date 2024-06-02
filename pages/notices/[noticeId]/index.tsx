@@ -5,6 +5,9 @@ import Button from "@/components/Button";
 import sampleImg from "@/public/image/sample.jpg";
 import clockIcon from "@/public/image/icon/clock-icon.svg";
 import pathIcon from "@/public/image/icon/path-icon.svg";
+import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
+import { posts } from "@/public/postTest";
+import Post from "@/components/Post";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +18,7 @@ const DetailedNotice = () => {
         <section className={cx("notice")}>
           <div className={cx("notice--head")}>
             <span className={cx("notice__category")}>식당</span>
-            <h2 className={cx("notice--head__store-name")}>도토리 식당</h2>
+            <h2 className={cx("notice--head__name")}>도토리 식당</h2>
           </div>
           <div className={cx("notice-info")}>
             <div className={cx("notice-info__img")}>
@@ -28,7 +31,12 @@ const DetailedNotice = () => {
                   <span className={cx("notice__category")}>시급</span>
                   <div className={cx("notice-info__salary-wrap")}>
                     <span className={cx("notice-info__salary")}>15,000원</span>
-                    <div>라벨</div>
+                    <div>
+                      <HourlyPayincreaseButton
+                        isPast={false}
+                        increasePercent={50}
+                      />
+                    </div>
                   </div>
                 </div>
                 <div className={cx("with-icon-wrap")}>
@@ -58,7 +66,20 @@ const DetailedNotice = () => {
             </p>
           </div>
         </section>
-        <section className={cx("recentlt-viewed")}>섹션2</section>
+
+        <section className={cx("recentlt-viewed")}>
+          <h2 className={cx("notice--head__name")}>최근에 본 공고</h2>
+          <div className={cx("post__grid")}>
+            {posts.slice(0, 6).map((post, index) => (
+              <Post
+                key={index}
+                startsAt={post.startsAt}
+                workhour={post.workhour}
+                increasePercent={post.increasePercent}
+              />
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );

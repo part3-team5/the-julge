@@ -22,7 +22,14 @@ const DetailedNotice = () => {
           </div>
           <div className={cx("notice-info")}>
             <div className={cx("notice-info__img")}>
-              <Image fill src={sampleImg} alt="가게 이미지" />
+              <Image
+                fill
+                style={{
+                  objectFit: "cover",
+                }}
+                src={sampleImg}
+                alt="가게 이미지"
+              />
             </div>
 
             <div className={cx("notice-info--detail-wrap")}>

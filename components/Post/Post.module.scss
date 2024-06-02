@@ -1,4 +1,4 @@
-.postContainer {
+.post__container {
     width: 312px;
     height: 348px;
     padding: 16px;
@@ -7,12 +7,13 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--white);
+    border: 1px solid var(--gray20);
     gap: 20px;
     box-sizing: border-box;
     position: relative;
 }
 
-.postImageContainer {
+.postImage__container {
     width: 100%;
     height: 160px;
     border-radius: 12px;
@@ -41,6 +42,7 @@
     justify-content: center;
     font-size: 28px;
     font-weight: 600;
+    cursor: pointer;
 }
 
 .postStoreText {
@@ -58,13 +60,13 @@
     }
 }
 
-.postTextContainer {
+.postText__container {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.postStoreSubtext {
+.postText__subtext {
     display: flex;
     align-items: center;
     gap: 6px;
@@ -76,7 +78,7 @@
     }
 }
 
-.postFooter {
+.post__footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -92,34 +94,16 @@
     }
 }
 
-.postBtn {
-    width: auto;
-    height: 36px;
-    border-radius: 20px;
-    padding: 0 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--red40);
-    color: var(--white);
-    font-size: 14px;
-    font-weight: 600;
-
-    &.disabled {
-        background-color: var(--gray20);
-    }
-}
-
 //mobile
 @media (max-width: 767px) {
-    .postContainer {
+    .post__container {
         width: 171px;
         height: 260px;
         padding: 12px;
         gap: 0px;
     }
 
-    .postImageContainer {
+    .postImage__container {
         width: 147px;
         height: 84px;
     }
@@ -143,31 +127,16 @@
         max-width: 170px;
     }
 
-    .postStoreSubtext {
+    .postText__subtext {
         font-size: 12px;
     }
 
-    .postFooter {
+    .post__footer {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .postPrice {
         font-size: 18px;
-    }
-
-    .postBtn {
-        width: auto;
-        height: auto;
-        border-radius: 0;
-        padding: 0;
-        font-size: 12px;
-        background: none;
-        color: var(--red40);
-
-        &.disabled {
-            background: none;
-            color: var(--gray20);
-        }
     }
 }

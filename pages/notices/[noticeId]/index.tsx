@@ -60,7 +60,9 @@ const DetailedNotice = () => {
                   가게입니다.
                 </p>
               </div>
-              <Button btnColorType="orenge">신청하기</Button>
+              <Button btnColorType="orenge" btnCustom="userNoticeDetailed">
+                신청하기
+              </Button>
             </div>
           </div>
 

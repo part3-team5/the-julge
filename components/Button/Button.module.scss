@@ -46,3 +46,11 @@
 .gray {
   @include buttonStyle(var(--gray40), var(--white));
 }
+
+.userNoticeDetailed {
+  @media screen and (max-width: 750px) {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 17.53px;
+  }
+}

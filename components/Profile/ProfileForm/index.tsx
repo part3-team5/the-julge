@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function ProfileForm() {
   return (
-    <main className={cx("profile")}>
+    <main className={cx("profile", "profile__main")}>
       <h1 className={cx("profile__title")}>내 프로필</h1>
       <form className={cx("profile__form")}>
         <div className={cx("profile__input-wrapper")}>

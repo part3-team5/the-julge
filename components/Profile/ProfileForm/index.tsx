@@ -34,18 +34,16 @@ function ProfileForm() {
             <Dropdown options={areaOptions} id="area" />
           </section>
         </div>
-        <section className={cx("profile__input__section-introduction")}>
+        <section className={cx("profile__textarea__section")}>
           <label className={cx("profile__label")} htmlFor="introduction">
             소개
           </label>
-          <input
-            className={cx("profile__input-introduction")}
-            type="text"
-            id="introduction"
-          />
+          <textarea className={cx("profile__textarea")} id="introduction" />
         </section>
-        <div className={cx("button-wrapper")}>
-          <Button btnColorType="orange">프로필 등록</Button>
+        <div className={cx("profile__button__section")}>
+          <div className={cx("button-wrapper")}>
+            <Button btnColorType="orange">프로필 등록</Button>
+          </div>
         </div>
       </form>
     </main>

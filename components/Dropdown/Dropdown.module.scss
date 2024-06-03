@@ -1,7 +1,10 @@
 .dropdown {
   position: relative;
-  width: 350px;
+  width: 308px;
   height: 58px;
+  @media (max-width: 1124px) {
+    width: 330px;
+  }
 }
 .dropdown__inputWrapper {
   position: relative;

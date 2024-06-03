@@ -39,23 +39,8 @@
   width: 100%;
 }
 
-.filter__btn {
-  width: 79px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--red30);
-  color: var(--white);
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 //tablet
-@media (max-width: 1199px) and (min-width: 768px) {
+@media (max-width: 1124px) {
   .notice__container {
     margin: 0 32px;
   }
@@ -69,6 +54,7 @@
 @media (max-width: 767px) {
   .notice__container {
     padding: 40px 12px;
+    margin: 0;
     width: 100%;
   }
   .post__grid {

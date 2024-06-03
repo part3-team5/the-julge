@@ -1,9 +1,11 @@
 // 메인 화면 공고 목록 컴포넌트
+import React from "react";
 import Post from "@/components/Post";
+import DropdownSmall from "@/components/DropdownSmall";
+import Filter from "@/components/Filter";
+import { posts } from "@/public/postTest";
 import styles from "./NoticeList.module.scss";
 import classNames from "classnames/bind";
-import DropdownSmall from "@/components/DropdownSmall";
-import { posts } from "@/public/postTest";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +17,7 @@ const NoticeList = () => {
           <h2 className={cx("title")}>전체 공고</h2>
           <div className={cx("noticeTitle__options")}>
             <DropdownSmall />
-            <button className={cx("filter__btn")}>상세 필터</button>
+            <Filter />
           </div>
         </div>
         <div className={cx("post__grid")}>

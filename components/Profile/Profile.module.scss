@@ -1,0 +1,28 @@
+.profile {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  &__section {
+    border: 1px solid var(--gray20);
+    border-radius: 8px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &__description {
+    font-size: 16px;
+    color: var(--black);
+    margin-bottom: 20px;
+  }
+}

@@ -1,142 +1,149 @@
 .post__container {
-    width: 312px;
-    height: 348px;
-    padding: 16px;
-    border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: var(--white);
-    border: 1px solid var(--gray20);
-    gap: 20px;
-    box-sizing: border-box;
-    position: relative;
+  width: 312px;
+  height: 348px;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--white);
+  border: 1px solid var(--gray20);
+  gap: 20px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .postImage__container {
-    width: 100%;
-    height: 160px;
-    border-radius: 12px;
-    position: relative;
+  width: 100%;
+  height: 160px;
+  border-radius: 12px;
+  position: relative;
 }
 
 .postImage {
-    width: 100%;
-    height: 160px;
-    border-radius: 12px;
-    object-fit: cover;
-    cursor: pointer;
+  width: 100%;
+  height: 160px;
+  border-radius: 12px;
+  object-fit: cover;
+  cursor: pointer;
 }
 
 .overlay {
-    border-radius: 12px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    color: var(--gray30);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    font-weight: 600;
-    cursor: pointer;
+  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--gray30);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .postStoreText {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--black);
-    max-width: 300px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--black);
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 
-    &.disabled {
-        color: var(--gray30);
-    }
+  &.disabled {
+    color: var(--gray30);
+  }
 }
 
 .postText__container {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .postText__subtext {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    color: var(--gray50);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--gray50);
 
-    &.disabled {
-        color: var(--gray30);
-    }
+  &.disabled {
+    color: var(--gray30);
+  }
 }
 
 .post__footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .postPrice {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--black);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--black);
 
-    &.disabled {
-        color: var(--gray30);
-    }
+  &.disabled {
+    color: var(--gray30);
+  }
+}
+
+//tablet
+@media (max-width: 1199px) {
+  .post__container {
+    width: 332px;
+  }
 }
 
 //mobile
 @media (max-width: 767px) {
-    .post__container {
-        width: 171px;
-        height: 260px;
-        padding: 12px;
-        gap: 0px;
-    }
+  .post__container {
+    width: 171px;
+    height: 260px;
+    padding: 12px;
+    gap: 0px;
+  }
 
-    .postImage__container {
-        width: 147px;
-        height: 84px;
-    }
+  .postImage__container {
+    width: 147px;
+    height: 84px;
+  }
 
-    .postImage {
-        width: 147px;
-        height: 84px;
-    }
+  .postImage {
+    width: 147px;
+    height: 84px;
+  }
 
-    .overlay {
-        font-size: 20px;
-    }
+  .overlay {
+    font-size: 20px;
+  }
 
-    .icon {
-        width: 16px;
-        height: 16px;
-    }
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
 
-    .postStoreText {
-        font-size: 16px;
-        max-width: 170px;
-    }
+  .postStoreText {
+    font-size: 16px;
+    max-width: 170px;
+  }
 
-    .postText__subtext {
-        font-size: 12px;
-    }
+  .postText__subtext {
+    font-size: 12px;
+  }
 
-    .post__footer {
-        flex-direction: column;
-        align-items: flex-start;
-    }
+  .post__footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    .postPrice {
-        font-size: 18px;
-    }
+  .postPrice {
+    font-size: 18px;
+  }
 }

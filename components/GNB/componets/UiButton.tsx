@@ -1,5 +1,5 @@
-import { BodyBold } from "../styles/fontStyle";
-import styled from "@emotion/styled";
+import React from "react";
+import styles from "../sass/UiButton.module.scss";
 
 interface ButtonProps {
   name?: string;
@@ -13,16 +13,12 @@ export default function UiButton({ name, id, handleClickButton }: ButtonProps) {
   };
 
   return (
-    <Button type="button" onClick={handleClickMovePage}>
+    <button
+      className={styles.uiButton}
+      type="button"
+      onClick={handleClickMovePage}
+    >
       {name}
-    </Button>
+    </button>
   );
 }
-
-const Button = styled.button`
-  height: 20px;
-  background-color: transparent;
-  line-height: 20px;
-  ${BodyBold};
-  border: none;
-`;

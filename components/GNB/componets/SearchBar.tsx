@@ -1,7 +1,6 @@
-import styled from "@emotion/styled";
-import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { CaptionStyle } from "../styles/fontStyle";
+import { useRouter } from "next/router";
+import styles from "../sass/SearchBar.module.scss";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -23,7 +22,8 @@ export default function SearchBar() {
   };
 
   return (
-    <SearchInput
+    <input
+      className={styles.searchInput}
       value={searchTerm}
       placeholder="가게 이름으로 찾아보세요"
       onChange={handleChangeInput}
@@ -31,34 +31,3 @@ export default function SearchBar() {
     />
   );
 }
-
-const SearchInput = styled.input`
-  grid-area: search;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid #dadde0;
-  height: 40px;
-  padding-left: 40px;
-
-  &::placeholder {
-    color: var(--gray40);
-  }
-
-  &:hover {
-    background-color: var(--gray10);
-  }
-
-  ${CaptionStyle}
-
-  background-image: url('/image/search.svg');
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  background-size: 20px 20px;
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    height: 36px;
-    background-size: 16px 16px;
-    font-style: caption;
-  }
-`;

@@ -1,0 +1,11 @@
+.headerButtons {
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: flex-end;
+  }
+}

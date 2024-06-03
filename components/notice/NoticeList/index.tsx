@@ -8,29 +8,29 @@ import { posts } from "@/public/postTest";
 const cx = classNames.bind(styles);
 
 const NoticeList = () => {
-    return (
-        <div className={cx("notice__wrapper")}>
-            <div className={cx("notice__container")}>
-                <div className={cx("noticeTitle__container")}>
-                    <h2 className={cx("title")}>전체 공고</h2>
-                    <div className={cx("noticeTitle__options")}>
-                        <DropdownSmall />
-                        <button className={cx("filter__btn")}>상세 필터</button>
-                    </div>
-                </div>
-                <div className={cx("post__grid")}>
-                    {posts.map((post, index) => (
-                        <Post
-                            key={index}
-                            startsAt={post.startsAt}
-                            workhour={post.workhour}
-                            increasePercent={post.increasePercent}
-                        />
-                    ))}
-                </div>
-            </div>
+  return (
+    <div className={cx("notice__wrapper")}>
+      <div className={cx("notice__container")}>
+        <div className={cx("noticeTitle__container")}>
+          <h2 className={cx("title")}>전체 공고</h2>
+          <div className={cx("noticeTitle__options")}>
+            <DropdownSmall />
+            <button className={cx("filter__btn")}>상세 필터</button>
+          </div>
         </div>
-    );
+        <div className={cx("post__grid")}>
+          {posts.map((post, index) => (
+            <Post
+              key={index}
+              startsAt={post.startsAt}
+              workhour={post.workhour}
+              increasePercent={post.increasePercent}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default NoticeList;

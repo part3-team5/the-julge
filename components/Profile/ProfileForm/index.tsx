@@ -1,26 +1,55 @@
 import classNames from "classnames/bind";
-import styles from "../Profile.module.scss";
+import styles from "../profile.module.scss";
 import Dropdown from "@/components/Dropdown";
-
+import { areaOptions } from "@/constants/area";
+import Button from "@/components/Button";
 const cx = classNames.bind(styles);
 
-function ProfileEmpty() {
+function ProfileForm() {
   return (
-    <div className={cx("profile")}>
+    <main className={cx("profile")}>
       <h1 className={cx("profile__title")}>내 프로필</h1>
-      <form>
-        <label htmlFor="name">이름</label>
-        <input type="text" name="name" />
-        <label htmlFor="phone-number">전화번호</label>
-        <input type="number" name="phone-number" />
-        <label htmlFor="name">선호 지역</label>
-        <Dropdown />
-        <label htmlFor="name">이름</label>
-
-        <input type="text" name="name" />
+      <form className={cx("profile__form")}>
+        <div className={cx("profile__input-wrapper")}>
+          <section className={cx("profile__input__section")}>
+            <label className={cx("profile__label")} htmlFor="name">
+              이름
+            </label>
+            <input className={cx("profile__input")} type="text" id="name" />
+          </section>
+          <section className={cx("profile__input__section")}>
+            <label className={cx("profile__label")} htmlFor="phone-number">
+              전화번호
+            </label>
+            <input
+              className={cx("profile__input")}
+              type="tel"
+              id="phone-number"
+            />
+          </section>
+          <section className={cx("profile__input__section")}>
+            <label className={cx("profile__label")} htmlFor="area">
+              선호 지역
+            </label>
+            <Dropdown options={areaOptions} id="area" />
+          </section>
+        </div>
+        <section className={cx("profile__input__section-introduction")}>
+          <label className={cx("profile__label")} htmlFor="introduction">
+            소개
+          </label>
+          <input
+            className={cx("profile__input-introduction")}
+            type="text"
+            id="introduction"
+          />
+        </section>
+        <div className={cx("button-wrapper")}>
+          <Button btnColorType="orange">프로필 등록</Button>
+        </div>
       </form>
-    </div>
+    </main>
   );
 }
 
-export default ProfileEmpty;
+export default ProfileForm;

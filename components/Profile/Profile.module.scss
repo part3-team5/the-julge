@@ -39,4 +39,49 @@
   &__button--wrapper {
     width: 346px;
   }
+
+  &__form {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    background-color: var(-gray20);
+  }
+  &__input-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+  &__input__section {
+    width: 350px;
+    height: 92px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &__label {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  &__input {
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    border-radius: 6px;
+    border: 1px solid #cbc9cf;
+    padding: 16px 20px;
+  }
+  &__input__section-introduction {
+    width: 100%;
+    height: 187px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  &__input-introduction {
+    width: 100%;
+    height: 160px;
+    border-radius: 6px;
+    border: 1px solid #cbc9cf;
+  }
 }

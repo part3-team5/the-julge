@@ -41,6 +41,7 @@
   border-top: none;
   display: grid;
   grid-template-rows: repeat(5, 1fr);
+  z-index: 1;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -55,12 +56,14 @@
 }
 
 .dropdown__option {
+  background-color: var(--white);
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 8px 12px;
+  z-index: 1;
 
   &:not(:last-child) {
     border-bottom: 1px solid #e5e4e7;

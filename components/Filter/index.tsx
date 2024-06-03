@@ -11,47 +11,39 @@ import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
-const Filter = () => {
-  const initialSelectedDate = new Date();
-  const initialSelectedLocations: string[] = [];
-  const initialInputValue = "";
+interface FilterProps {
+  onClose: () => void;
+}
 
-  const [selectedDate, setSelectedDate] = useState<Date>(initialSelectedDate);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [selectedLocations, setSelectedLocations] = useState<string[]>(initialSelectedLocations);
-  const [inputValue, setInputValue] = useState<string>(initialInputValue);
+const Filter: React.FC<FilterProps> = ({ onClose }) => {
+  const initSelectedDate = new Date();
+  const initSelectedLocations: string[] = [];
+  const initInputValue = "";
+
+  const [selectedDate, setSelectedDate] = useState<Date>(initSelectedDate);
+  const [selectedLocations, setSelectedLocations] = useState<string[]>(initSelectedLocations);
+  const [inputValue, setInputValue] = useState<string>(initInputValue);
+  const [error, setError] = useState<string>("");
   const filterRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenFilter = () => {
-    setIsFilterOpen(!isFilterOpen);
-  };
-
-  const handleCloseFilter = () => {
-    setIsFilterOpen(false);
-  };
-
+  // 모달 바깥 요소 클릭 시 닫김
   const handleClickOutside = (event: MouseEvent) => {
     if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-      handleCloseFilter();
+      onClose();
     }
   };
 
   useEffect(() => {
-    if (isFilterOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isFilterOpen]);
+  }, []);
 
   const sortedLocations = locations.slice().sort(); // 위치 목록 정렬
 
   const handleChangeDate = (date: Date | null) => {
-    setSelectedDate(date || initialSelectedDate);
+    setSelectedDate(date || initSelectedDate);
   };
 
   const handleSelectLocation = (location: string) => {
@@ -64,103 +56,102 @@ const Filter = () => {
     setSelectedLocations(selectedLocations.filter((loc) => loc !== location));
   };
 
+  // 금액 input에 숫자가 아닌 값 입력 시 error
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    const value = e.target.value;
+    if (!Number(value)) {
+      setError("숫자를 입력하세요.");
+    } else {
+      setError("");
+      setInputValue(value);
+    }
   };
 
+  // 초기화
   const handleReset = () => {
-    setSelectedDate(initialSelectedDate);
-    setSelectedLocations(initialSelectedLocations);
-    setInputValue(initialInputValue);
+    setSelectedDate(initSelectedDate);
+    setSelectedLocations(initSelectedLocations);
+    setInputValue(initInputValue);
   };
 
   return (
-    <div className={cx("filter__container")}>
-      <button className={cx("filter__btn")} onClick={handleOpenFilter}>
-        상세 필터
-      </button>
-      {isFilterOpen && (
-        <div className={cx("filter__content")} ref={filterRef}>
-          <h2 className={cx("filter__title")}>상세 필터</h2>
-          <div className={cx("filter__section")}>
-            <h3 className={cx("filter__subtitle")}>위치</h3>
-            <div className={cx("filter__locationBox")}>
-              {sortedLocations.map((location, index) => (
-                <button
-                  key={index}
-                  className={cx("filter__locationBtn")}
-                  onClick={() => handleSelectLocation(location)}
-                >
-                  {location}
-                </button>
-              ))}
-            </div>
-            <div className={cx("filter__selectedLocations")}>
-              {selectedLocations.map((location, index) => (
-                <div key={index} className={cx("filter__selectedLocation")}>
-                  <span>{location}</span>
-                  <button
-                    onClick={() => handleRemoveLocation(location)}
-                    className={cx("filter__removeBtn")}
-                  >
-                    <Image
-                      src="/image/icon/location_remove.svg"
-                      width={16}
-                      height={16}
-                      alt="remove location button"
-                    />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className={cx("filter__bar")} />
-          <div className={cx("filter__section")}>
-            <h3 className={cx("filter__subtitle")}>시작일</h3>
-            <DatePicker
-              selected={selectedDate}
-              onChange={handleChangeDate}
-              dateFormat="yyyy년 MM월 dd일"
-              placeholderText="Select a date"
-              locale={ko}
-              className={cx("filter__date")}
-            />
-          </div>
-          <div className={cx("filter__bar")} />
-          <div className={cx("filter__section")}>
-            <h3 className={cx("filter__subtitle")}>금액</h3>
-            <div className={cx("filter__priceBox")}>
-              <div className={cx("filter__inputWrap")}>
-                <input
-                  className={cx("filter__input")}
-                  type="text"
-                  onChange={handleChangeInput}
-                  value={inputValue}
-                  placeholder="입력"
-                />
-                <span>원</span>
-                {/* 숫자가 아닐 시 에러 이벤트 추가 필요 */}
-              </div>
-              <span>이상부터</span>
-            </div>
-          </div>
-          <div className={cx("filter__btnContainer")}>
-            <div className={cx("filter__whiteBtn")}>
-              <Button btnColorType="white" onClick={handleReset}>
-                초기화
-              </Button>
-            </div>
-            <div className={cx("filter__orangeBtn")}>
-              <Button btnColorType="orange" onClick={handleCloseFilter}>
-                적용하기
-              </Button>
-            </div>
-          </div>
-          <button className={cx("filter__close")} onClick={handleCloseFilter}>
-            <Image src="/image/icon/close.svg" width={24} height={24} alt="close button" />
-          </button>
+    <div className={cx("filter__content")} ref={filterRef}>
+      <h2 className={cx("filter__title")}>상세 필터</h2>
+      <div className={cx("filter__section")}>
+        <h3 className={cx("filter__subtitle")}>위치</h3>
+        <div className={cx("filter__locationBox")}>
+          {sortedLocations.map((location, index) => (
+            <button
+              key={index}
+              className={cx("filter__locationBtn")}
+              onClick={() => handleSelectLocation(location)}
+            >
+              {location}
+            </button>
+          ))}
         </div>
-      )}
+        <div className={cx("filter__selectedLocations")}>
+          {selectedLocations.map((location, index) => (
+            <div key={index} className={cx("filter__selectedLocation")}>
+              <span>{location}</span>
+              <button
+                onClick={() => handleRemoveLocation(location)}
+                className={cx("filter__removeBtn")}
+              >
+                <Image
+                  src="/image/icon/location_remove.svg"
+                  width={16}
+                  height={16}
+                  alt="remove location button"
+                />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={cx("filter__bar")} />
+      <div className={cx("filter__section")}>
+        <h3 className={cx("filter__subtitle")}>시작일</h3>
+        <DatePicker
+          selected={selectedDate}
+          onChange={handleChangeDate}
+          dateFormat="yyyy년 MM월 dd일"
+          placeholderText="Select a date"
+          locale={ko}
+          className={cx("filter__date")}
+        />
+      </div>
+      <div className={cx("filter__bar")} />
+      <div className={cx("filter__section")}>
+        <h3 className={cx("filter__subtitle")}>금액</h3>
+        <div className={cx("filter__priceBox")}>
+          <div className={cx("filter__inputWrap")}>
+            <input
+              className={cx("filter__input")}
+              type="text"
+              onChange={handleChangeInput}
+              value={inputValue}
+              placeholder="입력"
+            />
+            <span>원</span>
+          </div>
+          <span>이상부터</span>
+        </div>
+        {error && <p className={cx("filter__error")}>{error}</p>}
+      </div>
+      <div className={cx("filter__btnContainer")}>
+        <div className={cx("filter__whiteBtn")}>
+          <Button btnColorType="white" onClick={handleReset}>
+            초기화
+          </Button>
+        </div>
+        <div className={cx("filter__orangeBtn")}>
+          <Button btnColorType="orange">적용하기</Button>
+        </div>
+      </div>
+      <button className={cx("filter__close")} onClick={onClose}>
+        <Image src="/image/icon/close.svg" width={24} height={24} alt="close button" />
+      </button>
     </div>
   );
 };

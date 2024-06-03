@@ -2,21 +2,6 @@
   position: relative;
 }
 
-.filter__btn {
-  width: 79px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--red30);
-  color: var(--white);
-  font-size: 14px;
-  font-weight: 600;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .filter__content {
   position: absolute;
   top: calc(100% + 10px);
@@ -153,6 +138,16 @@
   font-size: 16px;
 }
 
+.filter__input--error {
+  border-color: var(--red40);
+}
+
+.filter__error {
+  color: var(--red40);
+  margin: 0 0 5px 10px;
+  font-size: 14px;
+}
+
 .filter__priceBox {
   display: flex;
   align-items: center;
@@ -177,10 +172,6 @@
 
 //mobile
 @media (max-width: 767px) {
-  .filter__btn {
-    margin-left: 110px;
-  }
-
   .filter__container {
     position: fixed;
     z-index: 1000;

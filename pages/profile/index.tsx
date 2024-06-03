@@ -1,4 +1,4 @@
-import ProfileEmpty from "@/components/Profile/ProfileForm";
+import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 
 function profile() {
   return <ProfileEmpty />;

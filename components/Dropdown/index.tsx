@@ -6,9 +6,10 @@ import ArrowDownIcon from "../../public/image/icon/ArrowDown.svg";
 
 interface DropdownProps {
   options: string[];
+  name?: string;
 }
 
-function Dropdown({ options }: DropdownProps) {
+function Dropdown({ options, name }: DropdownProps) {
   const [selectedOption, setSelectedOption] = useState("선택");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -53,6 +54,7 @@ function Dropdown({ options }: DropdownProps) {
           className={styles["dropdown__input"]}
           placeholder="선택"
           value={selectedOption}
+          name={name}
           readOnly
         />
         {isOpen ? (

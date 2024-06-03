@@ -33,7 +33,7 @@
   }
 }
 
-.orenge {
+.orange {
   @include buttonStyle(var(--primary), var(--white));
   cursor: pointer;
 }

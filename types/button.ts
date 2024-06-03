@@ -1,6 +1,6 @@
 export interface ButtonProps {
   children: React.ReactNode;
-  btnColorType: "orenge" | "white" | "gray";
+  btnColorType: "orange" | "white" | "gray";
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   btnCustom?: string;
 }

@@ -25,13 +25,13 @@ export default Button;
 
 /*
 Ex)
-<Button btnColorType="orenge" onClick={handleExampleFnc}>
+<Button btnColorType="" onClick={handleExampleFnc}>
   가입하기
 </Button>
 
 Props 
 - children : 버튼 이름
-- btnColorType : orenge | white | gray 중 하나
+- btnColorType : orange | white | gray 중 하나
 - onClick (옵셔널) : 클릭 이벤트 함수 
 - btnCustom (옵셔널) : 별도로 CSS 추가가 필요할 시 이용
 */

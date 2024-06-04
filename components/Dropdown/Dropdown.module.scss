@@ -5,6 +5,9 @@
   @media (max-width: 1124px) {
     width: 330px;
   }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 .dropdown__inputWrapper {
   position: relative;
@@ -30,6 +33,7 @@
   transform: translate(-50%);
 }
 .dropdown__optionBox {
+  background-color: var(--white);
   border-radius: 8px;
   height: 230px;
   overflow-y: auto;

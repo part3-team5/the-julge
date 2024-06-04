@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import styles from "../profile.module.scss";
+import styles from "../Profile.module.scss";
 import Dropdown from "@/components/Dropdown";
 import { areaOptions } from "@/constants/area";
 import Button from "@/components/Button";
@@ -7,7 +7,7 @@ const cx = classNames.bind(styles);
 
 function ProfileForm() {
   return (
-    <main className={cx("profile", "profile__main")}>
+    <main className={cx(["profile"], ["profile__main"])}>
       <h1 className={cx("profile__title")}>내 프로필</h1>
       <form className={cx("profile__form")}>
         <div className={cx("profile__input-wrapper")}>

@@ -3,7 +3,6 @@
   height: 250px;
   border-radius: 8px;
   text-align: center;
-  border: solid 1px black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,4 +24,22 @@
   position: absolute;
   bottom: 28px;
   right: 28px;
+}
+
+@media screen and (max-width: 750px) {
+  .modal--wrap {
+    width: 327px;
+    height: 220px;
+  }
+
+  .modal--content {
+    font-size: 18px;
+    line-height: 21.48px;
+    position: relative;
+    top: -27px;
+  }
+
+  .modal--content__button {
+    right: 94px;
+  }
 }

@@ -1,3 +1,5 @@
+export const TABLET = 1124;
+export const MOBILE = 767;
 export const locations = [
   "서울시 종로구",
   "서울시 중구",

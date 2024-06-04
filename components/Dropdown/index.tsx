@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { DropdownProps } from "./Dropdown.types";
 import classNames from "classnames/bind";
@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import styles from "./Dropdown.module.scss";
 import ArrowUpIcon from "../../public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "../../public/image/icon/ArrowDown.svg";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 const cx = classNames.bind(styles);
 
@@ -23,22 +24,7 @@ function Dropdown({ options, id }: DropdownProps) {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const inputClassName = cx("dropdown__input", {
     "dropdown__input--selected": selectedOption !== "선택",

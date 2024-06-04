@@ -1,3 +1,4 @@
+@import "../../../styles/const.scss";
 .customNotice__wrapper {
   width: 100%;
   background-color: var(--red10);
@@ -29,8 +30,7 @@
   justify-items: center;
 }
 
-//tablet
-@media (max-width: 1124px) {
+@media (max-width: $TABLET) {
   .customNotice__container {
     margin: 0 32px;
   }
@@ -40,8 +40,7 @@
   }
 }
 
-//mobile
-@media (max-width: 767px) {
+@media (max-width: $MOBILE) {
   .customNotice__container {
     margin: 0;
     padding: 40px 12px;

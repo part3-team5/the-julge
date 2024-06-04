@@ -1,13 +1,9 @@
 import classNames from "classnames/bind";
 import styles from "../profile.module.scss";
 import Button from "@/components/Button";
-import { MouseEventHandler } from "react";
+import { ProfileEmptyProps } from "../profile.types";
 
 const cx = classNames.bind(styles);
-
-interface ProfileEmptyProps {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}
 
 function ProfileEmpty({ onClick }: ProfileEmptyProps) {
   return (

@@ -3,6 +3,7 @@ import styles from "../Profile.module.scss";
 import Dropdown from "@/components/Dropdown";
 import { areaOptions } from "@/constants/area";
 import Button from "@/components/Button";
+
 const cx = classNames.bind(styles);
 
 function ProfileForm() {

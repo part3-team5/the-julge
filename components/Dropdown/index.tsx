@@ -1,13 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { DropdownProps } from "./Dropdown.types";
+
 import styles from "./Dropdown.module.scss";
 import ArrowUpIcon from "../../public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "../../public/image/icon/ArrowDown.svg";
-
-interface DropdownProps {
-  options: string[];
-  id?: string;
-}
 
 function Dropdown({ options, id }: DropdownProps) {
   const [selectedOption, setSelectedOption] = useState("선택");
@@ -41,10 +38,7 @@ function Dropdown({ options, id }: DropdownProps) {
   }, []);
 
   return (
-    <div
-      className={styles["dropdown"]}
-      ref={dropdownRef as React.RefObject<HTMLDivElement>}
-    >
+    <div className={styles["dropdown"]} ref={dropdownRef}>
       <div
         className={styles["dropdown__inputWrapper"]}
         onClick={toggleDropdown}

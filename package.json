@@ -16,12 +16,13 @@
     "react": "^18",
     "react-datepicker": "^6.9.0",
     "react-dom": "^18",
+    "react-hook-form": "^7.51.5",
     "sass": "^1.77.3"
   },
   "devDependencies": {
     "@types/node": "^20",
-    "@types/react": "^18",
     "@types/react-datepicker": "^6.2.0",
+    "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "@types/sass": "^1.45.0",
     "eslint": "^8",

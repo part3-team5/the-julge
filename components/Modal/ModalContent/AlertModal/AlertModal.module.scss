@@ -1,0 +1,47 @@
+@import "@/styles/const.scss";
+
+.modal--wrap {
+  width: 540px;
+  height: 250px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white);
+  z-index: 999;
+}
+
+.modal--content {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21.48px;
+}
+
+.modal--content__button {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+}
+
+@media screen and (max-width: $MOBILE) {
+  .modal--wrap {
+    width: 327px;
+    height: 220px;
+  }
+
+  .modal--content {
+    font-size: 18px;
+    line-height: 21.48px;
+    position: relative;
+    top: -27px;
+  }
+
+  .modal--content__button {
+    right: 94px;
+  }
+}

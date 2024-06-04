@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { SigninFormData } from "../../types/type";
 import { INVALID_EMAIL, INVALID_PASSWORD } from "../errorMessage";
 import Input from "@/components/Input";
-// import Button from "@/components/Button/Button";
+import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
@@ -44,7 +44,7 @@ const SigninForm: React.FC = () => {
           },
         })}
       />
-      {/* <Button text="로그인 하기" /> */}
+      <Button btnColorType="orange">로그인</Button>
     </form>
   );
 };

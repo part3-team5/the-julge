@@ -20,9 +20,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Gnb userType={user} />
-      <button onClick={() => setUser("guest")}>로그인하지 않음</button>
-      <button onClick={() => setUser("employee")}>알바</button>
-      <button onClick={() => setUser("employer")}>사장</button>
+        <button onClick={() => setUser("guest")}>로그인하지 않음</button>
+        <button onClick={() => setUser("employee")}>알바</button>
+        <button onClick={() => setUser("employer")}>사장</button>
       <CustomNoticeList />
       <NoticeList />
     </>

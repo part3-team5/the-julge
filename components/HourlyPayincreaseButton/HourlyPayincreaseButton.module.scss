@@ -1,3 +1,4 @@
+@import "../../styles/const.scss";
 .post__btn {
   width: auto;
   height: 36px;
@@ -32,8 +33,7 @@
   }
 }
 
-//mobile
-@media (max-width: 767px) {
+@media (max-width: $MOBILE) {
   .post__btn {
     width: auto;
     height: auto;

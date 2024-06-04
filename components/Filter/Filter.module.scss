@@ -1,3 +1,5 @@
+@import "../../styles/const.scss";
+
 .filter__container {
   position: relative;
 }
@@ -87,12 +89,10 @@
   grid-template-columns: repeat(2, 1fr);
   overflow-y: scroll;
 
-  /* 스크롤바 설정*/
   &::-webkit-scrollbar {
     width: 5px;
   }
 
-  /* 스크롤바 막대 설정*/
   &::-webkit-scrollbar-thumb {
     background-color: var(--red30);
     border-radius: 10px;
@@ -170,8 +170,7 @@
   width: 260px;
 }
 
-//mobile
-@media (max-width: 767px) {
+@media (max-width: $MOBILE) {
   .filter__container {
     position: fixed;
     z-index: 1000;

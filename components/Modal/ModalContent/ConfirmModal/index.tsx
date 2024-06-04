@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import styles from "./ConfirmModal.module.scss";
 import classNames from "classnames/bind";
 import { IModalContentProps } from "@/components/Modal/Modal.types";
+import useModalScrollBlock from "@/hooks/useModalScrollBlock";
 import Image from "next/image";
 import modalCheck from "@/public/image/icon/modal-check.svg";
 import modalBang from "@/public/image/icon/modal-bang.svg";
@@ -10,6 +11,7 @@ const cx = classNames.bind(styles);
 
 const ConfirmModal = ({ modalData, closeFunction }: IModalContentProps) => {
   const isSelectModal = modalData.modalType === "select";
+  useModalScrollBlock();
 
   return (
     <div className={cx("modal--wrap")}>

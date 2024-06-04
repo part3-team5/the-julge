@@ -111,7 +111,7 @@
   }
 }
 
-.input__section {
+.input-section {
   flex: 1;
   min-width: 308px;
   display: flex;
@@ -141,7 +141,7 @@
   border: 1px solid var(--gray20);
   padding: 16px 20px;
 }
-.textarea__section {
+.textarea-section {
   width: 100%;
   height: 187px;
   display: flex;
@@ -156,13 +156,17 @@
   resize: none;
   padding: 16px 20px;
 }
-.button__section {
+.button-section {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   @media (max-width: $TABLET) {
     margin-bottom: 200px;
+  }
+
+  @media (max-width: $MOBILE) {
+    margin-top: 12px;
   }
 }
 
@@ -171,4 +175,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
 }

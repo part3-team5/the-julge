@@ -36,20 +36,20 @@ function ProfileForm() {
               })}
             />
           </section>
-          <section className={cx("input__section")}>
+          <section className={cx("input-section")}>
             <label className={cx("label")} htmlFor="area">
               선호 지역
             </label>
             <Dropdown options={locations} id="area" />
           </section>
         </div>
-        <section className={cx("textarea__section")}>
+        <section className={cx("textarea-section")}>
           <label className={cx("label")} htmlFor="introduction">
             소개
           </label>
           <textarea className={cx("textarea")} id="introduction" />
         </section>
-        <div className={cx("button__section")}>
+        <div className={cx("button-section")}>
           <div className={cx("button-wrapper")}>
             <Button btnColorType="orange">프로필 등록</Button>
           </div>

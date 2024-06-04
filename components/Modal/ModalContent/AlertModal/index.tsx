@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import styles from "./AlertModal.module.scss";
 import classNames from "classnames/bind";
-import { IModalContentProps } from "@/types/modal";
+import { IModalContentProps } from "@/components/Modal/Modal.types";
 
 const cx = classNames.bind(styles);
 

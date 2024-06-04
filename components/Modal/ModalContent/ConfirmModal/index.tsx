@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import styles from "./ConfirmModal.module.scss";
 import classNames from "classnames/bind";
-import { IModalContentProps } from "@/types/modal";
+import { IModalContentProps } from "@/components/Modal/Modal.types";
 import Image from "next/image";
 import modalCheck from "@/public/image/icon/modal-check.svg";
 import modalBang from "@/public/image/icon/modal-bang.svg";

@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { IModal } from "@/types/modal";
+import { IModal } from "@/components/Modal/Modal.types";
 import { v1 } from "uuid";
 
 export const modalState = atom<IModal>({

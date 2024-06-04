@@ -1,4 +1,4 @@
-import { IModalProps } from "@/types/modal";
+import { IModalProps } from "@/components/Modal/Modal.types";
 import { modalState } from "@/utils/atom";
 import { useCallback } from "react";
 import { useRecoilState } from "recoil";

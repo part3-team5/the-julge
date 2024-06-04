@@ -1,3 +1,4 @@
+@import "../../../styles/const.scss";
 .notice__wrapper {
   width: 100%;
   background-color: var(--white);
@@ -58,8 +59,7 @@
   position: relative;
 }
 
-//tablet
-@media (max-width: 1124px) {
+@media (max-width: $TABLET) {
   .notice__container {
     margin: 0 32px;
   }
@@ -69,8 +69,7 @@
   }
 }
 
-//mobile
-@media (max-width: 767px) {
+@media (max-width: $MOBILE) {
   .notice__container {
     padding: 40px 12px;
     margin: 0;

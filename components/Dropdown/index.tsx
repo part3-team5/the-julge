@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./Dropdown.module.scss";
 import ArrowUpIcon from "../../public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "../../public/image/icon/ArrowDown.svg";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 interface DropdownProps {
   options: string[];
@@ -22,32 +23,11 @@ function Dropdown({ options }: DropdownProps) {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   return (
-    <div
-      className={styles["dropdown"]}
-      ref={dropdownRef as React.RefObject<HTMLDivElement>}
-    >
-      <div
-        className={styles["dropdown__inputWrapper"]}
-        onClick={toggleDropdown}
-      >
+    <div className={styles["dropdown"]} ref={dropdownRef as React.RefObject<HTMLDivElement>}>
+      <div className={styles["dropdown__inputWrapper"]} onClick={toggleDropdown}>
         <input
           type="text"
           className={styles["dropdown__input"]}

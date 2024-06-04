@@ -4,6 +4,7 @@ import Image from "next/image";
 import styles from "./DropdownSmall.module.scss";
 import ArrowUpIcon from "@/public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "@/public/image/icon/ArrowDown.svg";
+import useOutsideClick from "@/hooks/useOutsideClick";
 
 function DropdownSmall() {
   const [selectedOption, setSelectedOption] = useState("마감임박순");
@@ -21,19 +22,7 @@ function DropdownSmall() {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   // Enter, SpaceBar 키로 onClick 이벤트처럼 사용 => UX 및 접근성 향상
   const handleEnterKeyPress = useCallback(

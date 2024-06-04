@@ -3,8 +3,8 @@ import Image from "next/image";
 import classNames from "classnames/bind";
 import moment from "moment";
 import styles from "./Post.module.scss";
-import { PostProps } from "@/types/interface";
 import HourlyPayincreaseButton from "../HourlyPayincreaseButton";
+import { PostProps } from "./Post.types";
 
 const cx = classNames.bind(styles);
 

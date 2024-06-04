@@ -1,15 +1,22 @@
 // 메인 화면 공고 목록 컴포넌트
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import DropdownSmall from "@/components/DropdownSmall";
 import Filter from "@/components/Filter";
+import Pagination from "@/components/Pagination";
 import { posts } from "@/public/postTest";
 import styles from "./NoticeList.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const NoticeList = () => {
+const NoticeList: React.FC = () => {
+  const router = useRouter();
+  const { page = 1 } = router.query;
+  const currentPage = parseInt(page as string, 10);
+  const postsPerPage = 6;
+
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const handleOpenFilter = () => {
@@ -19,6 +26,10 @@ const NoticeList = () => {
   const handleCloseFilter = () => {
     setIsFilterOpen(false);
   };
+
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const endIndex = startIndex + postsPerPage;
+  const currentPosts = posts.slice(startIndex, endIndex);
 
   return (
     <div className={cx("notice__wrapper")}>
@@ -36,7 +47,7 @@ const NoticeList = () => {
           </div>
         </div>
         <div className={cx("post__grid")}>
-          {posts.map((post, index) => (
+          {currentPosts.map((post, index) => (
             <Post
               key={index}
               startsAt={post.startsAt}
@@ -45,6 +56,11 @@ const NoticeList = () => {
             />
           ))}
         </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPosts={posts.length}
+          postsPerPage={postsPerPage}
+        />
       </div>
     </div>
   );

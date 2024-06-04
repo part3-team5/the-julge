@@ -44,7 +44,7 @@ function DropdownSmall() {
   );
 
   return (
-    <div className={styles["dropdown"]} ref={dropdownRef as React.RefObject<HTMLDivElement>}>
+    <div className={styles["dropdown"]} ref={dropdownRef}>
       <div
         className={styles["dropdown__inputWrapper"]}
         onClick={toggleDropdown}

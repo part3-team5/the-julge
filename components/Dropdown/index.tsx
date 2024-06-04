@@ -26,7 +26,7 @@ function Dropdown({ options }: DropdownProps) {
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   return (
-    <div className={styles["dropdown"]} ref={dropdownRef as React.RefObject<HTMLDivElement>}>
+    <div className={styles["dropdown"]} ref={dropdownRef}>
       <div className={styles["dropdown__inputWrapper"]} onClick={toggleDropdown}>
         <input
           type="text"

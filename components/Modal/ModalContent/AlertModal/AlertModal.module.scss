@@ -1,3 +1,5 @@
+@import "@/styles/const.scss";
+
 .modal--wrap {
   width: 540px;
   height: 250px;
@@ -26,7 +28,7 @@
   right: 28px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: $MOBILE) {
   .modal--wrap {
     width: 327px;
     height: 220px;

@@ -1,3 +1,5 @@
+@import "@/styles/const.scss";
+
 @mixin buttonStyle(
   $bgColor,
   $fontColor,
@@ -21,13 +23,13 @@
   font-weight: 700;
   line-height: 20px;
 
-  @media screen and (max-width: 1100px) {
+  @media screen and (max-width: $TABLET) {
     padding: 10px 0;
 
     font-size: 14px;
     line-height: 16.8px;
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: $MOBILE) {
     padding: 8px 0;
 
     font-size: 12px;
@@ -66,7 +68,7 @@
   font-size: 14px;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: $MOBILE) {
   .userNoticeDetailed {
     font-size: 14px;
     font-weight: 700;

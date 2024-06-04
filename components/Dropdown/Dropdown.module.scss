@@ -21,9 +21,10 @@
   border-radius: 6px;
   border: 1px solid #cbc9cf;
   padding: 16px 20px;
+  color: #a4a1aa;
 
-  &:focus {
-    color: #a4a1aa;
+  &--selected {
+    color: var(--black);
   }
 }
 .dropdown__icon {

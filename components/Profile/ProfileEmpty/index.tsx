@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "../Profile.module.scss";
 import Button from "@/components/Button";
-import { ProfileEmptyProps } from "../profile.types";
+import { ProfileEmptyProps } from "../Profile.types";
 
 const cx = classNames.bind(styles);
 

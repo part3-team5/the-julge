@@ -1,34 +1,46 @@
 import classNames from "classnames/bind";
 import styles from "../Profile.module.scss";
+import { useForm } from "react-hook-form";
+
+import { locations } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
-import { areaOptions } from "@/constants/area";
 import Button from "@/components/Button";
+import Input from "@/components/Input";
 
 const cx = classNames.bind(styles);
 
 function ProfileForm() {
+  const { register } = useForm();
+
   return (
     <main className={cx(["profile"], ["main"])}>
       <h1 className={cx("title")}>내 프로필</h1>
       <form className={cx("form")}>
         <div className={cx("input-wrapper")}>
           <section className={cx("input__section")}>
-            <label className={cx("label")} htmlFor="name">
-              이름
-            </label>
-            <input className={cx("input")} type="text" id="name" />
+            <Input
+              label="이름"
+              type="text"
+              id="name"
+              register={register("name", { required: true })}
+            />
           </section>
           <section className={cx("input__section")}>
-            <label className={cx("label")} htmlFor="phone-number">
-              전화번호
-            </label>
-            <input className={cx("input")} type="tel" id="phone-number" />
+            <Input
+              label="전화번호"
+              type="tel"
+              id="phon-number"
+              register={register("phoneNumber", {
+                required: true,
+                pattern: /^\d{3}-\d{3,4}-\d{4}$/,
+              })}
+            />
           </section>
           <section className={cx("input__section")}>
             <label className={cx("label")} htmlFor="area">
               선호 지역
             </label>
-            <Dropdown options={areaOptions} id="area" />
+            <Dropdown options={locations} id="area" />
           </section>
         </div>
         <section className={cx("textarea__section")}>

@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { DropdownProps } from "./Dropdown.types";
+import classNames from "classnames/bind";
 
 import styles from "./Dropdown.module.scss";
 import ArrowUpIcon from "../../public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "../../public/image/icon/ArrowDown.svg";
+
+const cx = classNames.bind(styles);
 
 function Dropdown({ options, id }: DropdownProps) {
   const [selectedOption, setSelectedOption] = useState("선택");
@@ -37,15 +40,16 @@ function Dropdown({ options, id }: DropdownProps) {
     };
   }, []);
 
+  const inputClassName = cx("dropdown__input", {
+    "dropdown__input--selected": selectedOption !== "선택",
+  });
+
   return (
-    <div className={styles["dropdown"]} ref={dropdownRef}>
-      <div
-        className={styles["dropdown__inputWrapper"]}
-        onClick={toggleDropdown}
-      >
+    <div className={cx("dropdown")} ref={dropdownRef}>
+      <div className={cx("dropdown__inputWrapper")} onClick={toggleDropdown}>
         <input
           type="text"
-          className={styles["dropdown__input"]}
+          className={inputClassName}
           placeholder="선택"
           value={selectedOption}
           id={id}
@@ -57,7 +61,7 @@ function Dropdown({ options, id }: DropdownProps) {
             alt="Arrow Down"
             width={16}
             height={16}
-            className={styles["dropdown__icon"]}
+            className={cx("dropdown__icon")}
           />
         ) : (
           <Image
@@ -65,16 +69,16 @@ function Dropdown({ options, id }: DropdownProps) {
             alt="Arrow Up"
             width={16}
             height={16}
-            className={styles["dropdown__icon"]}
+            className={cx("dropdown__icon")}
           />
         )}
       </div>
       {isOpen && (
-        <ul className={styles["dropdown__optionBox"]}>
+        <ul className={cx("dropdown__optionBox")}>
           {options.map((option) => (
             <li
               key={option}
-              className={styles["dropdown__option"]}
+              className={cx("dropdown__option")}
               onClick={() => handleOptionClick(option)}
             >
               {option}

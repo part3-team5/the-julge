@@ -3,29 +3,23 @@ import Post from "@/components/Post";
 import styles from "./CustomNoticeList.module.scss";
 import classNames from "classnames/bind";
 import { posts } from "@/public/postTest";
+import useResize from "@/hooks/useResize";
+import { TABLET } from "@/constants/constants";
 
 const cx = classNames.bind(styles);
 
 const CustomNoticeList = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(3);
+  const isTablet = useResize(TABLET);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth <= 1199) {
-        setPostsPerPage(2);
-      } else {
-        setPostsPerPage(3);
-      }
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (isTablet) {
+      setPostsPerPage(2);
+    } else {
+      setPostsPerPage(3);
+    }
+  }, [isTablet]);
 
   // 3초마다 다음 공고로 자동 슬라이드
   const totalSlides = Math.ceil(posts.length / postsPerPage);

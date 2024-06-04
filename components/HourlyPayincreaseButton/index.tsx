@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import classNames from "classnames/bind";
 import styles from "./HourlyPayincreaseButton.module.scss";
+import useResize from "@/hooks/useResize";
+import { MOBILE } from "@/constants/constants";
 
 const cx = classNames.bind(styles);
 
@@ -14,21 +16,7 @@ const HourlyPayincreaseButton: React.FC<HourlyPayincreaseButtonProps> = ({
   isPast,
   increasePercent,
 }) => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  // 화면 크기에 따른 아이콘 크기 및 색 변경 위함
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 767);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isMobile = useResize(MOBILE);
 
   const arrowIconSrc = isMobile
     ? isPast

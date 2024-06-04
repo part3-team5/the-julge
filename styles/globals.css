@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    font-family: "SpoqaHanSansNeo-Regular", sans-serif;
+}
+
 :root {
     --black: #111322;
     --gray50: #7d7986;
@@ -16,21 +21,14 @@
     --green20: #20a81e;
     --green10: #d4f7d4;
     --kakao: #fee500;
+    --primary: #ea3c12;
+    font-family: "SpoqaHanSansNeo-Regular", sans-serif;
 }
 
 @font-face {
-    font-family: "SCoreDream";
+    font-family: "SpoqaHanSansNeo-Regular";
+    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2108@1.1/SpoqaHanSansNeo-Regular.woff")
+        format("woff");
+    font-weight: normal;
     font-style: normal;
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot");
-    src: url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.eot?#iefix")
-            format("embedded-opentype"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff2") format("woff2"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.woff") format("woff"),
-        url("https://cdn.jsdelivr.net/gh/webfontworld/score/SCoreDreamMedium.ttf")
-            format("truetype");
-    font-display: swap;
-}
-
-body {
-    font-family: "SCoreDream", sans-serif;
 }

@@ -1,0 +1,80 @@
+.dropdown {
+    position: relative;
+    width: 105px;
+    height: 30px;
+}
+
+.dropdown__inputWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.dropdown__input {
+    font-weight: 600;
+    font-size: 14px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 12px;
+    background-color: var(--gray10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown__icon {
+    position: absolute;
+    top: 35%;
+    right: 5%;
+    transform: translate(-50%);
+    cursor: pointer;
+}
+
+.dropdown__optionBox {
+    border-radius: 6px;
+    height: 176px;
+    position: absolute;
+    top: 120%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    display: grid;
+    border: 1px solid var(--gray20);
+    overflow: hidden;
+    grid-template-rows: repeat(5, 1fr);
+    background-color: var(--white);
+    font-size: 14px;
+    font-weight: 200;
+    z-index: 2;
+}
+
+.dropdown__option {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border-bottom: 1px solid var(--gray20);
+    cursor: pointer;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background-color: var(--gray10);
+    }
+
+    &:focus {
+        background-color: var(--gray10);
+    }
+
+    &:touch-action {
+        background-color: var(--gray10);
+    }
+}

@@ -11,98 +11,10 @@
   margin: 0 auto;
 }
 
-.notice {
-  margin-top: 60px;
-}
-
-.notice--head {
-  @include flexBasicSet(column, 8px);
-}
-
-.notice__category {
-  color: var(--primary);
-  font-weight: 700;
-  line-height: 20px;
-}
-
 .notice--head__name {
   font-size: 28px;
   font-weight: 700;
   line-height: 33.6px;
-}
-
-.notice-info {
-  margin-top: 24px;
-  padding: 24px;
-  border: 1px solid var(--gray20);
-  border-radius: 12px;
-  @include flexBasicSet($gap: 8px);
-  justify-content: space-between;
-}
-
-.notice-info__img {
-  position: relative;
-  width: 539px;
-  height: 308px;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.notice-info--detail-wrap {
-  width: 346px;
-  padding-top: 16px;
-  @include flexBasicSet(column, 14px);
-}
-
-.notice-info--detail {
-  @include flexBasicSet(column, 12px);
-}
-
-.notice-info--detail__salary {
-  @include flexBasicSet(column, 9px);
-}
-
-.notice-info__salary-wrap {
-  @include flexBasicSet($gap: 8px);
-  align-items: center;
-}
-
-.notice-info__salary {
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 33.6px;
-  letter-spacing: 0.02em;
-}
-
-.with-icon-wrap {
-  @include flexBasicSet($gap: 6px);
-  align-items: center;
-
-  > span {
-    color: var(--gray50);
-    line-height: 26px;
-  }
-}
-
-.notice-info__intro {
-  line-height: 26px;
-}
-
-.notice-info--explain {
-  margin-top: 24px;
-  background-color: var(--gray10);
-  border-radius: 12px;
-  padding: 32px;
-  @include flexBasicSet(column, 12px);
-}
-
-.notice-info--explain__title {
-  font-weight: 700;
-  line-height: 20px;
-}
-
-.notice-info--explain__content {
-  line-height: 26px;
 }
 
 // ---------------------
@@ -124,20 +36,6 @@
     width: 680px;
   }
 
-  .notice-info {
-    flex-direction: column;
-  }
-
-  .notice-info__img {
-    width: 632px;
-    height: 360px;
-  }
-
-  .notice-info--detail-wrap {
-    width: 100%;
-    gap: 40px;
-  }
-
   .post__grid {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 28px 0;
@@ -151,15 +49,6 @@
   .notice--head__name {
     font-size: 20px;
     line-height: 24px;
-  }
-
-  .notice-info {
-    padding: 20px;
-  }
-
-  .notice-info__img {
-    width: 310px;
-    height: 178px;
   }
 
   .post__grid {

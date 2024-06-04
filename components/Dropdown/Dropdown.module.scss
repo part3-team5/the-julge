@@ -1,11 +1,13 @@
+@import "@/styles/const.scss";
+
 .dropdown {
   position: relative;
   width: 308px;
   height: 58px;
-  @media (max-width: 1124px) {
+  @media (max-width: $TABLET) {
     width: 330px;
   }
-  @media (max-width: 767px) {
+  @media (max-width: $MOBILE) {
     width: 100%;
   }
 }

@@ -47,10 +47,25 @@
   @include buttonStyle(var(--gray40), var(--white));
 }
 
+// ---------- customBtn
 .userNoticeDetailed {
   @media screen and (max-width: 750px) {
     font-size: 14px;
     font-weight: 700;
     line-height: 17.53px;
   }
+}
+
+.modal--120 {
+  width: 120px;
+  font-weight: 500;
+  line-height: 19.09px;
+  font-size: 14px;
+}
+
+.modal--80 {
+  width: 80px;
+  font-weight: 700;
+  line-height: 16.8px;
+  font-size: 14px;
 }

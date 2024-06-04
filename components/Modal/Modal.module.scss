@@ -1,0 +1,37 @@
+.modal--background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+// .modal--wrap {
+//   width: 540px;
+//   height: 250px;
+//   border-radius: 8px;
+//   text-align: center;
+//   border: solid 1px black;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   background-color: var(--white);
+//   z-index: 999;
+// }
+
+// .modal--content {
+//   font-weight: 500;
+//   font-size: 18px;
+//   line-height: 21.48px;
+// }
+
+// .modal--content__button {
+//   position: absolute;
+//   bottom: 28px;
+//   right: 28px;
+// }

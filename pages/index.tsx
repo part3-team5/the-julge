@@ -2,17 +2,10 @@ import CustomNoticeList from "@/components/notice/CustomNoticeList";
 import NoticeList from "@/components/notice/NoticeList";
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-<<<<<<< HEAD
-=======
-  const [user, setUser] = useState<
-    "guest" | "employee" | "employer" | undefined
-  >("guest");
->>>>>>> 5a68cfd05481e9170874f28ddad925f67f92b87b
   return (
     <>
       <Head>
@@ -21,13 +14,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-<<<<<<< HEAD
-=======
-      <Gnb userType={user} />
-        <button onClick={() => setUser("guest")}>로그인하지 않음</button>
-        <button onClick={() => setUser("employee")}>알바</button>
-        <button onClick={() => setUser("employer")}>사장</button>
->>>>>>> 5a68cfd05481e9170874f28ddad925f67f92b87b
       <CustomNoticeList />
       <NoticeList />
     </>

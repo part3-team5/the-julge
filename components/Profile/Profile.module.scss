@@ -11,6 +11,12 @@
   }
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .title {
   font-size: 28px;
   font-weight: 700;
@@ -179,4 +185,8 @@
   @media (max-width: $MOBILE) {
     width: 100%;
   }
+}
+
+.close-button {
+  cursor: pointer;
 }

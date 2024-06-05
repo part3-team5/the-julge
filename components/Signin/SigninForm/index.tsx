@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { SigninFormData } from "../../types/type";
+import { SigninFormData } from "../types/Signin.types";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
   WRONG_INFORMATION,
-} from "../errorMessage";
+} from "../ErrorMessage/errorMessage";
 import axios from "axios";
 import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";

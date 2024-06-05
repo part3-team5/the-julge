@@ -1,7 +1,7 @@
 import Image from "next/image";
 import logo from "@/public/image/logo.svg";
-import SigninForm from "./components/SigninForm";
-import ToSignup from "./components/ToSignup";
+import SigninForm from "@/components/Signin/SigninForm";
+import ToSignup from "@/components/Signin/ToSignup";
 import styles from "./Signin.module.scss";
 import Link from "next/link";
 

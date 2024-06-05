@@ -9,6 +9,7 @@ import classNames from "classnames/bind";
 import { NoticeItem } from "@/types/types";
 import { fetchNoticeList } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
+import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 
 const cx = classNames.bind(styles);
 
@@ -52,10 +53,6 @@ const NoticeList: React.FC = () => {
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
   const currentPosts = sortedNotices.slice(startIndex, endIndex);
-
-  const calculateIncreasePercent = (original: number, current: number): number => {
-    return parseFloat((((current - original) / original) * 100).toFixed(0));
-  };
 
   useEffect(() => {
     const loadNotices = async () => {

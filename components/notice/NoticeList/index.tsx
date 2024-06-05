@@ -19,13 +19,42 @@ const NoticeList: React.FC = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortOption, setSortOption] = useState("time");
 
+  const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
+    switch (option) {
+      case "pay":
+        return [...notices].sort((a, b) => b.hourlyPay - a.hourlyPay);
+      case "hour":
+        return [...notices].sort((a, b) => a.workhour - b.workhour);
+      case "shop":
+        return [...notices].sort((a, b) => a.shop.item.name.localeCompare(b.shop.item.name));
+      case "time":
+      default:
+        return [...notices].sort(
+          (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+        );
+    }
+  };
+
   const router = useRouter();
   const { page = 1 } = router.query;
   const currentPage = parseInt(page as string, 10);
   const postsPerPage = 6;
+
+  const handleOpenFilter = () => {
+    setIsFilterOpen(true);
+  };
+
+  const handleCloseFilter = () => {
+    setIsFilterOpen(false);
+  };
+
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
   const currentPosts = sortedNotices.slice(startIndex, endIndex);
+
+  const calculateIncreasePercent = (original: number, current: number): number => {
+    return parseFloat((((current - original) / original) * 100).toFixed(0));
+  };
 
   useEffect(() => {
     const loadNotices = async () => {
@@ -54,34 +83,6 @@ const NoticeList: React.FC = () => {
   if (error) {
     return <div>{error}</div>;
   }
-
-  const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
-    switch (option) {
-      case "pay":
-        return [...notices].sort((a, b) => b.hourlyPay - a.hourlyPay);
-      case "hour":
-        return [...notices].sort((a, b) => a.workhour - b.workhour);
-      case "shop":
-        return [...notices].sort((a, b) => a.shop.item.name.localeCompare(b.shop.item.name));
-      case "time":
-      default:
-        return [...notices].sort(
-          (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
-        );
-    }
-  };
-
-  const handleOpenFilter = () => {
-    setIsFilterOpen(true);
-  };
-
-  const handleCloseFilter = () => {
-    setIsFilterOpen(false);
-  };
-
-  const calculateIncreasePercent = (original: number, current: number): number => {
-    return parseFloat((((current - original) / original) * 100).toFixed(0));
-  };
 
   return (
     <div className={cx("notice__wrapper")}>

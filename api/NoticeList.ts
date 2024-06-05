@@ -1,30 +1,39 @@
 import axios from "axios";
 import { BASE_URL } from "@/constants/constants";
+import { NoticeItem } from "@/types/types";
 
-export const fetchNoticeList = async () => {
+interface ApiResponse {
+  offset: number;
+  limit: number;
+  count: number;
+  hasNext: boolean;
+  items: { item: NoticeItem }[];
+  links: { rel: string; href: string }[];
+}
+
+const fetchNotices = async (
+  offset = 0,
+  limit = 50,
+  allNotices: NoticeItem[] = []
+): Promise<NoticeItem[]> => {
   try {
-    const response = await axios.get(`${BASE_URL}/notices`);
-    return response.data.items.map((notice: any) => ({
-      id: notice.item.id,
-      hourlyPay: notice.item.hourlyPay,
-      startsAt: notice.item.startsAt,
-      workhour: notice.item.workhour,
-      description: notice.item.description,
-      closed: notice.item.closed,
-      shop: {
-        item: {
-          id: notice.item.shop.item.id,
-          name: notice.item.shop.item.name,
-          category: notice.item.shop.item.category,
-          address1: notice.item.shop.item.address1,
-          address2: notice.item.shop.item.address2,
-          description: notice.item.shop.item.description,
-          imageUrl: notice.item.shop.item.imageUrl,
-          originalHourlyPay: notice.item.shop.item.originalHourlyPay,
-        },
-      },
-    }));
+    const response = await axios.get<ApiResponse>(
+      `${BASE_URL}/notices?offset=${offset}&limit=${limit}`
+    );
+    const notices = response.data.items.map((notice) => notice.item);
+
+    allNotices = allNotices.concat(notices);
+
+    if (response.data.hasNext) {
+      return fetchNotices(offset + limit, limit, allNotices);
+    } else {
+      return allNotices;
+    }
   } catch (error) {
     throw new Error("Failed to fetch data");
   }
+};
+
+export const fetchNoticeList = async (): Promise<NoticeItem[]> => {
+  return fetchNotices();
 };

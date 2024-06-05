@@ -20,10 +20,12 @@
   font-weight: 400;
   font-size: 16px;
   width: 100%;
+  height: 58px;
   border-radius: 6px;
   border: 1px solid #cbc9cf;
   padding: 16px 20px;
   color: #a4a1aa;
+  outline: none;
 
   &--selected {
     color: var(--black);
@@ -77,5 +79,17 @@
 
   &:not(:last-child) {
     border-bottom: 1px solid #e5e4e7;
+  }
+
+  &:hover {
+    background-color: var(--gray10);
+  }
+
+  &:focus {
+    background-color: var(--gray10);
+  }
+
+  &:touch-action {
+    background-color: var(--gray10);
   }
 }

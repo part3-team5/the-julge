@@ -127,7 +127,6 @@
 }
 .label {
   color: var(--black);
-  font-family: Abel;
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
@@ -155,6 +154,7 @@
   border: 1px solid var(--gray20);
   resize: none;
   padding: 16px 20px;
+  outline: none;
 }
 .button-section {
   width: 100%;

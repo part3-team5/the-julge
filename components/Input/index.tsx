@@ -1,17 +1,10 @@
-import { InputProps } from "@/types/InputTypes";
 import styles from "./Input.module.scss";
 import classNames from "classnames/bind";
+import { InputProps } from "./types/Input.types";
 
 const cx = classNames.bind(styles);
 
-export default function Input({
-  label,
-  type = "text",
-  value,
-  error,
-  register,
-  id,
-}: InputProps) {
+export default function Input({ label, type = "text", value, error, register, id }: InputProps) {
   const hasError = !!error;
 
   return (

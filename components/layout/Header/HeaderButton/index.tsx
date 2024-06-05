@@ -2,12 +2,7 @@ import React from "react";
 import UiButton from "../UiButton";
 import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
-
-interface HeaderButtonsProps {
-  userType?: "employee" | "employer" | "guest" | undefined;
-  hasNotification: boolean;
-  handleClickMovePage: (pathname?: string) => void;
-}
+import { HeaderButtonsProps } from "./HeaderButton.types";
 
 export default function HeaderButtons({
   userType,

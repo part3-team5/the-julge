@@ -1,5 +1,8 @@
 export const TABLET = 1124;
 export const MOBILE = 767;
+
+export const BASE_URL = "http://bootcamp-api.codeit.kr/api/-0-1/the-julge";
+
 export const locations = [
   "서울시 종로구",
   "서울시 중구",

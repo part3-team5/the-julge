@@ -7,6 +7,7 @@ import { TABLET } from "@/constants/constants";
 import { NoticeItem } from "@/types/types";
 import { fetchNoticeList } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
+import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 
 const cx = classNames.bind(styles);
 
@@ -40,10 +41,6 @@ const CustomNoticeList = () => {
   const currentPosts = () => {
     const startIndex = currentSlide * postsPerPage;
     return notices.slice(startIndex, startIndex + postsPerPage);
-  };
-
-  const calculateIncreasePercent = (original: number, current: number): number => {
-    return parseFloat((((current - original) / original) * 100).toFixed(0));
   };
 
   useEffect(() => {

@@ -5,6 +5,7 @@ module.exports = {
       "google.com",
       "encrypted-tbn0.gstatic.com",
       "i.pinimg.com",
+      "cdn-icons-png.flaticon.com",
     ],
   },
 };

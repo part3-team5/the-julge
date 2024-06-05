@@ -27,3 +27,4 @@ export const locations = [
   "서울시 송파구",
   "서울시 강동구",
 ];
+export const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";

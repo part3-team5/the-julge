@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from "./HourlyPayincreaseButton.module.scss";
 import useResize from "@/hooks/useResize";
 import { MOBILE } from "@/constants/constants";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,7 @@ const HourlyPayincreaseButton: React.FC<HourlyPayincreaseButtonProps> = ({
 
   return (
     <div className={buttonClass}>
-      {`기존 시급보다 ${increasePercent}%`}
+      <p className={cx("text")}>{`기존 시급보다 ${formatCurrency(increasePercent)}%`}</p>
       <Image
         src={arrowIconSrc}
         width={isMobile ? 16 : 20}

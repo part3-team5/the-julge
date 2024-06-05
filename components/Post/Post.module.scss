@@ -89,6 +89,10 @@
   font-size: 24px;
   font-weight: 600;
   color: var(--black);
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &.disabled {
     color: var(--gray30);

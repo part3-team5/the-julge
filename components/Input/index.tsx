@@ -1,6 +1,8 @@
 import { InputProps } from "@/types/InputTypes";
-import styles from "./input.module.scss";
-import classNames from "classnames";
+import styles from "./Input.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 export default function Input({
   label,
@@ -8,20 +10,22 @@ export default function Input({
   value,
   error,
   register,
+  id,
 }: InputProps) {
-  const hasError: boolean = !!error;
+  const hasError = !!error;
 
   return (
-    <div className={styles.inputWrapper}>
-      <label className={styles.styledLabel}>{label}</label>
+    <div className={cx("inputWrapper")}>
+      <label className={cx("styledLabel")}>{label}</label>
       <input
+        id={id}
         type={type}
         value={value}
         placeholder="입력"
-        className={classNames(styles.styledInput, { [styles.error]: hasError })}
+        className={cx("styledInput", { error: hasError })}
         {...register}
       />
-      {error && <span className={styles.styledWarning}>{error.message}</span>}
+      {error && <span className={cx("styledWarning")}>{error.message}</span>}
     </div>
   );
 }

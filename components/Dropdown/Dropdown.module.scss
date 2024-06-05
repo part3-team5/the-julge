@@ -1,7 +1,15 @@
+@import "@/styles/const.scss";
+
 .dropdown {
   position: relative;
-  width: 350px;
+  width: 308px;
   height: 58px;
+  @media (max-width: $TABLET) {
+    width: 330px;
+  }
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
 }
 .dropdown__inputWrapper {
   position: relative;
@@ -15,9 +23,10 @@
   border-radius: 6px;
   border: 1px solid #cbc9cf;
   padding: 16px 20px;
+  color: #a4a1aa;
 
-  &:focus {
-    color: #a4a1aa;
+  &--selected {
+    color: var(--black);
   }
 }
 .dropdown__icon {
@@ -27,6 +36,7 @@
   transform: translate(-50%);
 }
 .dropdown__optionBox {
+  background-color: var(--white);
   border-radius: 8px;
   height: 230px;
   overflow-y: auto;
@@ -41,6 +51,7 @@
   border-top: none;
   display: grid;
   grid-template-rows: repeat(5, 1fr);
+  z-index: 1;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -55,12 +66,14 @@
 }
 
 .dropdown__option {
+  background-color: var(--white);
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   padding: 8px 12px;
+  z-index: 1;
 
   &:not(:last-child) {
     border-bottom: 1px solid #e5e4e7;

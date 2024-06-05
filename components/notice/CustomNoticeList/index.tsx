@@ -6,6 +6,7 @@ import useResize from "@/hooks/useResize";
 import { TABLET } from "@/constants/constants";
 import { NoticeItem } from "@/types/types";
 import { fetchNoticeList } from "@/api/NoticeList";
+import Spinner from "@/components/Spinner";
 
 const cx = classNames.bind(styles);
 
@@ -61,7 +62,7 @@ const CustomNoticeList = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   if (error) {

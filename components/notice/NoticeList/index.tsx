@@ -8,6 +8,7 @@ import styles from "./NoticeList.module.scss";
 import classNames from "classnames/bind";
 import { NoticeItem } from "@/types/types";
 import { fetchNoticeList } from "@/api/NoticeList";
+import Spinner from "@/components/Spinner";
 
 const cx = classNames.bind(styles);
 
@@ -77,7 +78,7 @@ const NoticeList: React.FC = () => {
   }, [sortOption, notices]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   if (error) {

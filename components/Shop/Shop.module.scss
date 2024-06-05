@@ -1,0 +1,198 @@
+@import "@/styles/const.scss";
+
+.container {
+  background-color: var(--gray5);
+  height: auto;
+}
+
+.profile {
+  max-width: 964px;
+  margin: 0 auto;
+  padding: 60px 0;
+  height: 395px;
+
+  @media (max-width: $TABLET) {
+    padding: 60px 32px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+
+  @media (max-width: $MOBILE) {
+    font-size: 20px;
+  }
+}
+
+.box {
+  border: 1px solid var(--gray20);
+  border-radius: 8px;
+  height: 275px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-top: 24px;
+
+  @media (max-width: $MOBILE) {
+    height: 195px;
+    padding: 50px 24px;
+  }
+}
+
+.description {
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: 20px;
+
+  @media (max-width: $MOBILE) {
+    font-size: 14px;
+  }
+}
+
+.button-wrapper {
+  width: 346px;
+  height: 47px;
+
+  @media (max-width: $MOBILE) {
+    width: 150px;
+    height: 37px;
+  }
+}
+
+.profile.main {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 60px;
+  gap: 32px;
+
+  @media (max-width: $TABLET) {
+    width: 744px;
+    padding: 32px;
+    margin: auto;
+  }
+  @media (max-width: $MOBILE) {
+    width: 375px;
+    padding: 40px 12px;
+  }
+}
+
+.form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: var(-gray20);
+
+  @media (max-width: $TABLET) {
+    width: 100%;
+  }
+
+  @media (max-width: $MOBILE) {
+    gap: 8px;
+  }
+}
+
+.input-wrapper {
+  display: grid;
+  gap: 20px;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(2, 1fr);
+
+  @media (max-width: $TABLET) {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $MOBILE) {
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-section {
+  flex: 1;
+  min-width: 308px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  @media (max-width: $TABLET) {
+    width: 330px;
+  }
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
+}
+.label {
+  color: var(--black);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
+}
+.input {
+  font-weight: 400;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--gray20);
+  padding: 16px 20px;
+}
+.textarea-section {
+  width: 100%;
+  height: 187px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.textarea {
+  width: 100%;
+  height: 160px;
+  border-radius: 6px;
+  border: 1px solid var(--gray20);
+  resize: none;
+  padding: 16px 20px;
+  outline: none;
+}
+.button-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: $TABLET) {
+    margin-bottom: 200px;
+  }
+
+  @media (max-width: $MOBILE) {
+    margin-top: 12px;
+  }
+}
+
+.button-wrapper {
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
+}
+
+.close-button {
+  cursor: pointer;
+}

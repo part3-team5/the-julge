@@ -1,0 +1,35 @@
+@import "@/styles/const.scss";
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 483px;
+  height: 276px;
+  background-color: var(--gray10);
+  border-radius: 5px;
+  border: 1px solid var(--gray30);
+  cursor: pointer;
+
+  @media (max-width: $MOBILE) {
+    width: 100%;
+    margin: 20px 0;
+  }
+}
+
+.preview-image {
+  @extend .container;
+  object-fit: cover;
+}
+
+.file {
+  display: none;
+}
+
+.file::file-selector-button {
+  font-size: 14px;
+  background: #fff;
+  border: 1px solid #111;
+  border-radius: 12px;
+  padding: 4px 32px;
+  cursor: pointer;
+}

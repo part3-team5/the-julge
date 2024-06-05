@@ -28,3 +28,4 @@ export const locations = [
   "서울시 강동구",
 ];
 export const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
+export const CATEGORYS = ["한식", "중식", "일식", "양식", "분식", "카페", "편의점", "기타"];

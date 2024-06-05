@@ -52,7 +52,11 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
             <label className={cx("label")} htmlFor="area">
               선호 지역
             </label>
-            <Dropdown options={locations} id="area" />
+            <Dropdown
+              options={locations}
+              id="area"
+              register={register("area", { required: true })}
+            />
           </section>
         </div>
         <section className={cx("textarea-section")}>

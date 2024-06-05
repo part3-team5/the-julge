@@ -28,9 +28,7 @@ const SigninForm: React.FC = () => {
   const { email: emailError, password: passwordError } = errors;
 
   const onSubmit = async (formData: SigninFormData) => {
-    const { email, password } = formData;
-
-    const isValid = validateSigninData(email, password);
+    const isValid = validateSigninData(formData);
     if (!isValid) {
       alert(WRONG_INFORMATION);
       return;

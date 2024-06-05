@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import styles from "../sass/UiGnb.module.scss";
-import HeaderButton from "./HeaderButton";
-import SearchBar from "./SearchBar";
+import styles from "./UiGnb.module.scss";
+import HeaderButton from "../HeaderButton";
+import SearchBar from "../SerchBar";
 
 interface GnbProps {
   userType?: "employee" | "employer" | "guest" | undefined;

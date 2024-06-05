@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../sass/UiButton.module.scss";
+import styles from "./UiButton.module.scss";
 
 interface ButtonProps {
   name?: string;

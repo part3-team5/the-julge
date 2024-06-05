@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../sass/SearchBar.module.scss";
+import styles from "./SearchBar.module.scss";
 
 export default function SearchBar() {
   const [searchTerm, setSearchTerm] = useState("");

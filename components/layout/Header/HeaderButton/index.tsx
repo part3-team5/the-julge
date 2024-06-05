@@ -1,7 +1,7 @@
 import React from "react";
-import UiButton from "./UiButton";
-import NotiButton from "./NotiButton";
-import styles from "../sass/HeaderButtons.module.scss";
+import UiButton from "../UiButton";
+import NotiButton from "../NotiButton";
+import styles from "./HeaderButtons.module.scss";
 
 interface HeaderButtonsProps {
   userType?: "employee" | "employer" | "guest" | undefined;

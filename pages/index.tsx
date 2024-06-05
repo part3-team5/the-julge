@@ -3,7 +3,6 @@ import NoticeList from "@/components/notice/NoticeList";
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { useState } from "react";
-import Gnb from "@/components/GNB";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +18,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Gnb userType={user} />
-      <button onClick={() => setUser("guest")}>로그인하지 않음</button>
-      <button onClick={() => setUser("employee")}>알바</button>
-      <button onClick={() => setUser("employer")}>사장</button>
       <CustomNoticeList />
       <NoticeList />
     </>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import styles from "../sass/NotiButtons.module.scss";
+import styles from "./NotiButtons.module.scss";
 
 export default function NotiButton({ activeStatus }: { activeStatus: string }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

@@ -17,6 +17,7 @@
 
 .styledInput {
   @extend .commonStyles;
+  width: 100%;
   display: flex;
   padding: 16px 20px;
   align-items: flex-start;

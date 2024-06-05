@@ -1,3 +1,5 @@
+@import "@/styles/const.scss";
+
 @mixin buttonStyle(
   $bgColor,
   $fontColor,
@@ -11,21 +13,24 @@
   border: 1px solid $borderColor;
   border-radius: 6px;
   background-color: $bgColor;
-  padding: 14px 136px;
+  padding: 14px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   color: $fontColor;
   font-size: 16px;
   font-weight: 700;
   line-height: 20px;
 
-  @media screen and (max-width: 1100px) {
-    padding: 10px 20px;
+  @media screen and (max-width: $TABLET) {
+    padding: 10px 0;
 
     font-size: 14px;
     line-height: 16.8px;
   }
-  @media screen and (max-width: 750px) {
-    padding: 8px 12px;
+  @media screen and (max-width: $MOBILE) {
+    padding: 8px 0;
 
     font-size: 12px;
     font-weight: 400;
@@ -47,10 +52,32 @@
   @include buttonStyle(var(--gray40), var(--white));
 }
 
-.userNoticeDetailed {
-  @media screen and (max-width: 750px) {
+// ---------- customBtn
+
+.modal--120 {
+  width: 120px;
+  font-weight: 500;
+  line-height: 19.09px;
+  font-size: 14px;
+}
+
+.modal--80 {
+  width: 80px;
+  font-weight: 700;
+  line-height: 16.8px;
+  font-size: 14px;
+}
+
+@media screen and (max-width: $MOBILE) {
+  .userNoticeDetailed {
     font-size: 14px;
     font-weight: 700;
     line-height: 17.53px;
+  }
+
+  .modal--120 {
+    width: 138px;
+    height: 42px;
+    line-height: 16.71px;
   }
 }

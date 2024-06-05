@@ -1,3 +1,4 @@
+@import "@/styles/const.scss";
 .post__container {
   width: 312px;
   height: 348px;
@@ -94,15 +95,13 @@
   }
 }
 
-//tablet
-@media (max-width: 1199px) {
+@media (max-width: $TABLET) {
   .post__container {
     width: 332px;
   }
 }
 
-//mobile
-@media (max-width: 767px) {
+@media (max-width: $MOBILE) {
   .post__container {
     width: 171px;
     height: 260px;

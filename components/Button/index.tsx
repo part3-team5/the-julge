@@ -1,6 +1,6 @@
 import styles from "./Button.module.scss";
 import classNames from "classnames/bind";
-import { ButtonProps } from "@/types/button";
+import { ButtonProps } from "./Button.types";
 
 const cx = classNames.bind(styles);
 

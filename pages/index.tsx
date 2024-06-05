@@ -7,9 +7,6 @@ import { useState } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [user, setUser] = useState<
-    "guest" | "employee" | "employer" | undefined
-  >("guest");
   return (
     <>
       <Head>

@@ -11,33 +11,21 @@ import { fetchNoticeList } from "@/api/NoticeList";
 
 const cx = classNames.bind(styles);
 
-const NoticeList = () => {
+const NoticeList: React.FC = () => {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
+  const [sortedNotices, setSortedNotices] = useState<NoticeItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [sortOption, setSortOption] = useState("time");
 
   const router = useRouter();
   const { page = 1 } = router.query;
   const currentPage = parseInt(page as string, 10);
   const postsPerPage = 6;
-
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-
-  const handleOpenFilter = () => {
-    setIsFilterOpen(true);
-  };
-
-  const handleCloseFilter = () => {
-    setIsFilterOpen(false);
-  };
-
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  const currentPosts = notices.slice(startIndex, endIndex);
-
-  const calculateIncreasePercent = (original: number, current: number): number => {
-    return parseFloat((((current - original) / original) * 100).toFixed(0));
-  };
+  const currentPosts = sortedNotices.slice(startIndex, endIndex);
 
   useEffect(() => {
     const loadNotices = async () => {
@@ -54,6 +42,11 @@ const NoticeList = () => {
     loadNotices();
   }, []);
 
+  useEffect(() => {
+    const sorted = sortNotices(notices, sortOption);
+    setSortedNotices(sorted);
+  }, [sortOption, notices]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -62,13 +55,41 @@ const NoticeList = () => {
     return <div>{error}</div>;
   }
 
+  const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
+    switch (option) {
+      case "pay":
+        return [...notices].sort((a, b) => b.hourlyPay - a.hourlyPay);
+      case "hour":
+        return [...notices].sort((a, b) => a.workhour - b.workhour);
+      case "shop":
+        return [...notices].sort((a, b) => a.shop.item.name.localeCompare(b.shop.item.name));
+      case "time":
+      default:
+        return [...notices].sort(
+          (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+        );
+    }
+  };
+
+  const handleOpenFilter = () => {
+    setIsFilterOpen(true);
+  };
+
+  const handleCloseFilter = () => {
+    setIsFilterOpen(false);
+  };
+
+  const calculateIncreasePercent = (original: number, current: number): number => {
+    return parseFloat((((current - original) / original) * 100).toFixed(0));
+  };
+
   return (
     <div className={cx("notice__wrapper")}>
       <div className={cx("notice__container")}>
         <div className={cx("noticeTitle__container")}>
           <h2 className={cx("title")}>전체 공고</h2>
           <div className={cx("noticeTitle__options")}>
-            <DropdownSmall />
+            <DropdownSmall onOptionSelect={setSortOption} />
             <div className={cx("filter__wrapper")}>
               <button className={cx("filter__btn")} onClick={handleOpenFilter}>
                 상세 필터
@@ -78,7 +99,7 @@ const NoticeList = () => {
           </div>
         </div>
         <div className={cx("post__grid")}>
-          {currentPosts.map((notice, index) => {
+          {currentPosts.map((notice) => {
             const increasePercent = calculateIncreasePercent(
               notice.shop.item.originalHourlyPay,
               notice.hourlyPay
@@ -100,7 +121,7 @@ const NoticeList = () => {
         </div>
         <Pagination
           currentPage={currentPage}
-          totalPosts={notices.length}
+          totalPosts={sortedNotices.length}
           postsPerPage={postsPerPage}
         />
       </div>

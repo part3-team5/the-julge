@@ -3,12 +3,7 @@ import Image from "next/image";
 import styles from "./UiGnb.module.scss";
 import HeaderButton from "../HeaderButton";
 import SearchBar from "../SerchBar";
-
-interface GnbProps {
-  userType?: "employee" | "employer" | "guest" | undefined;
-  hasNotification: boolean;
-  handleClickMovePage: (pathname?: string) => void;
-}
+import { GnbProps } from "../types/Gnb.types";
 
 export default function UiGnb({
   userType,

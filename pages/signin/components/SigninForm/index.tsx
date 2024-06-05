@@ -1,12 +1,20 @@
 import { useForm } from "react-hook-form";
 import { SigninFormData } from "../../types/type";
-import { INVALID_EMAIL, INVALID_PASSWORD } from "../errorMessage";
+import {
+  INVALID_EMAIL,
+  INVALID_PASSWORD,
+  WRONG_INFORMATION,
+} from "../errorMessage";
+import axios from "axios";
+import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 const passwordRegex = /^.{8,}$/;
+
+const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
 
 const SigninForm: React.FC = () => {
   const {
@@ -17,8 +25,26 @@ const SigninForm: React.FC = () => {
 
   const { email: emailError, password: passwordError } = errors;
 
-  const onSubmit = (data: SigninFormData) => {
-    console.log(data);
+  const onSubmit = async (formData: SigninFormData) => {
+    const { email, password } = formData;
+
+    const isValid = validateSigninData(email, password);
+    if (!isValid) {
+      alert(WRONG_INFORMATION);
+      return;
+    }
+
+    try {
+      const { data } = await axios.post(`${BASE_URL}/token`, formData);
+      const { token, user } = data.item;
+      const { href } = user;
+      console.log(token, href);
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        const { message } = error.response.data;
+        alert(message);
+      }
+    }
   };
 
   return (

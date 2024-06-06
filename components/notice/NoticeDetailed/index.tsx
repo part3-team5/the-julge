@@ -6,10 +6,21 @@ import pathIcon from "@/public/image/icon/path-icon.svg";
 import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
 import Image from "next/image";
 import { INoticeDataProps } from "@/types/NoticeDetail";
+import { formatCurrency } from "@/utils/formatCurrency";
+import moment from "moment";
 
 const cx = classNames.bind(styles);
 
 const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
+  const startTime = moment(shopData.startsAt);
+  const endTime = moment(startTime).add(shopData.workhour, "hours");
+  const now = moment();
+  const isPast = now.isAfter(endTime);
+
+  const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
+  const endTimeFormatted = endTime.format("HH:mm");
+  const duration = `${shopData.workhour}시간`;
+
   return (
     <section className={cx("notice")}>
       <div className={cx("notice--head")}>
@@ -34,7 +45,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
               <span className={cx("notice__category")}>시급</span>
               <div className={cx("notice-info__salary-wrap")}>
                 <span className={cx("notice-info__salary")}>
-                  {shopData.hourlyPay}원
+                  {formatCurrency(shopData.hourlyPay)}원
                 </span>
                 <div>
                   <HourlyPayincreaseButton
@@ -47,7 +58,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             <div className={cx("with-icon-wrap")}>
               <Image src={clockIcon} alt="시계 아이콘" />
               <span>
-                {shopData.startsAt} ({shopData.workhour}시간)
+                {`${startTimeFormatted}~${endTimeFormatted} (${duration})`}
               </span>
             </div>
             <div className={cx("with-icon-wrap")}>

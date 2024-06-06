@@ -1,20 +1,20 @@
 import styles from "./NoticeDetailed.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
-import sampleImg from "@/public/image/sample.jpg";
 import clockIcon from "@/public/image/icon/clock-icon.svg";
 import pathIcon from "@/public/image/icon/path-icon.svg";
 import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
 import Image from "next/image";
+import { INoticeDataProps } from "@/types/NoticeDetail";
 
 const cx = classNames.bind(styles);
 
-const NoticeDetailed = () => {
+const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   return (
     <section className={cx("notice")}>
       <div className={cx("notice--head")}>
-        <span className={cx("notice__category")}>식당</span>
-        <h2 className={cx("notice--head__name")}>도토리 식당</h2>
+        <span className={cx("notice__category")}>{shopData.shop.category}</span>
+        <h2 className={cx("notice--head__name")}>{shopData.shop.name}</h2>
       </div>
       <div className={cx("notice-info")}>
         <div className={cx("notice-info__img")}>
@@ -23,7 +23,7 @@ const NoticeDetailed = () => {
             style={{
               objectFit: "cover",
             }}
-            src={sampleImg}
+            src={shopData.shop.imageUrl}
             alt="가게 이미지"
           />
         </div>
@@ -33,7 +33,9 @@ const NoticeDetailed = () => {
             <div className={cx("notice-info--detail__salary")}>
               <span className={cx("notice__category")}>시급</span>
               <div className={cx("notice-info__salary-wrap")}>
-                <span className={cx("notice-info__salary")}>15,000원</span>
+                <span className={cx("notice-info__salary")}>
+                  {shopData.hourlyPay}원
+                </span>
                 <div>
                   <HourlyPayincreaseButton
                     isPast={false}
@@ -44,16 +46,16 @@ const NoticeDetailed = () => {
             </div>
             <div className={cx("with-icon-wrap")}>
               <Image src={clockIcon} alt="시계 아이콘" />
-              <span>2023.01.02 15:00~18:00 (3시간)</span>
+              <span>
+                {shopData.startsAt} ({shopData.workhour}시간)
+              </span>
             </div>
             <div className={cx("with-icon-wrap")}>
               <Image src={pathIcon} alt="위치 아이콘" />
-              <span>서울시 송파구</span>
+              <span>{shopData.shop.address1}</span>
             </div>
             <p className={cx("notice-info__intro")}>
-              알바하기 편한 너구리네 라면집!
-              <br /> 라면 올려두고 끓이기만 하면 되어서 쉬운 편에 속하는
-              가게입니다.
+              {shopData.shop.description}
             </p>
           </div>
           <Button btnColorType="orange" btnCustom="userNoticeDetailed">
@@ -65,9 +67,7 @@ const NoticeDetailed = () => {
       <div className={cx("notice-info--explain")}>
         <span className={cx("notice-info--explain__title")}>공고 설명</span>
         <p className={cx("notice-info--explain__content")}>
-          기존 알바 친구가 그만둬서 새로운 친구를 구했는데, 그 사이에 하루가
-          비네요. <br />
-          급해서 시급도 높였고 그렇게 바쁜 날이 아니라서 괜찮을거예요.
+          {shopData.description}
         </p>
       </div>
     </section>

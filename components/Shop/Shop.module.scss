@@ -1,5 +1,10 @@
 @import "@/styles/const.scss";
 
+.container {
+  background-color: var(--gray5);
+  height: auto;
+}
+
 .profile {
   max-width: 964px;
   margin: 0 auto;
@@ -20,7 +25,6 @@
 .title {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 20px;
 
   @media (max-width: $MOBILE) {
     font-size: 20px;
@@ -38,6 +42,7 @@
   justify-content: center;
   text-align: center;
   width: 100%;
+  margin-top: 24px;
 
   @media (max-width: $MOBILE) {
     height: 195px;
@@ -72,6 +77,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding-bottom: 60px;
+  gap: 32px;
 
   @media (max-width: $TABLET) {
     width: 744px;
@@ -105,7 +111,7 @@
   display: grid;
   gap: 20px;
   grid-template-rows: 1fr;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 
   @media (max-width: $TABLET) {
     grid-template-rows: repeat(2, 1fr);

@@ -1,20 +1,32 @@
 import classNames from "classnames/bind";
 import styles from "../Profile.module.scss";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 
 import { locations } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
+import { ProfileFormProps } from "../Profile.types";
 
 const cx = classNames.bind(styles);
 
-function ProfileForm() {
+const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
   const { register } = useForm();
 
   return (
     <main className={cx(["profile"], ["main"])}>
-      <h1 className={cx("title")}>내 프로필</h1>
+      <div className={cx("header")}>
+        <h1 className={cx("title")}>내 프로필</h1>
+        <Image
+          src="/image/icon/shop_close.svg"
+          width={32}
+          height={32}
+          alt="close button"
+          onClick={onClose}
+          className={cx("close-button")}
+        />
+      </div>
       <form className={cx("form")}>
         <div className={cx("input-wrapper")}>
           <section className={cx("input__section")}>
@@ -40,7 +52,11 @@ function ProfileForm() {
             <label className={cx("label")} htmlFor="area">
               선호 지역
             </label>
-            <Dropdown options={locations} id="area" />
+            <Dropdown
+              options={locations}
+              id="area"
+              register={register("area", { required: true })}
+            />
           </section>
         </div>
         <section className={cx("textarea-section")}>
@@ -57,6 +73,6 @@ function ProfileForm() {
       </form>
     </main>
   );
-}
+};
 
 export default ProfileForm;

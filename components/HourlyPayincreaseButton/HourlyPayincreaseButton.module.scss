@@ -33,6 +33,13 @@
   }
 }
 
+.text {
+  max-width: 125px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (max-width: $MOBILE) {
   .post__btn {
     width: auto;

@@ -9,10 +9,14 @@ function Profile() {
     SetShowProfileForm(true);
   };
 
+  const handleCloseProfileForm = () => {
+    SetShowProfileForm(false);
+  };
+
   return (
     <>
       {showProfileForm ? (
-        <ProfileForm />
+        <ProfileForm onClose={handleCloseProfileForm} />
       ) : (
         <ProfileEmpty onClick={handleProfileButtonClick} />
       )}

@@ -22,6 +22,7 @@ function Dropdown({ options, register, id }: DropdownProps) {
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
+    register.onChange({ target: { value: option } });
   };
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
@@ -40,7 +41,10 @@ function Dropdown({ options, register, id }: DropdownProps) {
           value={selectedOption}
           id={id}
           readOnly
-          {...register}
+          onChange={(e) => {
+            setSelectedOption(e.target.value);
+            register.onChange(e);
+          }}
         />
         {isOpen ? (
           <Image

@@ -2,17 +2,47 @@ import classNames from "classnames/bind";
 import styles from "../Profile.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 import { locations } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { ProfileFormProps } from "../Profile.types";
+import { instance } from "@/utils/utils";
+import axios from "axios";
+import ProfileView from "../ProfileView";
 
 const cx = classNames.bind(styles);
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+  }, []);
+
+  const handleSubmitForm = async (data: any) => {
+    const body = {
+      name: data.name,
+      phone: data.phoneNumber,
+      address: data.area,
+      bio: data.introduction,
+    };
+
+    try {
+      const response = await instance.put(`/users/${userId}`, body);
+      if (response.status === 200) {
+        onClose();
+      } else alert("프로필 데이터를 제대로 입력해주세요.");
+    } catch (error) {
+      console.log("PUT Error:", error);
+    }
+  };
 
   return (
     <main className={cx(["profile"], ["main"])}>
@@ -27,7 +57,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
           className={cx("close-button")}
         />
       </div>
-      <form className={cx("form")}>
+      <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
         <div className={cx("input-wrapper")}>
           <section className={cx("input__section")}>
             <Input
@@ -60,14 +90,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
           </section>
         </div>
         <section className={cx("textarea-section")}>
-          <label className={cx("label")} htmlFor="introduction">
-            소개
-          </label>
-          <textarea className={cx("textarea")} id="introduction" />
+          <Input
+            label="소개"
+            type="text"
+            id="introduction"
+            register={register("introduction", { required: true })}
+            isTextArea={true}
+          />
         </section>
         <div className={cx("button-section")}>
           <div className={cx("button-wrapper")}>
-            <Button btnColorType="orange">프로필 등록</Button>
+            <Button btnColorType="orange">등록하기</Button>
           </div>
         </div>
       </form>

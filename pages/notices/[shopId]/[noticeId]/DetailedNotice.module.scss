@@ -1,0 +1,58 @@
+@import "@/styles/const.scss";
+
+@mixin flexBasicSet($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+.content-wrap {
+  width: 964px;
+  margin: 0 auto;
+}
+
+.notice--head__name {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.6px;
+}
+
+// ---------------------
+.recentlt-viewed {
+  margin: 120px 0 120px;
+}
+
+.post__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 14px;
+  justify-items: center;
+  width: 100%;
+  margin-top: 32px;
+}
+
+@media screen and (max-width: $TABLET) {
+  .content-wrap {
+    width: 680px;
+  }
+
+  .post__grid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 28px 0;
+  }
+}
+@media screen and (max-width: $MOBILE) {
+  .content-wrap {
+    width: 351px;
+  }
+
+  .notice--head__name {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .post__grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}

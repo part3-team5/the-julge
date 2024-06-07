@@ -44,6 +44,8 @@ const DetailedMyShopNotice = () => {
                 </div>
               </li>
             ))}
+            {/* <div className={cx("state-approve")}>승인 완료</div>
+            <div className={cx("state-reject")}>거절</div> */}
             <li className={cx("list-footer")}>
               <Pagination
                 currentPage={currentPage}

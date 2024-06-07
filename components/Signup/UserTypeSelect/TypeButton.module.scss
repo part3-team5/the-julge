@@ -1,0 +1,36 @@
+.buttonWrapper {
+  position: relative;
+  display: flex;
+
+  img {
+    position: absolute;
+    left: 39px;
+    top: 14px;
+  }
+}
+
+.button {
+  width: 167px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  padding: 12px 12px 12px 21px;
+  background: var(--gray5);
+  font-size: 14px;
+  color: var(--black);
+  transition: background 0.3s;
+
+  &:active,
+  &:hover {
+    background: var(--primary);
+  }
+}
+
+.checked {
+  border: 1px solid var(--red20);
+}
+
+.unchecked {
+  border: 1px solid var(--gray30);
+}

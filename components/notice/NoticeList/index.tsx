@@ -122,6 +122,7 @@ const NoticeList: React.FC = () => {
           currentPage={currentPage}
           totalPosts={sortedNotices.length}
           postsPerPage={postsPerPage}
+          type="notice"
         />
       </div>
     </div>

@@ -2,10 +2,21 @@ import styles from "./DetailedMyShopNotice.module.scss";
 import classNames from "classnames/bind";
 import NoticeDetailed from "@/components/notice/NoticeDetailed";
 import Pagination from "@/components/Pagination";
+import { useRouter } from "next/router";
+import { APPLICANT } from "@/public/applicantTest";
 
 const cx = classNames.bind(styles);
 
 const DetailedMyShopNotice = () => {
+  const router = useRouter();
+  const { page = 1, noticeId } = router.query;
+  const currentPage = parseInt(page as string, 10);
+  const postsPerPage = 5;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentApplicants = APPLICANT.slice(indexOfFirstPost, indexOfLastPost);
+
   return (
     <>
       <div className={cx("content-wrap")}>
@@ -20,40 +31,27 @@ const DetailedMyShopNotice = () => {
               <div>전화번호</div>
               <div>상태</div>
             </li>
-            <li className={cx("list-content")}>
-              <div>김강현</div>
-              <div>
-                열심히 하겠습니다!열심히 하겠습니다!열심히 하겠습니다!열심히
-                하겠습니다!열심히 하겠습니다!열심히 하겠습니다!열심히
-                하겠습니다!열심히 하겠습니다!열심히 하겠습니다!열심히
-                하겠습니다!열심히 하겠습니다!
-              </div>
-              <div>010-0000-0000</div>
-              <div>
-                <div className={cx("btn-wrap")}>
-                  <button className={cx("state-btn-reject")}>거절하기</button>
-                  <button className={cx("state-btn-approve")}>승인하기</button>
+            {currentApplicants.map((applicant) => (
+              <li key={applicant.id} className={cx("list-content")}>
+                <div>{applicant.name}</div>
+                <div>{applicant.bio}</div>
+                <div>{applicant.phone}</div>
+                <div>
+                  <div className={cx("btn-wrap")}>
+                    <button className={cx("state-btn-reject")}>거절하기</button>
+                    <button className={cx("state-btn-approve")}>승인하기</button>
+                  </div>
                 </div>
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>서혜진</div>
-              <div>열심히 하겠습니다!</div>
-              <div>010-0000-0000</div>
-              <div>
-                <div className={cx("state-approve")}>승인 완료</div>
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>홍길동</div>
-              <div>열심히 하겠습ㅋㅋ니다!</div>
-              <div>010-0000-0000</div>
-              <div>
-                <div className={cx("state-reject")}>거절</div>
-              </div>
-            </li>
+              </li>
+            ))}
             <li className={cx("list-footer")}>
-              <Pagination currentPage={1} totalPosts={2} postsPerPage={1} />
+              <Pagination
+                currentPage={currentPage}
+                totalPosts={APPLICANT.length}
+                postsPerPage={postsPerPage}
+                type="applicant"
+                noticeId={noticeId as string}
+              />
             </li>
           </ul>
         </section>

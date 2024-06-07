@@ -7,14 +7,24 @@ import { PaginationProps } from "./Pagination.types";
 
 const cx = classNames.bind(styles);
 
-const Pagination: React.FC<PaginationProps> = ({ currentPage, totalPosts, postsPerPage }) => {
+const Pagination: React.FC<PaginationProps> = ({
+  currentPage,
+  totalPosts,
+  postsPerPage,
+  type,
+  noticeId,
+}) => {
   const router = useRouter();
   const totalPages = Math.ceil(totalPosts / postsPerPage);
   const maxPage = 7;
 
   const handlePageChange = (page: number) => {
     if (page > 0 && page <= totalPages) {
-      router.push(`/?page=${page}`);
+      if (type === "notice") {
+        router.push(`/?page=${page}`);
+      } else if (type === "applicant") {
+        router.push(`/my-shop/${noticeId}/?page=${page}`);
+      }
     }
   };
 

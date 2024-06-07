@@ -4,6 +4,9 @@ export interface ProfileEmptyProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
-export interface ProfileFormProps {
-  onClose: () => void;
+export interface ProfileData {
+  name: string;
+  phone: string;
+  address: string;
+  bio: string;
 }

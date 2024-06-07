@@ -79,7 +79,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
             />
           </section>
           <section className={cx("input-section")}>
-            <label className={cx("label")} htmlFor="area">
+            <label className={cx("label")} htmlFor="locations">
               선호 지역
             </label>
             <Dropdown

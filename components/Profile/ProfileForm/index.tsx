@@ -10,14 +10,20 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { ProfileFormProps } from "../Profile.types";
 import { instance } from "@/utils/utils";
-import axios from "axios";
-import ProfileView from "../ProfileView";
+import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
+import { IModalProps } from "@/components/Modal/Modal.types";
 
 const cx = classNames.bind(styles);
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const [userId, setUserId] = useState<string | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [modalData, setModalData] = useState<IModalProps>({
+    modalType: "",
+    content: "",
+    btnName: [""],
+  });
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
@@ -25,6 +31,11 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
       setUserId(storedUserId);
     }
   }, []);
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+    onClose();
+  };
 
   const handleSubmitForm = async (data: any) => {
     const body = {
@@ -37,8 +48,15 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
     try {
       const response = await instance.put(`/users/${userId}`, body);
       if (response.status === 200) {
-        onClose();
-      } else alert("프로필 데이터를 제대로 입력해주세요.");
+        setModalData({
+          modalType: "alert",
+          content: "등록이 완료되었습니다.",
+          btnName: ["확인"],
+        });
+        setShowAlert(true);
+      } else {
+        alert("프로필 데이터를 제대로 입력해주세요.");
+      }
     } catch (error) {
       console.log("PUT Error:", error);
     }
@@ -85,7 +103,9 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
             <Dropdown
               options={locations}
               id="area"
-              register={register("area", { required: true })}
+              onChange={(value) => {
+                setValue("area", value);
+              }}
             />
           </section>
         </div>
@@ -104,6 +124,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
           </div>
         </div>
       </form>
+      {showAlert && (
+        <div className={cx("overlay")}>
+          <ConfirmModal
+            modalData={modalData}
+            closeFunction={handleCloseAlert}
+          />
+        </div>
+      )}
     </main>
   );
 };

@@ -36,6 +36,21 @@
     color: var(--gray40);
   }
 }
+.styledTextarea {
+  @extend .commonStyles;
+  width: 100%;
+  height: 187px;
+  display: flex;
+  padding: 16px 20px;
+  align-items: flex-start;
+  gap: 10px;
+  align-self: stretch;
+  border-radius: 6px;
+  border: 1px solid var(--gray30);
+  background: var(--white);
+  outline: none;
+  resize: none;
+}
 
 .styledLabel {
   @extend .commonStyles;

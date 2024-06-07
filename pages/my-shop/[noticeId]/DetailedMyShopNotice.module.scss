@@ -1,0 +1,105 @@
+@mixin flexBasicSet($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+
+@mixin stateBtn($color) {
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: var(--white);
+  font-weight: 700;
+  line-height: 17.53px;
+  border: 1px solid $color;
+  color: $color;
+  cursor: pointer;
+}
+
+@mixin stateLabel($backgroundColor, $fontColor) {
+  padding: 6px 10px;
+  border-radius: 20px;
+  background-color: $backgroundColor;
+  color: $fontColor;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 16.8px;
+  border: none;
+}
+
+.content-wrap {
+  width: 964px;
+  margin: 0 auto;
+}
+
+.applicant-list {
+  margin: 120px 0 120px;
+}
+
+.notice--head__name {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.6px;
+}
+
+.list-wrap {
+  margin-top: 32px;
+  border: 1px solid var(--gray20);
+  border-radius: 10px;
+  overflow: hidden;
+
+  li {
+    display: flex;
+    align-items: center;
+    line-height: 26px;
+    border: 1px solid var(--gray20);
+  }
+}
+
+.list-header,
+.list-content {
+  @include flexBasicSet;
+  > div {
+    padding: 20px 12px;
+  }
+
+  > div:nth-of-type(1) {
+    width: 228px;
+  }
+
+  > div:nth-of-type(2) {
+    width: 300px;
+  }
+
+  > div:nth-of-type(3) {
+    width: 200px;
+  }
+}
+
+.list-header {
+  background-color: var(--red10);
+  line-height: 22px;
+}
+
+.list-footer {
+  padding: 12px 0;
+}
+
+.btn-wrap {
+  @include flexBasicSet($gap: 12px);
+}
+
+.state-btn-reject {
+  @include stateBtn(var(--primary));
+}
+
+.state-btn-approve {
+  @include stateBtn(var(--blue20));
+}
+
+.state-reject {
+  @include stateLabel(var(--red10), var(--red40));
+}
+
+.state-approve {
+  @include stateLabel(var(--blue10), var(--blue20));
+}

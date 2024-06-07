@@ -32,6 +32,7 @@ function Profile() {
   useEffect(() => {
     fetchProfileData();
   }, [userId]);
+
   useEffect(() => {
     const getProfileData = async () => {
       try {

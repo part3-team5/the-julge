@@ -8,7 +8,7 @@ import { locations } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { ProfileFormProps } from "../Profile.types";
+import { FormData, ProfileData, ProfileFormProps } from "../Profile.types";
 import { instance } from "@/utils/instance";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
@@ -16,7 +16,7 @@ import { IModalProps } from "@/components/Modal/Modal.types";
 const cx = classNames.bind(styles);
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue } = useForm<FormData>();
   const [userId, setUserId] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -37,8 +37,8 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
     onClose();
   };
 
-  const handleSubmitForm = async (data: any) => {
-    const body = {
+  const handleSubmitForm = async (data: FormData) => {
+    const body: ProfileData = {
       name: data.name,
       phone: data.phoneNumber,
       address: data.area,

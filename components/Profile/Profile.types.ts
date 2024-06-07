@@ -13,3 +13,9 @@ export interface ProfileData {
   address: string;
   bio: string;
 }
+export interface FormData {
+  name: string;
+  phoneNumber: string;
+  area: string;
+  introduction: string;
+}

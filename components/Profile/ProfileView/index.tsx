@@ -3,11 +3,12 @@ import { instance } from "@/utils/instance";
 import styles from "./ProfileView.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
+import { ProfileData } from "../Profile.types";
 
 const cx = classNames.bind(styles);
 
 function ProfileView({ userId }: { userId: string }) {
-  const [profileData, setProfileData] = useState<any>(null);
+  const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {
     const fetchProfileData = async () => {

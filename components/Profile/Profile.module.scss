@@ -94,6 +94,7 @@
 
   @media (max-width: $TABLET) {
     width: 100%;
+    gap: 24px;
   }
 
   @media (max-width: $MOBILE) {
@@ -148,27 +149,25 @@
 }
 .textarea-section {
   width: 100%;
-  height: 187px;
+  height: auto;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  margin-bottom: 12px;
+
+  @media (max-width: $TABLET) {
+    height: 153px;
+  }
 }
-.textarea {
-  width: 100%;
-  height: 160px;
-  border-radius: 6px;
-  border: 1px solid var(--gray20);
-  resize: none;
-  padding: 16px 20px;
-  outline: none;
-}
+
 .button-section {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
   @media (max-width: $TABLET) {
-    margin-bottom: 200px;
+    margin-top: 48px;
+    margin-bottom: 96px;
   }
 
   @media (max-width: $MOBILE) {
@@ -189,4 +188,13 @@
 
 .close-button {
   cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
 }

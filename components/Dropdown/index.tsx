@@ -10,7 +10,7 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 
 const cx = classNames.bind(styles);
 
-function Dropdown({ options, register, id }: DropdownProps) {
+function Dropdown({ options, id, onChange }: DropdownProps) {
   const [selectedOption, setSelectedOption] = useState("선택");
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -22,6 +22,7 @@ function Dropdown({ options, register, id }: DropdownProps) {
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
+    onChange(option);
   };
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
@@ -40,7 +41,10 @@ function Dropdown({ options, register, id }: DropdownProps) {
           value={selectedOption}
           id={id}
           readOnly
-          {...register}
+          onChange={(e) => {
+            setSelectedOption(e.target.value);
+            register.onChange(e);
+          }}
         />
         {isOpen ? (
           <Image

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { instance } from "@/utils/utils";
+import { instance } from "@/utils/instance";
 import styles from "./ProfileView.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -57,7 +57,9 @@ function ProfileView({ userId }: { userId: string }) {
               <p>선호 지역: {profileData.address}</p>
             </div>
           </div>
-          <p className={cx("bio")}>{profileData.bio}</p>
+          <div className={cx("bio-wrapper")}>
+            <p className={cx("bio")}>{profileData.bio}</p>
+          </div>
         </div>
         <div className={cx("button-wrapper")}>
           <button className={cx("button")}>편집하기</button>

@@ -13,7 +13,7 @@
   display: flex;
 
   @media (max-width: $TABLET) {
-    padding: 60px 32px;
+    padding: 40px 32px;
     flex-direction: column;
   }
 
@@ -84,12 +84,28 @@
   display: flex;
   gap: 6px;
 }
+.bio-wrapper {
+  height: 100%;
+}
 .bio {
+  height: 100%;
   font-size: 16px;
   font-weight: 400;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    scrollbar-width: 4px;
+    background-color: #7d7986;
+    border-radius: 4px;
+  }
 }
 
 .button {
+  cursor: pointer;
   color: var(--primary);
   font-size: 16px;
   font-weight: 700;

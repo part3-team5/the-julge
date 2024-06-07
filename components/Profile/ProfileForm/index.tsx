@@ -1,21 +1,21 @@
 import classNames from "classnames/bind";
-import styles from "../Profile.module.scss";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 
+import styles from "../Profile.module.scss";
 import { locations } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { ProfileFormProps } from "../Profile.types";
-import { instance } from "@/utils/utils";
+import { instance } from "@/utils/instance";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
 
 const cx = classNames.bind(styles);
 
-const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
+const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
   const { register, handleSubmit, setValue } = useForm();
   const [userId, setUserId] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState(false);
@@ -54,6 +54,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
           btnName: ["확인"],
         });
         setShowAlert(true);
+        onSubmit();
       } else {
         alert("프로필 데이터를 제대로 입력해주세요.");
       }

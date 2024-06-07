@@ -5,6 +5,7 @@ export interface ProfileEmptyProps {
 }
 export interface ProfileFormProps {
   onClose: () => void;
+  onSubmit: () => void;
 }
 export interface ProfileData {
   name: string;

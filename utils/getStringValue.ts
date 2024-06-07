@@ -1,4 +1,4 @@
-const getStringValue = (value: string | string[]) => {
+const getStringValue = (value: string | string[] | undefined) => {
   if (Array.isArray(value)) {
     return value[0];
   }

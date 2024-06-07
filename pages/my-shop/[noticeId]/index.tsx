@@ -2,14 +2,20 @@ import styles from "./DetailedMyShopNotice.module.scss";
 import classNames from "classnames/bind";
 import NoticeDetailed from "@/components/notice/NoticeDetailed";
 import Pagination from "@/components/Pagination";
+import { useGetDetailedNotice } from "@/hooks/useGetDetailedNotice";
 
 const cx = classNames.bind(styles);
 
+const testShopId = "245e90cf-d15a-4bba-bfd4-a78d217ec05e";
+const testNoticeId = "3f78a712-8b18-423f-9361-61521b9db968";
+
 const DetailedMyShopNotice = () => {
+  const { noticeShopData } = useGetDetailedNotice(testShopId, testNoticeId);
+
   return (
     <>
       <div className={cx("content-wrap")}>
-        {/* <NoticeDetailed /> */}
+        <NoticeDetailed shopData={noticeShopData} />
 
         <section className={cx("applicant-list")}>
           <h2 className={cx("notice--head__name")}>신청자 목록</h2>

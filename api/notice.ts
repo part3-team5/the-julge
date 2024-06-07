@@ -14,6 +14,5 @@ export const getNoticeDetailedData = async (
       alert(error);
     }
   }
-
   return res?.data;
 };

@@ -10,6 +10,7 @@ import { NoticeItem } from "@/types/types";
 import { fetchNoticeList } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
 
@@ -109,16 +110,18 @@ const NoticeList: React.FC = () => {
             );
 
             return (
-              <Post
-                key={notice.id}
-                startsAt={notice.startsAt}
-                workhour={notice.workhour}
-                increasePercent={increasePercent}
-                shopName={notice.shop.item.name}
-                shopAddress1={notice.shop.item.address1}
-                shopImageUrl={notice.shop.item.imageUrl}
-                hourlyPay={notice.hourlyPay}
-              />
+              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`}>
+                <Post
+                  key={notice.id}
+                  startsAt={notice.startsAt}
+                  workhour={notice.workhour}
+                  increasePercent={increasePercent}
+                  shopName={notice.shop.item.name}
+                  shopAddress1={notice.shop.item.address1}
+                  shopImageUrl={notice.shop.item.imageUrl}
+                  hourlyPay={notice.hourlyPay}
+                />
+              </Link>
             );
           })}
         </div>

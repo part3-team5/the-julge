@@ -1,12 +1,12 @@
 import { getNoticeDetailedData } from "@/api/notice";
-import { INoticeData } from "@/types/NoticeDetail";
+import { INoticeWithShopData, INoticeLinks } from "@/types/Notice";
 import { useState, useEffect } from "react";
 
 export const useGetDetailedNotice = (
   shopId: string | undefined,
   noticeId: string | undefined
 ) => {
-  const [noticeShopData, setNoticeShopData] = useState<INoticeData>({
+  const [noticeShopData, setNoticeShopData] = useState<INoticeWithShopData>({
     closed: false,
     description: "",
     hourlyPay: 0,
@@ -24,6 +24,7 @@ export const useGetDetailedNotice = (
       originalHourlyPay: 0,
     },
   });
+  const [noticeLinksData, setNoticeLinksData] = useState<INoticeLinks[]>();
 
   useEffect(() => {
     if (shopId && noticeId) {
@@ -31,25 +32,28 @@ export const useGetDetailedNotice = (
         const data = await getNoticeDetailedData(shopId, noticeId);
 
         if (data) {
-          const result = data.item;
+          const resultItem = data.item;
           setNoticeShopData({
-            closed: result.closed,
-            description: result.description,
-            hourlyPay: result.hourlyPay,
-            id: result.id,
-            startsAt: result.startsAt,
-            workhour: result.workhour,
+            closed: resultItem.closed,
+            description: resultItem.description,
+            hourlyPay: resultItem.hourlyPay,
+            id: resultItem.id,
+            startsAt: resultItem.startsAt,
+            workhour: resultItem.workhour,
             shop: {
-              address1: result.shop.item.address1,
-              address2: result.shop.item.address2,
-              category: result.shop.item.category,
-              description: result.shop.item.description,
-              id: result.shop.item.id,
-              imageUrl: result.shop.item.imageUrl,
-              name: result.shop.item.name,
-              originalHourlyPay: result.shop.item.originalHourlyPay,
+              address1: resultItem.shop.item.address1,
+              address2: resultItem.shop.item.address2,
+              category: resultItem.shop.item.category,
+              description: resultItem.shop.item.description,
+              id: resultItem.shop.item.id,
+              imageUrl: resultItem.shop.item.imageUrl,
+              name: resultItem.shop.item.name,
+              originalHourlyPay: resultItem.shop.item.originalHourlyPay,
             },
           });
+
+          const resultLink = data.links;
+          setNoticeLinksData(resultLink);
         }
       };
 
@@ -57,5 +61,5 @@ export const useGetDetailedNotice = (
     }
   }, [shopId, noticeId]);
 
-  return { noticeShopData };
+  return { noticeShopData, noticeLinksData };
 };

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getNoticeDetailedData } from "@/api/notice";
 import getStringValue from "@/utils/getStringValue";
-import { INoticeData } from "@/types/NoticeDetail";
+import { INoticeData, INoticeWithShopData } from "@/types/Notice";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import { useGetDetailedNotice } from "@/hooks/useGetDetailedNotice";
 
@@ -20,15 +20,19 @@ const DetailedNotice = () => {
     getStringValue(noticeId)
   );
 
-  const [storageNoticeList, setStorageNoticeList] = useState<INoticeData[]>([]);
+  const [storageNoticeList, setStorageNoticeList] = useState<
+    INoticeWithShopData[]
+  >([]);
 
   useEffect(() => {
     if (noticeShopData.id) {
-      let recentlyNoticeList: INoticeData[] = [];
+      let recentlyNoticeList: INoticeWithShopData[] = [];
       const storageNoticeData = localStorage.getItem("RECENTLY_NOTICE_LIST");
 
       if (storageNoticeData) {
-        recentlyNoticeList = JSON.parse(storageNoticeData) as INoticeData[];
+        recentlyNoticeList = JSON.parse(
+          storageNoticeData
+        ) as INoticeWithShopData[];
       }
 
       const isDuplicate = recentlyNoticeList.some(

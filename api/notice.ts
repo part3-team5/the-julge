@@ -1,4 +1,5 @@
-import { BASE_URL } from "@/constants/url";
+import { BASE_URL, BASE_API_URL } from "@/constants/url";
+import { INoticeLinks } from "@/types/Notice";
 import axios from "axios";
 
 export const getNoticeDetailedData = async (
@@ -8,11 +9,54 @@ export const getNoticeDetailedData = async (
   let res;
 
   try {
-    res = await axios.get(`${BASE_URL}/shops/${shopId}/notices/${noticeId}`);
+    res = await axios.get(
+      `${BASE_API_URL}/shops/${shopId}/notices/${noticeId}`
+    );
   } catch (error) {
     if (axios.isAxiosError(error)) {
       alert(error);
     }
   }
   return res?.data;
+};
+
+export const getApplicantList = async (linkData: INoticeLinks) => {
+  let res;
+
+  try {
+    res = await axios.get(BASE_URL + linkData.href);
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      alert(error);
+    }
+  }
+  return res?.data;
+};
+
+export const putApplicationStatus = async (
+  status: string,
+  idObj: { [key: string]: string }
+) => {
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJlMzFmNDkzMy1jNGJjLTQyYjItOTllMC1jNTg1OGNmMGM2NDciLCJpYXQiOjE3MTc4Mzk4Mzd9.EiuJoitWu9Onu0sp2sxkYgBWcu3DMAv1XIhsI8VBV1A";
+  let res;
+
+  try {
+    res = await axios.put(
+      `${BASE_API_URL}/shops/${idObj.shopId}/notices/${idObj.noticeId}/applications/${idObj.applicationId}`,
+      {
+        status: status,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      alert(error);
+    }
+  }
+  return res;
 };

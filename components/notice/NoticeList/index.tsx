@@ -29,6 +29,10 @@ const NoticeList: React.FC = () => {
         return [...notices].sort((a, b) => a.workhour - b.workhour);
       case "shop":
         return [...notices].sort((a, b) => a.shop.item.name.localeCompare(b.shop.item.name));
+      case "new":
+        return [...notices].sort(
+          (a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime()
+        );
       case "time":
       default:
         return [...notices].sort(

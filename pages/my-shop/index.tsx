@@ -32,7 +32,7 @@ const MyShop = () => {
     if (token && userId) {
       fetchUserInfo(token, userId).then((userInfo) => {
         if (userInfo) {
-          const shopId = userInfo.item?.shop?.item?.id || "";
+          const shopId = userInfo.item.shop?.item.id;
           setEmployer({
             id: userInfo.item.id,
             email: userInfo.item.email,

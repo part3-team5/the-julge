@@ -34,6 +34,12 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
   };
 
   const handleSubmitForm = async (data: FormData) => {
+    if (!imageData || !imageData.file) {
+      alert("이미지를 추가해주세요.");
+      setShowAlert(false);
+      return;
+    }
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("category", data.category);
@@ -42,19 +48,17 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
     formData.append("originalHourlyPay", data.originalHourlyPay.toString());
     formData.append("description", data.description);
 
-    if (imageData && imageData.file) {
-      try {
-        const imageUrl = await uploadImageAndGetUrl(imageData.file);
-        formData.append("imageUrl", imageUrl);
-      } catch (error) {
-        console.error("Image upload error(ShopForm):", error);
-        return;
-      }
+    try {
+      const imageUrl = await uploadImageAndGetUrl(imageData.file);
+      formData.append("imageUrl", imageUrl);
+    } catch (error) {
+      console.error("Image upload error(ShopForm):", error);
+      return;
     }
 
     try {
       const response = await submitShopForm(formData);
-      if (response.status === 200) {
+      if (response.ok) {
         setModalData({
           modalType: "alert",
           content: "등록이 완료되었습니다.",

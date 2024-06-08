@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useState } from "react";
 
-import { CATEGORYS, locations } from "@/constants/constants";
+import { CATEGORYS, LOCATIONS } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -66,7 +66,7 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
                 주소
               </label>
               <Dropdown
-                options={locations}
+                options={LOCATIONS}
                 id="address1"
                 register={register("address1", { required: true })}
               />

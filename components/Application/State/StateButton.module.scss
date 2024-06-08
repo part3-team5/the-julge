@@ -1,0 +1,32 @@
+%Button {
+  display: flex;
+  align-items: center;
+  border: 0px;
+  border-radius: 20px;
+  padding: 6px 10px;
+  width: fit-content;
+  height: 29px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.approve {
+  @extend %Button;
+  background-color: var(--blue10);
+  color: var(--blue20);
+}
+
+.refuse {
+  @extend %Button;
+  background-color: var(--red10);
+  color: var(--red40);
+}
+
+.waiting {
+  @extend %Button;
+  background-color: var(--green10);
+  color: var(--green20);
+}

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./Filter.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { locations } from "@/constants/constants";
+import { LOCATIONS } from "@/constants/constants";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
@@ -40,7 +40,7 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
     };
   }, []);
 
-  const sortedLocations = locations.slice().sort(); // 위치 목록 정렬
+  const sortedLocations = LOCATIONS.slice().sort(); // 위치 목록 정렬
 
   const handleChangeDate = (date: Date | null) => {
     setSelectedDate(date || initSelectedDate);

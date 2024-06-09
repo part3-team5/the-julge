@@ -1,3 +1,4 @@
+import Application from "@/components/Application";
 import { ProfileData } from "@/components/Profile/Profile.types";
 import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 import ProfileForm from "@/components/Profile/ProfileForm";
@@ -61,6 +62,7 @@ function Profile() {
       ) : (
         <ProfileEmpty onClick={handleProfileButtonClick} />
       )}
+      <Application />
     </>
   );
 }

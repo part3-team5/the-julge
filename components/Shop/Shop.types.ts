@@ -5,7 +5,7 @@ export interface ShopEmptyProps {
 }
 
 export interface ShopFormProps {
-  onClose?: () => void;
+  onClose: () => void;
   onEdit?: () => void;
 }
 

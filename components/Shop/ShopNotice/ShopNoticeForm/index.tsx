@@ -5,17 +5,62 @@ import Input from "../../../Input";
 import Button from "../../../Button";
 import { useState } from "react";
 import Image from "next/image";
-import { NoticeFormProps } from "../ShopNotice.types";
+import {
+  NoticeData,
+  NoticeFormData,
+  NoticeFormProps,
+} from "../ShopNotice.types";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
+import { instance } from "@/utils/instance";
+import { IModalProps } from "@/components/Modal/Modal.types";
+import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 
 const cx = classNames.bind(styles);
 
-const ShopNoticeForm = ({ onClose }: NoticeFormProps) => {
-  const [shopData, setShopData] = useState<FormData | null>(null);
-  const shopValue = useRecoilValue(employerAtom);
+const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
+  const [showAlert, setShowAlert] = useState(false);
+  const [modalData, setModalData] = useState<IModalProps>({
+    modalType: "",
+    content: "",
+    btnName: [""],
+  });
+  const { register, handleSubmit } = useForm<NoticeFormData>();
 
-  const { register } = useForm();
+  const shopValue = useRecoilValue(employerAtom);
+  const shopId = shopValue.shopId;
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+    onClose();
+  };
+
+  const handleSubmitForm = async (data: NoticeFormData) => {
+    const body: NoticeData = {
+      hourlyPay: data.hourlyPay,
+      startsAt: data.startsAt,
+      workhour: data.workhour,
+      description: data.description,
+    };
+
+    try {
+      const response = await instance.post(`/shop/${shopId}/notices`, body);
+      if (response.status === 200) {
+        setModalData({
+          modalType: "alert",
+          content: "등록이 완료되었습니다.",
+          btnName: ["확인"],
+        });
+        setShowAlert(true);
+        onSubmit();
+        console.log("성공!");
+      } else {
+        alert("프로필 데이터를 제대로 입력해주세요.");
+      }
+    } catch (error) {
+      console.log("PUT Error:", error);
+    }
+  };
 
   return (
     <main className={cx(["profile"], ["main"])}>
@@ -30,7 +75,7 @@ const ShopNoticeForm = ({ onClose }: NoticeFormProps) => {
           className={cx("close-button")}
         />
       </div>
-      <form className={cx("form")}>
+      <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
         <div className={cx("input-wrapper")}>
           <section className={cx("input__section")}>
             <Input
@@ -78,14 +123,14 @@ const ShopNoticeForm = ({ onClose }: NoticeFormProps) => {
           </div>
         </div>
       </form>
-      {/* {showAlert && (
-          <div className={cx("overlay")}>
-            <ConfirmModal
-              modalData={modalData}
-              closeFunction={handleCloseAlert}
-            />
-          </div>
-        )} */}
+      {showAlert && (
+        <div className={cx("overlay")}>
+          <ConfirmModal
+            modalData={modalData}
+            closeFunction={handleCloseAlert}
+          />
+        </div>
+      )}
     </main>
   );
 };

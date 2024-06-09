@@ -1,30 +1,76 @@
 import classNames from "classnames/bind";
 import styles from "../Shop.module.scss";
 import Image from "next/image";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 import { CATEGORYS, LOCATIONS } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { ShopFormProps, FormData } from "../Shop.types";
+import type { ShopFormProps, FormData } from "../Shop.types";
 import ImageUpload from "@/components/ImageUpload";
 import { ImageData } from "@/components/ImageUpload/ImageUpload.types";
+import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
+import { IModalProps } from "@/components/Modal/Modal.types";
+import { submitShopForm } from "@/api/myShop";
+import { uploadImageAndGetUrl } from "@/api/ImageUpload";
 
 const cx = classNames.bind(styles);
 
 const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
-  const { register, handleSubmit } = useForm<FormData>();
+  const { register, handleSubmit, setValue } = useForm<FormData>();
   const [imageData, setImageData] = useState<ImageData | null>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [modalData, setModalData] = useState<IModalProps>({
+    modalType: "",
+    content: "",
+    btnName: [""],
+  });
 
-  const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const formData = {
-      ...data,
-      imageUrl: imageData?.imageUrl || null,
-    };
+  const handleCloseAlert = () => {
+    setShowAlert(false);
+    onClose();
+  };
 
-    console.log(formData);
+  const handleSubmitForm = async (data: FormData) => {
+    if (!imageData || !imageData.file) {
+      alert("이미지를 추가해주세요.");
+      setShowAlert(false);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("category", data.category);
+    formData.append("address1", data.address1);
+    formData.append("address2", data.address2);
+    formData.append("originalHourlyPay", data.originalHourlyPay.toString());
+    formData.append("description", data.description);
+
+    try {
+      const imageUrl = await uploadImageAndGetUrl(imageData.file);
+      formData.append("imageUrl", imageUrl);
+    } catch (error) {
+      console.error("Image upload error(ShopForm):", error);
+      return;
+    }
+
+    try {
+      const response = await submitShopForm(formData);
+      if (response.ok) {
+        setModalData({
+          modalType: "alert",
+          content: "등록이 완료되었습니다.",
+          btnName: ["확인"],
+        });
+        setShowAlert(true);
+      } else {
+        alert("가게 정보를 제대로 입력해주세요.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -41,7 +87,7 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
             className={cx("close-button")}
           />
         </div>
-        <form className={cx("form")} onSubmit={handleSubmit(onSubmit)}>
+        <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
           <div className={cx("input-wrapper")}>
             <section className={cx("input-section")}>
               <Input
@@ -58,7 +104,9 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
               <Dropdown
                 options={CATEGORYS}
                 id="category"
-                register={register("category", { required: true })}
+                onChange={(value) => {
+                  setValue("category", value);
+                }}
               />
             </section>
             <section className={cx("input-section")}>
@@ -68,7 +116,9 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
               <Dropdown
                 options={LOCATIONS}
                 id="address1"
-                register={register("address1", { required: true })}
+                onChange={(value) => {
+                  setValue("address1", value);
+                }}
               />
             </section>
             <section className={cx("input-section")}>
@@ -105,6 +155,11 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
             </div>
           </div>
         </form>
+        {showAlert && (
+          <div className={cx("overlay")}>
+            <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
+          </div>
+        )}
       </main>
     </div>
   );

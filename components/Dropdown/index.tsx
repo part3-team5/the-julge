@@ -41,10 +41,6 @@ function Dropdown({ options, id, onChange }: DropdownProps) {
           value={selectedOption}
           id={id}
           readOnly
-          onChange={(e) => {
-            setSelectedOption(e.target.value);
-            register.onChange(e);
-          }}
         />
         {isOpen ? (
           <Image

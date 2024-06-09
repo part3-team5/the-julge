@@ -1,6 +1,6 @@
 export interface ImageData {
   name: string;
-  imageUrl: string;
+  file: File;
 }
 
 export interface ImageUploadProps {

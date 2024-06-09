@@ -1,21 +1,42 @@
+import { BASE_URL } from "@/constants/constants";
 import axios from "axios";
 
-const API_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge/images";
-const TOKEN =
-  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzUwMWM4NC01MWYwLTRlYWYtOWFkMC0yZGJiMDdkODAxYTgiLCJpYXQiOjE3MTc1NjY3MDZ9.GlrLFPOD0YF6R0aAlCXblNpFhkLiLGOH2vchh0iI6KU";
-
-interface ImageData {
-  name: string;
-  imageUrl: string | null;
-}
-
-export const uploadImage = async (imageData: ImageData) => {
-  const response = await axios.post(API_URL, imageData, {
+export const getPresignedUrl = async (data: { name: string }) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const response = await axios.post(`${BASE_URL}/images`, data, {
     headers: {
-      Authorization: TOKEN,
+      Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
     },
   });
 
   return response.data;
+};
+
+export const uploadToS3 = async (url: string, file: File) => {
+  try {
+    await axios.put(url, file, {
+      headers: {
+        "Content-Type": file.type,
+      },
+    });
+    console.log("파일 업로드 성공");
+  } catch (error) {
+    console.error("파일 업로드 실패", error);
+    throw error;
+  }
+};
+
+export const uploadImageAndGetUrl = async (file: File) => {
+  try {
+    const presignedUrlResponse = await getPresignedUrl({ name: file.name });
+    const presignedUrl = presignedUrlResponse.item.url;
+
+    await uploadToS3(presignedUrl, file);
+
+    return presignedUrl.split("?")[0];
+  } catch (error) {
+    console.error("Error uploading image:", error);
+    throw new Error("이미지 업로드에 실패했습니다.");
+  }
 };

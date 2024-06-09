@@ -27,34 +27,6 @@
   }
 }
 
-.box {
-  border: 1px solid var(--gray20);
-  border-radius: 8px;
-  height: 275px;
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  width: 100%;
-
-  @media (max-width: $MOBILE) {
-    height: 195px;
-    padding: 50px 24px;
-  }
-}
-
-.description {
-  font-size: 16px;
-  color: var(--black);
-  margin-bottom: 20px;
-
-  @media (max-width: $MOBILE) {
-    font-size: 14px;
-  }
-}
-
 .profile.main {
   width: 100%;
   height: auto;

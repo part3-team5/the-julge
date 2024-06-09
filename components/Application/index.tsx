@@ -1,7 +1,8 @@
-import View from "./View";
+import ApplicationEmpty from "./Empty";
+// import View from "./View";
 
 function Application() {
-  return <View />;
+  return <ApplicationEmpty />;
 }
 
 export default Application;

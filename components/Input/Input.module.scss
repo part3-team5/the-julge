@@ -36,6 +36,18 @@
     color: var(--gray40);
   }
 }
+.inputContainer {
+  width: 100%;
+  position: relative;
+}
+
+.suffix {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--black);
+}
 .styledTextarea {
   @extend .commonStyles;
   width: 100%;

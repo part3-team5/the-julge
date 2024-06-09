@@ -5,11 +5,11 @@ import StateButton from "../State";
 
 const cx = classNames.bind(styles);
 
-const View = () => {
+const ApplicationView = () => {
   return (
     <>
       <div className={cx("content-wrap")}>
-        <section className={cx("applicant-list")}>
+        <section className={cx("application-list")}>
           <h2 className={cx("notice--head__name")}>신청 내역</h2>
           <ul className={cx("list-wrap")}>
             <li className={cx("list-header")}>
@@ -29,7 +29,7 @@ const View = () => {
               </div>
             </li>
             <li className={cx("list-content")}>
-              <div>마바사</div>
+              <div>라마바</div>
               <div>2024-06-09 12:00~16:00(4시간)</div>
               <div>20,000원</div>
               <div>
@@ -37,15 +37,31 @@ const View = () => {
               </div>
             </li>
             <li className={cx("list-content")}>
-              <div>아자차카</div>
+              <div>사아자</div>
               <div>2024-06-10 16:00~22:00(6시간)</div>
               <div>25,000원</div>
               <div>
                 <StateButton state={"waiting"} />
               </div>
             </li>
+            <li className={cx("list-content")}>
+              <div>차카타</div>
+              <div>2024-06-09 12:00~16:00(4시간)</div>
+              <div>15,000원</div>
+              <div>
+                <StateButton state={"refuse"} />
+              </div>
+            </li>
+            <li className={cx("list-content")}>
+              <div>파하하</div>
+              <div>2024-06-08 10:00~12:00(2시간)</div>
+              <div>10,000원</div>
+              <div>
+                <StateButton state={"approve"} />
+              </div>
+            </li>
             <li className={cx("list-footer")}>
-              <Pagination currentPage={1} totalPosts={2} postsPerPage={1} />
+              <Pagination currentPage={1} totalPosts={7} postsPerPage={1} />
             </li>
           </ul>
         </section>
@@ -54,4 +70,4 @@ const View = () => {
   );
 };
 
-export default View;
+export default ApplicationView;

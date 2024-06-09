@@ -18,3 +18,8 @@ export interface FormData {
   imageUrl: string;
   originalHourlyPay: number;
 }
+
+export interface ShopNoticeProps {
+  onClose: () => void;
+  onOpenForm: () => void;
+}

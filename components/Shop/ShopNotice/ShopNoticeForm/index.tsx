@@ -1,16 +1,19 @@
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
-import styles from "./RegisterNotice.module.scss";
-import Input from "../Input";
-import Button from "../Button";
+import styles from "./ShopNoticeForm.module.scss";
+import Input from "../../../Input";
+import Button from "../../../Button";
 import { useState } from "react";
 import Image from "next/image";
-import { RegisterNoticeProps } from "./RegisterNotice.types";
+import { NoticeFormProps } from "../ShopNotice.types";
+import { useRecoilValue } from "recoil";
+import { employerAtom } from "@/atoms/employerAtom";
 
 const cx = classNames.bind(styles);
 
-const Register: React.FC<RegisterNoticeProps> = ({ onClose, onSubmit }) => {
+const ShopNoticeForm = ({ onClose }: NoticeFormProps) => {
   const [shopData, setShopData] = useState<FormData | null>(null);
+  const shopValue = useRecoilValue(employerAtom);
 
   const { register } = useForm();
 
@@ -87,4 +90,4 @@ const Register: React.FC<RegisterNoticeProps> = ({ onClose, onSubmit }) => {
   );
 };
 
-export default Register;
+export default ShopNoticeForm;

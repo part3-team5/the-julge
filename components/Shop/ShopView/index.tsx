@@ -21,6 +21,7 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
       if (shopValue) {
         try {
           const response = await fetchShopData(shopValue.shopId);
+          console.log(shopValue);
           setShopData(response.data.item);
         } catch (error) {
           console.error("Fetching shop data failed:", error);
@@ -63,13 +64,22 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
                 <h2 className={cx("my-name")}>{shopData.name}</h2>
               </div>
               <div className={cx("detail")}>
-                <Image width={20} height={20} src="/image/icon/location.svg" alt="위치 아이콘" />
+                <Image
+                  width={20}
+                  height={20}
+                  src="/image/icon/location.svg"
+                  alt="위치 아이콘"
+                />
                 <p>{shopData.address1}</p>
               </div>
               <p className={cx("bio")}>{shopData.description}</p>
             </div>
             <div className={cx("button-wrapper")}>
-              <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEdit}>
+              <Button
+                btnColorType="white"
+                btnCustom="userNoticeDetailed"
+                onClick={onEdit}
+              >
                 편집하기
               </Button>
               <Button btnColorType="orange" btnCustom="userNoticeDetailed">

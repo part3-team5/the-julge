@@ -61,7 +61,7 @@ const ApplicationView = () => {
               </div>
             </li>
             <li className={cx("list-footer")}>
-              <Pagination currentPage={1} totalPosts={7} postsPerPage={1} />
+              {/* <Pagination currentPage={1} totalPosts={7} postsPerPage={1} /> */}
             </li>
           </ul>
         </section>

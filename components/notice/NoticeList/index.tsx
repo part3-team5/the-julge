@@ -103,7 +103,7 @@ const NoticeList: React.FC = () => {
           </div>
         </div>
         <div className={cx("post__grid")}>
-          {currentPosts.map((notice) => {
+          {currentPosts.map((notice, index) => {
             const increasePercent = calculateIncreasePercent(
               notice.shop.item.originalHourlyPay,
               notice.hourlyPay

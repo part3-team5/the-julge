@@ -9,5 +9,6 @@ export const employerAtom = atom({
     email: "",
     type: "",
     shopId: "",
+    address1: "",
   },
 });

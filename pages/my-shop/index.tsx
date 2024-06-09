@@ -35,11 +35,13 @@ const MyShop = () => {
       fetchUserInfo(token, userId).then((userInfo) => {
         if (userInfo) {
           const shopId = userInfo.item.shop?.item.id;
+          const address1 = userInfo.item.shop?.item.address1;
           setEmployer({
             id: userInfo.item.id,
             email: userInfo.item.email,
             type: userInfo.item.type,
             shopId: shopId,
+            address1: address1,
           });
         }
       });

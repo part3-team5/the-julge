@@ -4,9 +4,12 @@ export interface ShopEmptyProps {
   onClick: MouseEventHandler<HTMLButtonElement>;
 }
 
+export interface ShopViewProps {
+  onEdit: () => void;
+}
+
 export interface ShopFormProps {
   onClose: () => void;
-  onEdit?: () => void;
 }
 
 export interface FormData {

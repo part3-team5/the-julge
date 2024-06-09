@@ -108,7 +108,7 @@
   }
 
   .notice-info__img {
-    width: 632px;
+    width: 100%;
     height: 360px;
   }
 
@@ -130,5 +130,10 @@
   .notice-info__img {
     width: 310px;
     height: 178px;
+  }
+
+  .notice-info__intro {
+    height: auto;
+    overflow: visible;
   }
 }

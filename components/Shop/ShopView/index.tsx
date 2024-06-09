@@ -9,12 +9,14 @@ import { useRecoilValue } from "recoil";
 import Spinner from "@/components/Spinner";
 import { employerAtom } from "@/atoms/employerAtom";
 import ShopNotice from "../ShopNotice";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
 const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
   const [shopData, setShopData] = useState<FormData | null>(null);
   const shopValue = useRecoilValue(employerAtom);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchAndSetShopData = async () => {
@@ -30,6 +32,10 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
 
     fetchAndSetShopData();
   }, [shopValue]);
+
+  const handleMoveInsertNotice = () => {
+    //router.push()
+  };
 
   if (!shopData) {
     return (
@@ -63,16 +69,29 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
                 <h2 className={cx("my-name")}>{shopData.name}</h2>
               </div>
               <div className={cx("detail")}>
-                <Image width={20} height={20} src="/image/icon/location.svg" alt="위치 아이콘" />
+                <Image
+                  width={20}
+                  height={20}
+                  src="/image/icon/location.svg"
+                  alt="위치 아이콘"
+                />
                 <p>{shopData.address1}</p>
               </div>
               <p className={cx("bio")}>{shopData.description}</p>
             </div>
             <div className={cx("button-wrapper")}>
-              <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEdit}>
+              <Button
+                btnColorType="white"
+                btnCustom="userNoticeDetailed"
+                onClick={onEdit}
+              >
                 편집하기
               </Button>
-              <Button btnColorType="orange" btnCustom="userNoticeDetailed">
+              <Button
+                btnColorType="orange"
+                btnCustom="userNoticeDetailed"
+                onClick={handleMoveInsertNotice}
+              >
                 공고 등록하기
               </Button>
             </div>

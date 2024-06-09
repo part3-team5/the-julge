@@ -75,7 +75,9 @@ const DetailedMyShopNotice = () => {
               applicantList.map((applicant: IApplicant) => (
                 <li className={cx("list-content")} key={applicant.id}>
                   <div>{applicant.user.name}</div>
-                  <div>{applicant.user.bio}</div>
+                  <div>
+                    <p className={cx("bio")}>{applicant.user.bio}</p>
+                  </div>
                   <div>{phoneInsertHyphen(applicant.user.phone)}</div>
                   <div>
                     <div className={cx("btn-wrap")}>

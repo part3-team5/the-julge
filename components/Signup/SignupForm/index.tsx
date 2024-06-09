@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
-import { SignupFormData } from "../types/types";
+import { SignupFormData, UserType } from "../types/types";
 import { validateSignupData } from "@/utils/validateFormData";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import {
   INVALID_EMAIL,
   INVALID_PASSWORD,
@@ -18,13 +19,14 @@ const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
 const BASE_URL = "https://bootcamp-api.codeit.kr/api/3-3/the-julge";
 
 export default function SignupForm() {
+  const [type, setType] = useState<UserType>(UserType.PART_TIME);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     setError,
     formState: { errors },
   } = useForm<SignupFormData>({ mode: "onChange" });
-  const router = useRouter();
 
   const {
     email: emailError,
@@ -35,9 +37,12 @@ export default function SignupForm() {
   const onSubmit = async (formData: SignupFormData) => {
     try {
       validateSignupData(formData);
-      const { data } = await axios.post(`${BASE_URL}/users`, formData);
+      const { email, password } = formData;
+      const request = { email, password };
+      const { data } = await axios.post(`${BASE_URL}/users`, request);
       console.log(data);
-      router.push("/");
+      alert("가입이 완료되었습니다!");
+      router.push("/signin");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const { message } = error.response.data;
@@ -82,7 +87,7 @@ export default function SignupForm() {
           },
         })}
       />
-      <UserTypeSelect />
+      <UserTypeSelect type={type} setType={setType} />
       <Button btnColorType="orange">가입하기</Button>
     </form>
   );

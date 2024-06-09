@@ -11,9 +11,20 @@ export const submitShopForm = async (formData: FormData) => {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.error("Shop form submission error:", error);
+    throw error;
+  }
+};
+
+export const fetchShopData = async (shopId: string) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/shops/${shopId}`);
+    console.log(response);
+    return response;
+  } catch (error) {
+    console.error("Shop data fetching failed:", error);
     throw error;
   }
 };

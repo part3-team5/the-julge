@@ -38,9 +38,9 @@ export default function SignupForm() {
     try {
       validateSignupData(formData);
       const { email, password } = formData;
-      const request = { email, password };
-      const { data } = await axios.post(`${BASE_URL}/users`, request);
-      console.log(data);
+      const request = { email, password, type };
+      await axios.post(`${BASE_URL}/users`, request);
+
       alert("가입이 완료되었습니다!");
       router.push("/signin");
     } catch (error) {
@@ -49,6 +49,8 @@ export default function SignupForm() {
         alert(message);
       } else if (error instanceof TypeError) {
         alert(error.message);
+      } else if (error instanceof ReferenceError) {
+        setError("passwordCheck", { message: error.message });
       }
     }
   };

@@ -3,25 +3,29 @@ import { useForm } from "react-hook-form";
 import styles from "./RegisterNotice.module.scss";
 import Input from "../Input";
 import Button from "../Button";
-// import Image from "next/image";
+import { useState } from "react";
+import Image from "next/image";
+import { RegisterNoticeProps } from "./RegisterNotice.types";
 
 const cx = classNames.bind(styles);
 
-export default function Register() {
+const Register: React.FC<RegisterNoticeProps> = ({ onClose, onSubmit }) => {
+  const [shopData, setShopData] = useState<FormData | null>(null);
+
   const { register } = useForm();
 
   return (
     <main className={cx(["profile"], ["main"])}>
       <div className={cx("header")}>
         <h1 className={cx("title")}>공고 등록</h1>
-        {/* <Image
-            src="/image/icon/shop_close.svg"
-            width={32}
-            height={32}
-            alt="close button"
-            onClick={onClose}
-            className={cx("close-button")}
-          /> */}
+        <Image
+          src="/image/icon/shop_close.svg"
+          width={32}
+          height={32}
+          alt="close button"
+          onClick={onClose}
+          className={cx("close-button")}
+        />
       </div>
       <form className={cx("form")}>
         <div className={cx("input-wrapper")}>
@@ -81,4 +85,6 @@ export default function Register() {
         )} */}
     </main>
   );
-}
+};
+
+export default Register;

@@ -7,6 +7,7 @@ import axios from "axios";
 import { useState } from "react";
 import { BASE_URL } from "@/constants/constants";
 import ShopView from "@/components/Shop/ShopView";
+import ShopEdit from "@/components/Shop/ShopEdit";
 
 const fetchUserInfo = async (token: string, userId: string) => {
   try {
@@ -24,6 +25,7 @@ const fetchUserInfo = async (token: string, userId: string) => {
 
 const MyShop = () => {
   const [showShopForm, setShowShopForm] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [employer, setEmployer] = useRecoilState(employerAtom);
 
   useEffect(() => {
@@ -56,12 +58,22 @@ const MyShop = () => {
     setShowShopForm(false);
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCloseEdit = () => {
+    setIsEditing(false);
+  };
+
   return (
     <>
       {showShopForm ? (
         <ShopForm onClose={handleCloseShopForm} />
+      ) : isEditing ? (
+        <ShopEdit onClose={handleCloseEdit} />
       ) : isShopRegistered ? (
-        <ShopView onClose={handleCloseShopForm} />
+        <ShopView onEdit={handleEditClick} />
       ) : (
         <ShopEmpty onClick={handleShopButtonClick} />
       )}

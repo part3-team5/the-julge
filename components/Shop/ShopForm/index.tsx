@@ -58,7 +58,7 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
 
     try {
       const response = await submitShopForm(formData);
-      if (response.ok) {
+      if (response.status === 200) {
         setModalData({
           modalType: "alert",
           content: "등록이 완료되었습니다.",

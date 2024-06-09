@@ -16,7 +16,7 @@ import styles from "./SignupForm.module.scss";
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,16}$/;
 
-const BASE_URL = "https://bootcamp-api.codeit.kr/api/3-3/the-julge";
+const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
 
 export default function SignupForm() {
   const [type, setType] = useState<UserType>(UserType.PART_TIME);

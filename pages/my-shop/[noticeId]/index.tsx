@@ -12,48 +12,58 @@ import { useModal } from "@/hooks/useModal";
 const cx = classNames.bind(styles);
 
 const testShopId = "9091b6fc-c968-41c8-ba34-a4b90dd5a603";
-const testNoticeId = "64149551-3056-4cdf-99f0-2834e5ff9cd4";
+const testNoticeId = "7f80319a-e354-4036-be58-6749227b13af";
 
 const DetailedMyShopNotice = () => {
-  const { noticeShopData, noticeLinksData } = useGetDetailedNotice(
-    testShopId,
-    testNoticeId
-  );
-
+  const { noticeShopData } = useGetDetailedNotice(testShopId, testNoticeId);
+  const { openModal, closeModal } = useModal();
   const [applicantList, setApplicantList] = useState<IApplicant[]>();
 
   useEffect(() => {
-    if (noticeLinksData) {
-      const handleGetData = async () => {
-        const data = await getApplicantList(noticeLinksData[2]);
-
-        if (data.count > 0) {
-          const filteredItems = data.items.map(
-            ({ item }: IApplicantGetApiData) => ({
-              id: item.id,
-              status: item.status,
-              user: item.user.item,
-            })
-          );
-
-          setApplicantList(filteredItems);
-        }
-      };
-
-      handleGetData();
+    if (noticeShopData) {
+      handleApplicantGetData();
     }
-  }, [noticeLinksData]);
+  }, [noticeShopData]);
 
-  const handleStatusClick = async (status: string, applicationId: string) => {
+  const handleApplicantGetData = async () => {
+    const data = await getApplicantList(testShopId, testNoticeId);
+
+    if (data.count > 0) {
+      const filteredItems = data.items.map(
+        ({ item }: IApplicantGetApiData) => ({
+          id: item.id,
+          status: item.status,
+          user: item.user.item,
+        })
+      );
+
+      setApplicantList(filteredItems);
+    }
+  };
+
+  const handleStatusClick = (status: string, applicationId: string) => {
+    const modalText = status === "accepted" ? "승인" : "거절";
+    openModal({
+      modalType: "select",
+      content: `신청을 ${modalText}하시겠어요?`,
+      btnName: ["아니오", `${modalText}하기`],
+      callBackFnc: () => handleStateCallback(status, applicationId),
+    });
+  };
+
+  const handleStateCallback = async (status: string, applicationId: string) => {
     const urlIdObj = {
       shopId: testShopId,
       noticeId: testNoticeId,
       applicationId: applicationId,
     };
+
     const response = await putApplicationStatus(status, urlIdObj);
 
     if (response?.status === 200) {
       alert("성공");
+      closeModal();
+      handleApplicantGetData();
     }
   };
 

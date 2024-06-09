@@ -24,7 +24,6 @@ export const useGetDetailedNotice = (
       originalHourlyPay: 0,
     },
   });
-  const [noticeLinksData, setNoticeLinksData] = useState<INoticeLinks[]>();
 
   useEffect(() => {
     if (shopId && noticeId) {
@@ -51,9 +50,7 @@ export const useGetDetailedNotice = (
               originalHourlyPay: resultItem.shop.item.originalHourlyPay,
             },
           });
-
-          const resultLink = data.links;
-          setNoticeLinksData(resultLink);
+          console.log("datadata :::", data);
         }
       };
 
@@ -61,5 +58,5 @@ export const useGetDetailedNotice = (
     }
   }, [shopId, noticeId]);
 
-  return { noticeShopData, noticeLinksData };
+  return { noticeShopData };
 };

@@ -20,11 +20,13 @@ export const getNoticeDetailedData = async (
   return res?.data;
 };
 
-export const getApplicantList = async (linkData: INoticeLinks) => {
+export const getApplicantList = async (shopId: string, noticeId: string) => {
   let res;
 
   try {
-    res = await axios.get(BASE_URL + linkData.href);
+    res = await axios.get(
+      `${BASE_API_URL}/shops/${shopId}/notices/${noticeId}/applications`
+    );
   } catch (error) {
     if (axios.isAxiosError(error)) {
       alert(error);

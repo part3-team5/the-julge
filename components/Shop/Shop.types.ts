@@ -5,7 +5,8 @@ export interface ShopEmptyProps {
 }
 
 export interface ShopFormProps {
-  onClose: () => void;
+  onClose?: () => void;
+  onEdit?: () => void;
 }
 
 export interface FormData {
@@ -14,6 +15,6 @@ export interface FormData {
   address1: string;
   address2: string;
   description: string;
-  imageUrl: string | null;
+  imageUrl: string;
   originalHourlyPay: number;
 }

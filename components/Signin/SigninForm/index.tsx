@@ -36,8 +36,14 @@ const SigninForm: React.FC = () => {
 
     try {
       const { data } = await axios.post(`${BASE_URL}/token`, formData);
-      const { token } = data.item;
+      const { token, user } = data.item;
+      const userId = user.item.id;
+
       localStorage.setItem("accessToken", token);
+      localStorage.setItem("userId", userId);
+      console.log("token: ", token);
+      console.log("userId: ", userId);
+
       router.push("/");
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

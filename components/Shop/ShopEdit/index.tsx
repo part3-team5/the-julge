@@ -5,7 +5,7 @@ import { ShopFormProps } from "../Shop.types";
 
 const cx = classNames.bind(styles);
 
-const ShopView: React.FC<ShopFormProps> = ({ onClose }) => {
+const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
   return (
     <div className={cx("container")}>
       <main className={cx("profile", "main")}>
@@ -20,10 +20,10 @@ const ShopView: React.FC<ShopFormProps> = ({ onClose }) => {
             className={cx("close-button")}
           />
         </div>
-        <h2>가게 정보 조회 화면 구현 要</h2>
+        <h2>가게 정보 수정 화면 구현 要</h2>
       </main>
     </div>
   );
 };
 
-export default ShopView;
+export default ShopEdit;

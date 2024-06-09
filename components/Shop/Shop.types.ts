@@ -14,6 +14,6 @@ export interface FormData {
   address1: string;
   address2: string;
   description: string;
-  imageUrl: string | null;
+  imageUrl: string;
   originalHourlyPay: number;
 }

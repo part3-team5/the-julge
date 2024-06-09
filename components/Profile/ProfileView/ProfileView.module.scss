@@ -1,0 +1,117 @@
+@import "@/styles/const.scss";
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile {
+  max-width: 964px;
+  margin: 0 auto;
+  padding: 60px 0;
+  height: 395px;
+  display: flex;
+
+  @media (max-width: $TABLET) {
+    padding: 40px 32px;
+    flex-direction: column;
+  }
+
+  @media (max-width: $MOBILE) {
+    padding: 40px 12px;
+    flex-direction: column;
+  }
+}
+
+.header {
+  width: 30%;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+  @media (max-width: $MOBILE) {
+    font-size: 20px;
+  }
+}
+.info-wrapper {
+  width: 70%;
+  height: 100%;
+  background-color: var(--red10);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+
+  @media (max-width: $TABLET) {
+    width: 100%;
+  }
+
+  @media (max-width: $MOBILE) {
+  }
+}
+.info {
+  @include flex-column;
+  width: 70%;
+  height: 100%;
+  gap: 28px;
+}
+.details {
+  @include flex-column;
+  gap: 12px;
+}
+.detail-name {
+  @include flex-column;
+  gap: 12px;
+}
+.name-section {
+  @include flex-column;
+  gap: 8px;
+}
+.name {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+}
+.my-name {
+  font-weight: 700;
+  font-size: 28px;
+}
+.detail {
+  color: var(--gray50);
+  display: flex;
+  gap: 6px;
+}
+.bio-wrapper {
+  height: 100%;
+}
+.bio {
+  height: 100%;
+  font-size: 16px;
+  font-weight: 400;
+  overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    scrollbar-width: 4px;
+    background-color: #7d7986;
+    border-radius: 4px;
+  }
+}
+
+.button {
+  cursor: pointer;
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 700;
+  width: 169px;
+  height: 48px;
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  background-color: var(--white);
+}

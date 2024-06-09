@@ -8,6 +8,7 @@ import { getApplicantList, putApplicationStatus } from "@/api/notice";
 import phoneInsertHyphen from "@/utils/phoneInsertHyphen";
 import { IApplicant, IApplicantGetApiData } from "./DetailedMyShopNotice.types";
 import { useModal } from "@/hooks/useModal";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,16 @@ const testShopId = "9091b6fc-c968-41c8-ba34-a4b90dd5a603";
 const testNoticeId = "7f80319a-e354-4036-be58-6749227b13af";
 
 const DetailedMyShopNotice = () => {
+  // 페이지네이션 예시를 위해 잠시 남겨놓음
+  /*const router = useRouter();
+  const { page = 1, noticeId } = router.query;
+  const currentPage = parseInt(page as string, 10);
+  const postsPerPage = 5;
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentApplicants = APPLICANT.slice(indexOfFirstPost, indexOfLastPost);*/
+
   const { noticeShopData } = useGetDetailedNotice(testShopId, testNoticeId);
   const { openModal, closeModal } = useModal();
   const [applicantList, setApplicantList] = useState<IApplicant[]>();
@@ -124,7 +135,18 @@ const DetailedMyShopNotice = () => {
               ))}
 
             <li className={cx("list-footer")}>
-              <Pagination currentPage={1} totalPosts={2} postsPerPage={1} />
+              <Pagination
+                // currentPage={currentPage}
+                // totalPosts={APPLICANT.length}
+                // postsPerPage={postsPerPage}
+                // type="applicant"
+                // noticeId={noticeId as string}
+                currentPage={1}
+                totalPosts={3}
+                postsPerPage={1}
+                type="applicant"
+                noticeId={testNoticeId}
+              />
             </li>
           </ul>
         </section>

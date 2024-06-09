@@ -1,9 +1,9 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./ImageUpload.module.scss";
 import Image from "next/image";
-import { uploadImage } from "@/api/ImageUpload";
+import { getPresignedUrl, uploadToS3 } from "@/api/ImageUpload";
 import classNames from "classnames/bind";
-import { ImageUploadProps, ImageData } from "./ImageUpload.types";
+import { ImageUploadProps } from "./ImageUpload.types";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +19,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageSelected }) => {
       reader.onloadend = () => {
         const previewUrl = reader.result as string;
         setPreview(previewUrl);
-        onImageSelected({ name: file.name, imageUrl: previewUrl });
+        onImageSelected({ name: file.name, file: file });
       };
       reader.readAsDataURL(file);
     }
@@ -32,13 +32,11 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onImageSelected }) => {
       return;
     }
 
-    const imageData: ImageData = {
-      name: selectedImage.name,
-      imageUrl: preview!,
-    };
-
     try {
-      const response = await uploadImage(imageData);
+      const { url } = await getPresignedUrl({ name: selectedImage.name });
+
+      await uploadToS3(url, selectedImage);
+
       alert("이미지 업로드 성공!");
     } catch (error) {
       console.error("이미지 업로드 실패:", error);

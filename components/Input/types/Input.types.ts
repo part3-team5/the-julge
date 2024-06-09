@@ -7,4 +7,5 @@ export type InputProps = {
   error?: FieldError;
   register: UseFormRegisterReturn;
   id?: string;
+  isTextArea?: boolean;
 };

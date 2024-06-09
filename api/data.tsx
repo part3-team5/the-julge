@@ -4,7 +4,7 @@ import React from "react";
 const PostNotice: React.FC = () => {
   const postNotice = async () => {
     const url =
-      "https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/75cd4be7-cfa9-48b9-b7c9-2ee070512bc5/notices";
+      "https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/d10c2dde-84bd-4d81-a4e9-387a09db8fff/notices";
 
     const accessToken = localStorage.getItem("accessToken");
     const data = {

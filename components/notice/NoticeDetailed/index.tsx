@@ -5,7 +5,7 @@ import clockIcon from "@/public/image/icon/clock-icon.svg";
 import pathIcon from "@/public/image/icon/path-icon.svg";
 import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
 import Image from "next/image";
-import { INoticeDataProps } from "@/types/NoticeDetail";
+import { INoticeDataProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 

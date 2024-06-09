@@ -4,21 +4,21 @@ import React from "react";
 const PostNotice: React.FC = () => {
   const postNotice = async () => {
     const url =
-      "https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/bf99042f-4735-443e-ae11-813d1868d45e/notices";
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzUwMWM4NC01MWYwLTRlYWYtOWFkMC0yZGJiMDdkODAxYTgiLCJpYXQiOjE3MTc1NjY3MDZ9.GlrLFPOD0YF6R0aAlCXblNpFhkLiLGOH2vchh0iI6KU";
+      "https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/75cd4be7-cfa9-48b9-b7c9-2ee070512bc5/notices";
+
+    const accessToken = localStorage.getItem("accessToken");
     const data = {
       hourlyPay: 999999999,
-      startsAt: "2024-06-06T00:00:00Z",
+      startsAt: "2024-07-30T00:00:00Z",
       workhour: 5,
-      description: "맛집이라고 헛소문나서 손님 많음 ㅜㅜ;;",
+      description: "하기 싫어요..",
     };
 
     try {
       const response = await fetch(url, {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
           Accept: "*/*",
         },

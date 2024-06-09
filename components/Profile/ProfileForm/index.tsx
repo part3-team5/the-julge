@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 
 import styles from "../Profile.module.scss";
-import { locations } from "@/constants/constants";
+import { LOCATIONS } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -102,7 +102,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
               선호 지역
             </label>
             <Dropdown
-              options={locations}
+              options={LOCATIONS}
               id="area"
               onChange={(value) => {
                 setValue("area", value);
@@ -127,10 +127,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
       </form>
       {showAlert && (
         <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
-          />
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
         </div>
       )}
     </main>

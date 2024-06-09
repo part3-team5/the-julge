@@ -16,6 +16,7 @@ const DropdownSmall: React.FC<DropdownSmallProps> = ({ onOptionSelect }) => {
     { value: "pay", name: "시급많은순" },
     { value: "hour", name: "시간적은순" },
     { value: "shop", name: "가나다순" },
+    { value: "new", name: "최신순" },
   ];
 
   const toggleDropdown = () => {

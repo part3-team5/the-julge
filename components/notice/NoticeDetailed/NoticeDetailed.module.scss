@@ -24,6 +24,10 @@
   font-size: 28px;
   font-weight: 700;
   line-height: 33.6px;
+  max-width: 900px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .notice-info {
@@ -67,6 +71,11 @@
   font-weight: 700;
   line-height: 33.6px;
   letter-spacing: 0.02em;
+
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .with-icon-wrap {

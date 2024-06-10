@@ -14,7 +14,7 @@ function ShopNotice() {
 
   const getNoticeData = async () => {
     try {
-      const response = await instance.get(`/shop/${shopId}/notices`);
+      const response = await instance.get(`/shops/${shopId}/notices`);
       if (response.status === 200) {
         setNoticeData(response.data);
       }

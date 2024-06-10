@@ -83,6 +83,15 @@
   line-height: 26px;
   height: 78px;
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--red30);
+    border-radius: 10px;
+  }
 }
 
 .notice-info--explain {

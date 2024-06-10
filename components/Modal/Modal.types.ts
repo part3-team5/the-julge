@@ -3,14 +3,14 @@ export interface IModal {
   modalType: "" | "alert" | "warning" | "select";
   content: JSX.Element | string;
   btnName: [string, string?];
-  callBackFnc?: () => any;
+  callBackFnc?: () => any | Promise<any>;
 }
 
 export interface IModalProps {
   modalType: "" | "alert" | "warning" | "select";
   content: JSX.Element | string;
   btnName: [string, string?];
-  callBackFnc?: () => any;
+  callBackFnc?: () => any | Promise<any>;
 }
 
 export interface IModalContentProps {

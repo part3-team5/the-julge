@@ -1,30 +1,36 @@
-// 공고 목록에서만 쓰이는 작은 Dropdown
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import Image from "next/image";
 import styles from "./DropdownSmall.module.scss";
 import ArrowUpIcon from "@/public/image/icon/ArrowUp.svg";
 import ArrowDownIcon from "@/public/image/icon/ArrowDown.svg";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import { DropdownSmallProps } from "./DropdownSmall.types";
 
-function DropdownSmall() {
-  const [selectedOption, setSelectedOption] = useState("마감임박순");
-  const [isOpen, setIsOpen] = useState(false);
+const DropdownSmall: React.FC<DropdownSmallProps> = ({ onOptionSelect }) => {
+  const [selectedOption, setSelectedOption] = useState<string>("time");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const options = ["마감임박순", "시급많은순", "시간적은순", "가나다순"];
+  const options = [
+    { value: "time", name: "마감임박순" },
+    { value: "pay", name: "시급많은순" },
+    { value: "hour", name: "시간적은순" },
+    { value: "shop", name: "가나다순" },
+    { value: "new", name: "최신순" },
+  ];
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+  const handleOptionClick = (optionValue: string) => {
+    setSelectedOption(optionValue);
+    onOptionSelect(optionValue);
     setIsOpen(false);
   };
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
-  // Enter, SpaceBar 키로 onClick 이벤트처럼 사용 => UX 및 접근성 향상
   const handleEnterKeyPress = useCallback(
     (event: React.KeyboardEvent) => {
       if (event.key === "Enter" || event.key === " ") {
@@ -35,9 +41,9 @@ function DropdownSmall() {
   );
 
   const handleOptionKeyPress = useCallback(
-    (event: React.KeyboardEvent, option: string) => {
-      if (event.key === "Enter") {
-        handleOptionClick(option);
+    (event: React.KeyboardEvent, optionValue: string) => {
+      if (event.key === "Enter" || event.key === " ") {
+        handleOptionClick(optionValue);
       }
     },
     [handleOptionClick]
@@ -50,14 +56,18 @@ function DropdownSmall() {
         onClick={toggleDropdown}
         onKeyDown={handleEnterKeyPress}
         tabIndex={0}
+        role="button"
+        aria-haspopup="listbox"
+        aria-expanded={isOpen}
       >
         <input
           type="text"
           className={styles["dropdown__input"]}
-          value={selectedOption}
+          value={options.find((option) => option.value === selectedOption)?.name || ""}
           readOnly
           onMouseDown={(e) => e.preventDefault()}
           tabIndex={-1}
+          aria-label="Selected option"
         />
         {isOpen ? (
           <Image
@@ -78,23 +88,24 @@ function DropdownSmall() {
         )}
       </div>
       {isOpen && (
-        <ul className={styles["dropdown__optionBox"]}>
-          {options.map((option) => (
+        <ul className={styles["dropdown__optionBox"]} role="listbox">
+          {options.map(({ value, name }) => (
             <li
-              key={option}
+              key={value}
               className={styles["dropdown__option"]}
-              onClick={() => handleOptionClick(option)}
-              onKeyDown={(e) => handleOptionKeyPress(e, option)}
+              onClick={() => handleOptionClick(value)}
+              onKeyDown={(e) => handleOptionKeyPress(e, value)}
               tabIndex={0}
               role="option"
+              aria-selected={selectedOption === value}
             >
-              {option}
+              {name}
             </li>
           ))}
         </ul>
       )}
     </div>
   );
-}
+};
 
 export default DropdownSmall;

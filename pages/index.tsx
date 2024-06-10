@@ -1,3 +1,4 @@
+import PostNotice from "@/api/data";
 import CustomNoticeList from "@/components/notice/CustomNoticeList";
 import NoticeList from "@/components/notice/NoticeList";
 import Head from "next/head";
@@ -15,6 +16,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <CustomNoticeList />
+      <PostNotice />
       <NoticeList />
     </>
   );

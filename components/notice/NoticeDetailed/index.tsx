@@ -42,8 +42,8 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             src={shopData.shop.imageUrl}
             alt="가게 이미지"
           />
+          {isPast && <div className={cx("overlay")}>지난 공고</div>}
         </div>
-
         <div className={cx("notice-info--detail-wrap")}>
           <div className={cx("notice-info--detail")}>
             <div className={cx("notice-info--detail__salary")}>

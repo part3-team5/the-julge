@@ -15,10 +15,12 @@ const cx = classNames.bind(styles);
 
 interface FilterProps {
   onClose: () => void;
+  onApplyFilter: (locations: string[], date: Date | null, pay: number | null) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onClose }) => {
+const Filter: React.FC<FilterProps> = ({ onClose, onApplyFilter }) => {
   const initSelectedDate = new Date();
+  initSelectedDate.setDate(initSelectedDate.getDate() + 1);
   const initSelectedLocations: string[] = [];
   const initInputValue = "";
 
@@ -38,6 +40,10 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
     if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
       onClose();
     }
+  };
+
+  const handleApply = () => {
+    onApplyFilter(selectedLocations, selectedDate, inputValue ? parseInt(inputValue, 10) : null);
   };
 
   useEffect(() => {
@@ -165,7 +171,9 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
           </Button>
         </div>
         <div className={cx("filter__orangeBtn")}>
-          <Button btnColorType="orange">적용하기</Button>
+          <Button btnColorType="orange" onClick={handleApply}>
+            적용하기
+          </Button>
         </div>
       </div>
       <button className={cx("filter__close")} onClick={onClose}>

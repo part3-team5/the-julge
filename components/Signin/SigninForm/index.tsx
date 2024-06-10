@@ -11,6 +11,8 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 import { useRouter } from "next/router";
+import { useSetRecoilState } from "recoil";
+import { employerAtom } from "@/atoms/employerAtom";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 const passwordRegex = /^.{8,}$/;
@@ -24,6 +26,7 @@ const SigninForm: React.FC = () => {
     formState: { errors },
   } = useForm<SigninFormData>({ mode: "onChange" });
   const router = useRouter();
+  const setEmployerState = useSetRecoilState(employerAtom);
 
   const { email: emailError, password: passwordError } = errors;
 
@@ -37,12 +40,15 @@ const SigninForm: React.FC = () => {
     try {
       const { data } = await axios.post(`${BASE_URL}/token`, formData);
       const { token, user } = data.item;
-      const userId = user.item.id;
+      const { id, type, email, shopId } = user.item;
 
-      localStorage.setItem("accessToken", token);
-      localStorage.setItem("userId", userId);
-      console.log("token: ", token);
-      console.log("userId: ", userId);
+      // Recoil 상태에 저장
+      setEmployerState({
+        id,
+        email,
+        type,
+        shopId,
+      });
 
       router.push("/");
     } catch (error) {

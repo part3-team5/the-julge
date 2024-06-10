@@ -14,12 +14,8 @@ export interface NoticeData {
   description: string;
 }
 export interface NoticeFormData {
-  hourlyPay: number;
+  hourlyPay: string;
   startsAt: string;
-  workhour: number;
+  workhour: string;
   description: string;
-}
-
-export interface ShopNoticeViewProps {
-  noticeData: NoticeData | null;
 }

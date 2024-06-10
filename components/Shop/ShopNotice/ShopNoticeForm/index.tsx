@@ -1,8 +1,9 @@
+// components/Shop/ShopNotice/ShopNoticeForm.tsx
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import styles from "./ShopNoticeForm.module.scss";
-import Input from "../../../Input";
-import Button from "../../../Button";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
 import { useState } from "react";
 import Image from "next/image";
 import {
@@ -36,15 +37,19 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
   };
 
   const handleSubmitForm = async (data: NoticeFormData) => {
+    // startsAt의 양식을 맞추는 목적 ex) 2023-12-23T00:00:00Z
+    const startsAtDate = new Date(data.startsAt);
+    const formattedStartsAt = startsAtDate.toISOString();
+
     const body: NoticeData = {
-      hourlyPay: data.hourlyPay,
-      startsAt: data.startsAt,
-      workhour: data.workhour,
+      hourlyPay: parseInt(data.hourlyPay),
+      startsAt: formattedStartsAt,
+      workhour: parseInt(data.workhour),
       description: data.description,
     };
 
     try {
-      const response = await instance.post(`/shop/${shopId}/notices`, body);
+      const response = await instance.post(`/shops/${shopId}/notices`, body);
       if (response.status === 200) {
         setModalData({
           modalType: "alert",
@@ -53,17 +58,17 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
         });
         setShowAlert(true);
         onSubmit();
-        console.log("성공!");
+        console.log("성공", response.data);
       } else {
         alert("프로필 데이터를 제대로 입력해주세요.");
       }
     } catch (error) {
-      console.log("PUT Error:", error);
+      console.log("POST Error:", error);
     }
   };
 
   return (
-    <main className={cx(["profile"], ["main"])}>
+    <main className={cx(["notice"], ["main"])}>
       <div className={cx("header")}>
         <h1 className={cx("title")}>공고 등록</h1>
         <Image
@@ -80,7 +85,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
           <section className={cx("input__section")}>
             <Input
               label="시급"
-              type="text"
+              type="number"
               id="hourlyPay"
               register={register("hourlyPay", { required: true })}
               suffix="원"
@@ -99,7 +104,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
           <section className={cx("input-section")}>
             <Input
               label="업무 시간"
-              type="text"
+              type="number"
               id="workhour"
               register={register("workhour", {
                 required: true,

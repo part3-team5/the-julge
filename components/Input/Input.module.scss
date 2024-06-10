@@ -28,6 +28,12 @@
   background: var(--white);
   outline: none;
 
+  &[type="number"]::-webkit-inner-spin-button,
+  &[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
   &.error {
     border-color: var(--red40);
   }

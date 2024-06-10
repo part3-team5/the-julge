@@ -18,6 +18,15 @@
 .header {
   width: 30%;
 }
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+  @media (max-width: $MOBILE) {
+    font-size: 20px;
+  }
+}
 .notice {
   width: 964px;
   height: 217px;

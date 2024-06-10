@@ -1,8 +1,9 @@
+// components/Shop/ShopNotice/ShopNoticeForm.tsx
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import styles from "./ShopNoticeForm.module.scss";
-import Input from "../../../Input";
-import Button from "../../../Button";
+import Input from "@/components/Input";
+import Button from "@/components/Button";
 import { useState } from "react";
 import Image from "next/image";
 import {
@@ -67,7 +68,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
   };
 
   return (
-    <main className={cx(["profile"], ["main"])}>
+    <main className={cx(["notice"], ["main"])}>
       <div className={cx("header")}>
         <h1 className={cx("title")}>공고 등록</h1>
         <Image

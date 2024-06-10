@@ -21,5 +21,22 @@ export interface NoticeFormData {
 }
 
 export interface ShopNoticeViewProps {
-  noticeData: NoticeData | null;
+  noticeData: NoticeResponse | null;
+}
+
+export interface Item {
+  id: string;
+  hourlyPay: number;
+  startsAt: string;
+  workhour: number;
+  description: string;
+  closed: boolean;
+}
+export interface ItemWithLinks {
+  item: Item;
+  links: any[];
+}
+
+export interface NoticeResponse {
+  items: ItemWithLinks[];
 }

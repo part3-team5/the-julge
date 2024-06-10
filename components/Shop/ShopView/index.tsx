@@ -14,6 +14,8 @@ const cx = classNames.bind(styles);
 
 const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
   const [shopData, setShopData] = useState<FormData | null>(null);
+  const [showNoticeForm, setShowNoticeForm] = useState(false);
+
   const shopValue = useRecoilValue(employerAtom);
 
   useEffect(() => {
@@ -21,7 +23,6 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
       if (shopValue) {
         try {
           const response = await fetchShopData(shopValue.shopId);
-          console.log(shopValue);
           setShopData(response.data.item);
         } catch (error) {
           console.error("Fetching shop data failed:", error);
@@ -31,6 +32,10 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
 
     fetchAndSetShopData();
   }, [shopValue]);
+
+  const handleOpenNoticeForm = () => {
+    setShowNoticeForm(true);
+  };
 
   if (!shopData) {
     return (
@@ -82,14 +87,21 @@ const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
               >
                 편집하기
               </Button>
-              <Button btnColorType="orange" btnCustom="userNoticeDetailed">
+              <Button
+                btnColorType="orange"
+                btnCustom="userNoticeDetailed"
+                onClick={handleOpenNoticeForm}
+              >
                 공고 등록하기
               </Button>
             </div>
           </div>
         </div>
       </div>
-      <ShopNotice />
+      <ShopNotice
+        showNoticeForm={showNoticeForm}
+        setShowNoticeForm={setShowNoticeForm}
+      />
     </div>
   );
 };

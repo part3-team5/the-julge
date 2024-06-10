@@ -4,17 +4,15 @@ import { ShopNoticeViewProps } from "../ShopNotice.types";
 function ShopNoticeView({ noticeData }: ShopNoticeViewProps) {
   return (
     <div>
-      <h2>공고 정보</h2>
-      {noticeData ? (
-        <div>
-          <p>시급: {noticeData.hourlyPay}원</p>
-          <p>시작 일시: {noticeData.startsAt}</p>
-          <p>업무 시간: {noticeData.workhour}시간</p>
-          <p>공고 설명: {noticeData.description}</p>
-        </div>
-      ) : (
-        <p>공고 정보가 없습니다.</p>
-      )}
+      {noticeData &&
+        noticeData.items.map((itemWithLinks) => (
+          <div key={itemWithLinks.item.id}>
+            <p>시급: {itemWithLinks.item.hourlyPay}</p>
+            <p>시작 시간: {itemWithLinks.item.startsAt}</p>
+            <p>근무 시간: {itemWithLinks.item.workhour}</p>
+            <h3>{itemWithLinks.item.description}</h3>
+          </div>
+        ))}
     </div>
   );
 }

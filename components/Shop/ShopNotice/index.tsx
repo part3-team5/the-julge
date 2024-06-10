@@ -6,15 +6,22 @@ import { instance } from "@/utils/instance";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 
-function ShopNotice() {
-  const [showForm, setShowForm] = useState(false);
-  const [noticeData, setNoticeData] = useState(null);
+import { NoticeResponse } from "./ShopNotice.types";
+interface ShopNoticeProps {
+  showNoticeForm: boolean;
+  setShowNoticeForm: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function ShopNotice({ showNoticeForm, setShowNoticeForm }: ShopNoticeProps) {
+  const [noticeData, setNoticeData] = useState<NoticeResponse | null>(null);
   const shopValue = useRecoilValue(employerAtom);
   const shopId = shopValue.shopId;
 
   const getNoticeData = async () => {
     try {
-      const response = await instance.get(`/shops/${shopId}/notices`);
+      const response = await instance.get<NoticeResponse>(
+        `/shops/${shopId}/notices`
+      );
       if (response.status === 200) {
         setNoticeData(response.data);
       }
@@ -25,26 +32,26 @@ function ShopNotice() {
 
   useEffect(() => {
     getNoticeData();
-  }, []);
+  }, [shopId]);
 
   const handleOpenForm = () => {
-    setShowForm(true);
+    setShowNoticeForm(true);
   };
 
   const handleCloseForm = () => {
-    setShowForm(false);
+    setShowNoticeForm(false);
   };
 
   const handleSubmitForm = () => {
-    setShowForm(false);
+    setShowNoticeForm(false);
     getNoticeData();
   };
 
   return (
     <>
-      {showForm ? (
+      {showNoticeForm ? (
         <ShopNoticeForm onClose={handleCloseForm} onSubmit={handleSubmitForm} />
-      ) : noticeData ? (
+      ) : noticeData && noticeData.items.length > 0 ? (
         <ShopNoticeView noticeData={noticeData} />
       ) : (
         <ShopNoticeEmpty onClick={handleOpenForm} />

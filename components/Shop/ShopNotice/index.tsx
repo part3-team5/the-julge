@@ -5,8 +5,8 @@ import ShopNoticeView from "./ShopNoticeView";
 import { instance } from "@/utils/instance";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
-
 import { NoticeResponse } from "./ShopNotice.types";
+
 interface ShopNoticeProps {
   showNoticeForm: boolean;
   setShowNoticeForm: React.Dispatch<React.SetStateAction<boolean>>;

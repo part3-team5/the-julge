@@ -9,10 +9,14 @@ import { INoticeDataProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
+import { useState } from "react";
+import { postApplicant } from "@/api/notice";
 
 const cx = classNames.bind(styles);
 
 const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
+  const [isApplied, setIsApplied] = useState(false);
+
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
@@ -26,6 +30,18 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
     shopData.shop.originalHourlyPay,
     shopData.hourlyPay
   );
+
+  const handleApplyClick = async () => {
+    try {
+      const response = await postApplicant(shopData.shop.id, shopData.id);
+      if (response?.status === 201) {
+        setIsApplied(!isApplied);
+      }
+    } catch (error) {
+      console.error("신청 중 오류 발생:", error);
+    }
+  };
+
   return (
     <section className={cx("notice")}>
       <div className={cx("notice--head")}>
@@ -69,12 +85,17 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             </div>
             <p className={cx("notice-info__intro")}>{shopData.shop.description}</p>
           </div>
-          <Button btnColorType="orange" btnCustom="userNoticeDetailed">
-            신청하기
-          </Button>
+          {isApplied ? (
+            <Button btnColorType="white" btnCustom="userNoticeDetailed">
+              취소하기
+            </Button>
+          ) : (
+            <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={handleApplyClick}>
+              신청하기
+            </Button>
+          )}
         </div>
       </div>
-
       <div className={cx("notice-info--explain")}>
         <span className={cx("notice-info--explain__title")}>공고 설명</span>
         <p className={cx("notice-info--explain__content")}>{shopData.description}</p>

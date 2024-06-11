@@ -19,15 +19,18 @@ const DropdownSmall: React.FC<DropdownSmallProps> = ({ onOptionSelect }) => {
     { value: "new", name: "최신순" },
   ];
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleDropdown = useCallback(() => {
+    setIsOpen((prevIsOpen) => !prevIsOpen);
+  }, []);
 
-  const handleOptionClick = (optionValue: string) => {
-    setSelectedOption(optionValue);
-    onOptionSelect(optionValue);
-    setIsOpen(false);
-  };
+  const handleOptionClick = useCallback(
+    (optionValue: string) => {
+      setSelectedOption(optionValue);
+      onOptionSelect(optionValue);
+      setIsOpen(false);
+    },
+    [onOptionSelect]
+  );
 
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 

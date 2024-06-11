@@ -8,7 +8,7 @@ import { fetchShopData } from "@/api/myShop";
 import { useRecoilValue } from "recoil";
 import Spinner from "@/components/Spinner";
 import { employerAtom } from "@/atoms/employerAtom";
-import ShopNoticeEmpty from "../ShopNotice/ShopNoticeEmpty";
+import ShopNotice from "../ShopNotice";
 import ShopNoticeForm from "../ShopNotice/ShopNoticeForm";
 
 const cx = classNames.bind(styles);
@@ -109,7 +109,7 @@ const ShopView: React.FC<ShopViewProps> = ({ onEdit }) => {
               </div>
             </div>
           </div>
-          <ShopNoticeEmpty onClick={handleOpenNoticeForm} />
+          <ShopNotice onClick={handleOpenNoticeForm} />
         </>
       )}
     </div>

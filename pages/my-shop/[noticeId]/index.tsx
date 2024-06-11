@@ -19,9 +19,9 @@ const DetailedMyShopNotice = () => {
   // 페이지네이션 예시를 위해 잠시 남겨놓음
   // push 실험
   /*const router = useRouter();
-  const { page = 1, noticeId } = router.query;
+  const { page = 1, testNoticeId } = router.query;
   const currentPage = parseInt(page as string, 10);
-  const postsPerPage = 5;
+  const postsPerPage = 2;
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -87,18 +87,20 @@ const DetailedMyShopNotice = () => {
           <ul className={cx("list-wrap")}>
             <li className={cx("list-header")}>
               <div>신청자</div>
-              <div>소개</div>
-              <div>전화번호</div>
+              <div className={cx("intro")}>소개</div>
+              <div className={cx("phone")}>전화번호</div>
               <div>상태</div>
             </li>
             {applicantList &&
               applicantList.map((applicant: IApplicant) => (
                 <li className={cx("list-content")} key={applicant.id}>
-                  <div>{applicant.user.name}</div>
-                  <div>
+                  <div className={cx("name")}>{applicant.user.name}</div>
+                  <div className={cx("intro")}>
                     <p className={cx("bio")}>{applicant.user.bio}</p>
                   </div>
-                  <div>{phoneInsertHyphen(applicant.user.phone)}</div>
+                  <div className={cx("phone")}>
+                    {phoneInsertHyphen(applicant.user.phone)}
+                  </div>
                   <div>
                     <div className={cx("btn-wrap")}>
                       {applicant.status === "pending" && (

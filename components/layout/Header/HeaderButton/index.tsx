@@ -2,7 +2,7 @@ import React from "react";
 import UiButton from "../UiButton";
 import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
-import { HeaderButtonsProps } from "./HeaderButton.types";
+import { HeaderButtonsProps } from "../types/HeaderButton.types";
 
 export default function HeaderButtons({
   userType,

@@ -9,6 +9,7 @@ import { getMyNoticeList } from "@/api/notice";
 import { INoticeWithShopData } from "@/types/Notice";
 import { NoticeEmptyProps } from "./ShopNotice.types";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
+import Link from "next/link";
 
 const cx = classNames.bind(styles);
 
@@ -86,23 +87,25 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
         </div>
       </div> */}
       <div className={cx("my-notice-list")}>
-        {postList.map((item) => {
+        {postList.map((item, i) => {
           const increasePercent = calculateIncreasePercent(
             item.shop?.originalHourlyPay,
             item.hourlyPay
           );
 
           return (
-            <Post
-              key={item.id}
-              startsAt={item.startsAt}
-              workhour={item.workhour}
-              increasePercent={increasePercent}
-              shopName={item.shop?.name}
-              shopAddress1={item.shop?.address1}
-              hourlyPay={item.hourlyPay}
-              shopImageUrl={item.shop?.imageUrl}
-            />
+            <Link key={i} href={`/my-shop/${item.id}`}>
+              <Post
+                key={item.id}
+                startsAt={item.startsAt}
+                workhour={item.workhour}
+                increasePercent={increasePercent}
+                shopName={item.shop?.name}
+                shopAddress1={item.shop?.address1}
+                hourlyPay={item.hourlyPay}
+                shopImageUrl={item.shop?.imageUrl}
+              />
+            </Link>
           );
         })}
       </div>

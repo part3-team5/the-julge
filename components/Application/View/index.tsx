@@ -7,6 +7,7 @@ import { ApplicationItem } from "../Application.types";
 import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
 import Pagination from "@/components/Pagination";
+import { formatNumber } from "@/utils/numberFormat";
 
 const cx = classNames.bind(styles);
 
@@ -61,18 +62,20 @@ const ApplicationView = () => {
                   {formatDateTime(
                     application.item.notice.item.startsAt,
                     "time"
-                  )}{" "}
-                  ~{" "}
+                  )}
+                  ~
                   {formatDateTime(
                     calculateEndTime(
                       application.item.notice.item.startsAt,
                       application.item.notice.item.workhour
                     ).toISOString(),
                     "time"
-                  )}{" "}
+                  )}
                   ({application.item.notice.item.workhour}시간)
                 </div>
-                <div>{application.item.notice.item.hourlyPay}원</div>
+                <div>
+                  {formatNumber(application.item.notice.item.hourlyPay)}원
+                </div>
                 <div>
                   <div className={cx("btn-wrap")}>
                     <StateButton

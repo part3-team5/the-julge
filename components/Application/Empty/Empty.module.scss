@@ -1,0 +1,73 @@
+@import "@/styles/const.scss";
+
+.application {
+  max-width: 964px;
+  margin: 0 auto;
+  padding: 60px 0;
+  height: 395px;
+
+  @media (max-width: $TABLET) {
+    padding: 60px 32px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+
+  @media (max-width: $MOBILE) {
+    font-size: 20px;
+  }
+}
+
+.box {
+  border: 1px solid var(--gray20);
+  border-radius: 8px;
+  height: 275px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+
+  @media (max-width: $MOBILE) {
+    height: 195px;
+    padding: 50px 24px;
+  }
+}
+
+.description {
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: 20px;
+
+  @media (max-width: $MOBILE) {
+    font-size: 14px;
+  }
+}
+
+.button-wrapper {
+  width: 346px;
+  height: 47px;
+
+  @media (max-width: $MOBILE) {
+    width: 150px;
+    height: 37px;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 16px;
+}

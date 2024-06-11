@@ -1,9 +1,10 @@
+import Application from "@/components/Application";
 import { ProfileData } from "@/components/Profile/Profile.types";
 import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 import ProfileForm from "@/components/Profile/ProfileForm";
 import ProfileView from "@/components/Profile/ProfileView";
 import { instance } from "@/utils/instance";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 function Profile() {
   const [showProfileForm, setShowProfileForm] = useState(false);
@@ -16,7 +17,8 @@ function Profile() {
       setUserId(storedUserId);
     }
   }, []);
-  const fetchProfileData = async () => {
+
+  const getProfileData = useCallback(async () => {
     try {
       if (userId) {
         const response = await instance.get<{ item: ProfileData }>(
@@ -27,27 +29,11 @@ function Profile() {
     } catch (error) {
       console.log("GET Error:", error);
     }
-  };
-
-  useEffect(() => {
-    fetchProfileData();
   }, [userId]);
 
   useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        if (userId) {
-          const response = await instance.get<{ item: ProfileData }>(
-            `users/${userId}`
-          );
-          setProfileData(response.data.item);
-        }
-      } catch (error) {
-        console.log("GET Error :", error);
-      }
-    };
     getProfileData();
-  }, [userId]);
+  }, [userId, getProfileData]);
 
   const handleProfileButtonClick = () => {
     setShowProfileForm(true);
@@ -69,13 +55,14 @@ function Profile() {
       {showProfileForm ? (
         <ProfileForm
           onClose={handleCloseProfileForm}
-          onSubmit={fetchProfileData}
+          onSubmit={getProfileData}
         />
       ) : isProfileFilled ? (
         <ProfileView userId={userId} />
       ) : (
         <ProfileEmpty onClick={handleProfileButtonClick} />
       )}
+      <Application />
     </>
   );
 }

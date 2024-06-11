@@ -14,10 +14,7 @@ const Layout: React.FC<AppProps> = ({ children }) => {
   >("guest");
   return (
     <>
-      <Header userType={user} />
-      <button onClick={() => setUser("guest")}>로그인하지 않음</button>
-      <button onClick={() => setUser("employee")}>알바</button>
-      <button onClick={() => setUser("employer")}>사장</button>
+      <Header />
       {children}
       <Footer />
     </>

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./UiButton.module.scss";
-import { ButtonProps } from "./UiButton.types";
+import { ButtonProps } from "../types/UiButton.types";
 
 export default function UiButton({ name, id, handleClickButton }: ButtonProps) {
   const handleClickMovePage = () => {
@@ -8,11 +8,7 @@ export default function UiButton({ name, id, handleClickButton }: ButtonProps) {
   };
 
   return (
-    <button
-      className={styles.uiButton}
-      type="button"
-      onClick={handleClickMovePage}
-    >
+    <button className={styles.uiButton} type="button" onClick={handleClickMovePage}>
       {name}
     </button>
   );

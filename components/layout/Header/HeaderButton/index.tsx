@@ -2,7 +2,7 @@ import React from "react";
 import UiButton from "../UiButton";
 import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
-import { HeaderButtonsProps } from "./HeaderButton.types";
+import { HeaderButtonsProps } from "../types/HeaderButton.types";
 
 export default function HeaderButtons({
   userType,
@@ -27,27 +27,15 @@ export default function HeaderButtons({
       )}
       {userType === "employer" && (
         <>
-          <UiButton
-            name="내 가게"
-            handleClickButton={() => handleClickMovePage("my-shop")}
-          />
-          <UiButton
-            name="로그아웃"
-            handleClickButton={() => handleClickMovePage("my-shop")}
-          />
+          <UiButton name="내 가게" handleClickButton={() => handleClickMovePage("my-shop")} />
+          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
           <NotiButton activeStatus={hasNotification ? "active" : "inactive"} />
         </>
       )}
       {userType === "employee" && (
         <>
-          <UiButton
-            name="내 프로필"
-            handleClickButton={() => handleClickMovePage("my-profile")}
-          />
-          <UiButton
-            name="로그아웃"
-            handleClickButton={() => handleClickMovePage("my-shop")}
-          />
+          <UiButton name="내 프로필" handleClickButton={() => handleClickMovePage("my-profile")} />
+          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
           <NotiButton activeStatus={hasNotification ? "active" : "inactive"} />
         </>
       )}

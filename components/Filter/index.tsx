@@ -1,5 +1,5 @@
 // 전체 공고 내 상세 필터 버튼 및 모달
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Filter.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
@@ -36,11 +36,14 @@ const Filter: React.FC<FilterProps> = ({ onClose, onApplyFilter }) => {
     btnName: [""],
   });
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-      onClose();
-    }
-  };
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
   const handleApply = () => {
     onApplyFilter(selectedLocations, selectedDate, inputValue ? parseInt(inputValue, 10) : null);

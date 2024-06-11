@@ -103,7 +103,7 @@ const NoticeList: React.FC = () => {
     };
 
     loadNotices();
-  }, []);
+  }, [filteredAndSortedNotices]);
 
   useEffect(() => {
     filterAndSortNotices();
@@ -142,7 +142,7 @@ const NoticeList: React.FC = () => {
             );
 
             return (
-              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`}>
+              <Link key={notice.id} href={`/notices/${notice.shop.item.id}/${notice.id}`}>
                 <Post
                   key={notice.id}
                   startsAt={notice.startsAt}

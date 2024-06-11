@@ -17,6 +17,7 @@ const testNoticeId = "7f80319a-e354-4036-be58-6749227b13af";
 
 const DetailedMyShopNotice = () => {
   // 페이지네이션 예시를 위해 잠시 남겨놓음
+  // push 실험
   /*const router = useRouter();
   const { page = 1, noticeId } = router.query;
   const currentPage = parseInt(page as string, 10);
@@ -40,13 +41,11 @@ const DetailedMyShopNotice = () => {
     const data = await getApplicantList(testShopId, testNoticeId);
 
     if (data.count > 0) {
-      const filteredItems = data.items.map(
-        ({ item }: IApplicantGetApiData) => ({
-          id: item.id,
-          status: item.status,
-          user: item.user.item,
-        })
-      );
+      const filteredItems = data.items.map(({ item }: IApplicantGetApiData) => ({
+        id: item.id,
+        status: item.status,
+        user: item.user.item,
+      }));
 
       setApplicantList(filteredItems);
     }

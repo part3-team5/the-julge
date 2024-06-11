@@ -62,3 +62,22 @@ export const putApplicationStatus = async (
   }
   return res;
 };
+
+export interface FormData {
+  shopId: string;
+}
+
+export const getMyNoticeList = async (
+  shopId: string,
+  offset = 0,
+  limit = 6
+) => {
+  try {
+    const response = await axios.get(
+      `${BASE_API_URL}/shops/${shopId}/notices?offset=${offset}&limit=${limit}`
+    );
+    return response;
+  } catch (error) {
+    throw new Error("Failed to fetch data");
+  }
+};

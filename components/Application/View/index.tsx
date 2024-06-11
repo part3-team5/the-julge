@@ -7,7 +7,7 @@ import { ApplicationItem } from "../Application.types";
 import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
 import Pagination from "@/components/Pagination";
-import { formatNumber } from "@/utils/numberFormat";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 const cx = classNames.bind(styles);
 
@@ -74,7 +74,7 @@ const ApplicationView = () => {
                   ({application.item.notice.item.workhour}시간)
                 </div>
                 <div>
-                  {formatNumber(application.item.notice.item.hourlyPay)}원
+                  {formatCurrency(application.item.notice.item.hourlyPay)}원
                 </div>
                 <div>
                   <div className={cx("btn-wrap")}>

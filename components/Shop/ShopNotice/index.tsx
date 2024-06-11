@@ -8,54 +8,69 @@ import { employerAtom } from "@/atoms/employerAtom";
 import { getMyNoticeList } from "@/api/notice";
 import { INoticeWithShopData } from "@/types/Notice";
 import { NoticeEmptyProps } from "./ShopNotice.types";
+import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 
 const cx = classNames.bind(styles);
 
 const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
-  const [target, setTarget] = useState(null);
+  const targetRef = useRef(null);
+  const [hasNextData, setHasNextData] = useState(false);
+  const [offest, setOffset] = useState();
   const shopValue = useRecoilValue(employerAtom);
   const [postList, setPostList] = useState<INoticeWithShopData[]>([]);
-
-  // useEffect(() => {
-  //   if (!target) return;
-  //   let observer = new IntersectionObserver(handleAddList, { threshold: 0 });
-
-  //   observer.observe(target);
-  // }
-  // );
-  // }, [target]);
 
   useEffect(() => {
     if (!shopValue) return;
     handleGetMyNoticeList(shopValue.shopId);
   }, [shopValue]);
 
+  useEffect(() => {
+    if (!targetRef.current || !shopValue) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextData) {
+          handleGetMyNoticeList(shopValue.shopId);
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(targetRef.current);
+
+    if (!hasNextData) observer.unobserve(targetRef.current);
+
+    return () => observer.disconnect();
+  }, [targetRef, hasNextData]);
+
   const handleGetMyNoticeList = async (shopId: string) => {
     // const formData = new FormData();
     // formData.append("shopId", shopId);
 
-    const result = await getMyNoticeList(shopId);
-
-    const resultNoticeList = result.data.items.map(
+    const result = await getMyNoticeList(shopId, offest);
+    const resultNoticeList = result.items.map(
       (element: { item: INoticeWithShopData; links: any[] }) => {
-        //       element.item.shop = {
-        //         id: string;
-        // name: string;
-        // category: string;
-        // address1: string;
-        // address2: string;
-        // description: string;
-        // imageUrl: string;
-        // originalHourlyPay: number;
-        //       }
+        element.item.shop = {
+          id: shopValue.id,
+          name: shopValue.name,
+          category: shopValue.category,
+          address1: shopValue.address1,
+          address2: shopValue.address2,
+          description: shopValue.description,
+          imageUrl: shopValue.imageUrl,
+          originalHourlyPay: shopValue.originalHourlyPay,
+        };
         return element.item;
       }
     );
-    console.log(resultNoticeList);
+
     setPostList((prev) => {
-      return [...prev, resultNoticeList];
+      return [...prev, ...resultNoticeList];
     });
+    setHasNextData(result.hasNext);
+    setOffset(result.offset + result.limit);
   };
+  console.log(postList);
 
   return (
     <div className={cx("container")}>
@@ -71,21 +86,27 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
         </div>
       </div> */}
       <div className={cx("my-notice-list")}>
-        {/* {postList.map((item) => {
+        {postList.map((item) => {
+          const increasePercent = calculateIncreasePercent(
+            item.shop?.originalHourlyPay,
+            item.hourlyPay
+          );
+
           return (
             <Post
               key={item.id}
               startsAt={item.startsAt}
               workhour={item.workhour}
-              increasePercent={item.}
-              shopName={item.}
-              shopAddress1={item.}
+              increasePercent={increasePercent}
+              shopName={item.shop?.name}
+              shopAddress1={item.shop?.address1}
               hourlyPay={item.hourlyPay}
+              shopImageUrl={item.shop?.imageUrl}
             />
           );
-        })} */}
+        })}
       </div>
-      {/* <div ref={setTarget}>엔드포인트</div> */}
+      {hasNextData && <div ref={targetRef}>엔드포인트</div>}
     </div>
   );
 };

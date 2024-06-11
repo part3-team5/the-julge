@@ -6,29 +6,33 @@ import { useCallback, useEffect, useState } from "react";
 import { ApplicationItem } from "../Application.types";
 import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
-// import Pagination from "@/components/Pagination";
+import Pagination from "@/components/Pagination";
 
 const cx = classNames.bind(styles);
 
 const ApplicationView = () => {
   const [applicationList, setApplicationList] = useState<ApplicationItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [hasNext, setHasNext] = useState(false);
   const postsPerPage = 5;
 
   const getApplicationList = useCallback(async () => {
     const userId = localStorage.getItem("userId");
     try {
-      const response = await instance.get<{ items: ApplicationItem[] }>(
-        `/users/${userId}/applications`,
-        {
-          params: {
-            offset: (currentPage - 1) * postsPerPage,
-            limit: postsPerPage,
-          },
-        }
-      );
+      const response = await instance.get<{
+        count: number;
+        hasNext: boolean;
+        items: ApplicationItem[];
+      }>(`/users/${userId}/applications`, {
+        params: {
+          offset: (currentPage - 1) * postsPerPage,
+          limit: postsPerPage,
+        },
+      });
       setApplicationList(response.data.items);
-      console.log(response);
+      setTotalPosts(response.data.count);
+      setHasNext(response.data.hasNext);
     } catch (error) {
       console.log("GET ApplicationList Error :", error);
     }
@@ -78,6 +82,15 @@ const ApplicationView = () => {
                 </div>
               </li>
             ))}
+            <li className={cx("pagination-wrapper")}>
+              <Pagination
+                currentPage={currentPage}
+                totalPosts={totalPosts}
+                postsPerPage={postsPerPage}
+                type="profileNotice"
+                onPageChange={setCurrentPage}
+              />
+            </li>
           </ul>
         </section>
       </div>

@@ -5,11 +5,7 @@ import HeaderButton from "../HeaderButton";
 import SearchBar from "../SerchBar";
 import { GnbProps } from "../types/Gnb.types";
 
-export default function UiGnb({
-  userType,
-  hasNotification,
-  handleClickMovePage,
-}: GnbProps) {
+export default function UiGnb({ userType, handleClickMovePage }: GnbProps) {
   return (
     <div className={styles.gnbWrapper}>
       <a className={styles.logo} href="/">
@@ -19,7 +15,6 @@ export default function UiGnb({
       <HeaderButton
         userType={userType}
         handleClickMovePage={handleClickMovePage}
-        hasNotification={hasNotification}
       />
     </div>
   );

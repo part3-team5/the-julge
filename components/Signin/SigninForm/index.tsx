@@ -11,51 +11,42 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 import { useRouter } from "next/router";
-import { useSetRecoilState } from "recoil";
-import { employerAtom } from "@/atoms/employerAtom";
+import { useToast } from "@/components/Toast/ToastConenxt";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-const passwordRegex = /^.{8,}$/;
 
 const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
 
-const SigninForm: React.FC = () => {
+export default function SigninForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<SigninFormData>({ mode: "onChange" });
+  const { showToast } = useToast();
   const router = useRouter();
-  const setEmployerState = useSetRecoilState(employerAtom);
-
   const { email: emailError, password: passwordError } = errors;
 
   const onSubmit = async (formData: SigninFormData) => {
-    const isValid = validateSigninData(formData);
-    if (!isValid) {
-      alert(WRONG_INFORMATION);
+    if (!validateSigninData(formData)) {
+      showToast(WRONG_INFORMATION);
       return;
     }
 
     try {
       const { data } = await axios.post(`${BASE_URL}/token`, formData);
       const { token, user } = data.item;
-      const { id, type, email, shopId } = user.item;
+      const { id, type } = user.item;
 
-      // Recoil 상태에 저장
-      setEmployerState({
-        id,
-        email,
-        type,
-        shopId,
-      });
+      document.cookie = `jwt=Bearer ${token}; path=/`;
+      document.cookie = `id=${id}; path=/`;
+      document.cookie = `userType=${type}; path=/`;
 
       router.push("/");
-    } catch (error) {
-      if (axios.isAxiosError(error) && error.response) {
-        const { message } = error.response.data;
-        alert(message);
-      }
+    } catch (error: any) {
+      const message =
+        error.response?.data?.message || "An unexpected error occurred.";
+      showToast(message);
     }
   };
 
@@ -76,15 +67,10 @@ const SigninForm: React.FC = () => {
         error={passwordError}
         type="password"
         register={register("password", {
-          pattern: {
-            value: passwordRegex,
-            message: INVALID_PASSWORD,
-          },
+          required: "Password is required",
         })}
       />
       <Button btnColorType="orange">로그인</Button>
     </form>
   );
-};
-
-export default SigninForm;
+}

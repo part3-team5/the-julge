@@ -8,7 +8,7 @@ import { fetchShopData } from "@/api/myShop";
 import { useRecoilValue } from "recoil";
 import Spinner from "@/components/Spinner";
 import { employerAtom } from "@/atoms/employerAtom";
-import ShopNoticeEmpty from "../ShopNotice/ShopNoticeEmpty";
+import ShopNoticeEmpty from "../ShopEmpty";
 import ShopNoticeForm from "../ShopNotice/ShopNoticeForm";
 
 const cx = classNames.bind(styles);

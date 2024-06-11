@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ShopNoticeEmpty.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
-import { NoticeEmptyProps } from "../ShopNotice.types";
+import { NoticeEmptyProps } from "../ShopNotice/ShopNotice.types";
 
 const cx = classNames.bind(styles);
 

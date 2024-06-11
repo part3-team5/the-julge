@@ -1,11 +1,43 @@
 import styles from "./View.module.scss";
 import classNames from "classnames/bind";
-import Pagination from "@/components/Pagination";
 import StateButton from "../State";
+import { instance } from "@/utils/instance";
+import { useCallback, useEffect, useState } from "react";
+import { ApplicationItem } from "../Application.types";
+import { calculateEndTime, formatDateTime } from "@/utils/time";
+import { ApplicationStatus } from "../State/State.types";
+// import Pagination from "@/components/Pagination";
 
 const cx = classNames.bind(styles);
 
 const ApplicationView = () => {
+  const [applicationList, setApplicationList] = useState<ApplicationItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 5;
+
+  const getApplicationList = useCallback(async () => {
+    const userId = localStorage.getItem("userId");
+    try {
+      const response = await instance.get<{ items: ApplicationItem[] }>(
+        `/users/${userId}/applications`,
+        {
+          params: {
+            offset: (currentPage - 1) * postsPerPage,
+            limit: postsPerPage,
+          },
+        }
+      );
+      setApplicationList(response.data.items);
+      console.log(response);
+    } catch (error) {
+      console.log("GET ApplicationList Error :", error);
+    }
+  }, [currentPage, postsPerPage]);
+
+  useEffect(() => {
+    getApplicationList();
+  }, [getApplicationList]);
+
   return (
     <>
       <div className={cx("content-wrap")}>
@@ -18,51 +50,34 @@ const ApplicationView = () => {
               <div>시급</div>
               <div>상태</div>
             </li>
-            <li className={cx("list-content")}>
-              <div>가나다</div>
-              <div>2024-06-08 10:00~12:00(2시간)</div>
-              <div>15,000원</div>
-              <div>
-                <div className={cx("btn-wrap")}>
-                  <StateButton state={"approve"} />
+            {applicationList.map((application) => (
+              <li key={application.item.id} className={cx("list-content")}>
+                <div>{application.item.shop.item.name}</div>
+                <div>
+                  {formatDateTime(
+                    application.item.notice.item.startsAt,
+                    "time"
+                  )}{" "}
+                  ~{" "}
+                  {formatDateTime(
+                    calculateEndTime(
+                      application.item.notice.item.startsAt,
+                      application.item.notice.item.workhour
+                    ).toISOString(),
+                    "time"
+                  )}{" "}
+                  ({application.item.notice.item.workhour}시간)
                 </div>
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>라마바</div>
-              <div>2024-06-09 12:00~16:00(4시간)</div>
-              <div>20,000원</div>
-              <div>
-                <StateButton state={"refuse"} />
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>사아자</div>
-              <div>2024-06-10 16:00~22:00(6시간)</div>
-              <div>25,000원</div>
-              <div>
-                <StateButton state={"waiting"} />
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>차카타</div>
-              <div>2024-06-09 12:00~16:00(4시간)</div>
-              <div>15,000원</div>
-              <div>
-                <StateButton state={"refuse"} />
-              </div>
-            </li>
-            <li className={cx("list-content")}>
-              <div>파하하</div>
-              <div>2024-06-08 10:00~12:00(2시간)</div>
-              <div>10,000원</div>
-              <div>
-                <StateButton state={"approve"} />
-              </div>
-            </li>
-            <li className={cx("list-footer")}>
-              {/* <Pagination currentPage={1} totalPosts={7} postsPerPage={1} /> */}
-            </li>
+                <div>{application.item.notice.item.hourlyPay}원</div>
+                <div>
+                  <div className={cx("btn-wrap")}>
+                    <StateButton
+                      state={application.item.status as ApplicationStatus}
+                    />
+                  </div>
+                </div>
+              </li>
+            ))}
           </ul>
         </section>
       </div>

@@ -12,6 +12,9 @@ import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 import { useRouter } from "next/router";
 import { useToast } from "@/components/Toast/ToastConenxt";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { authState } from "@/atoms/userAtom";
+import { useEffect } from "react";
 
 const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
 
@@ -26,6 +29,13 @@ export default function SigninForm() {
   const { showToast } = useToast();
   const router = useRouter();
   const { email: emailError, password: passwordError } = errors;
+  const setAuthState = useSetRecoilState(authState);
+  const authStateValue = useRecoilValue(authState);
+
+  // Recoil 상태 콘솔 출력
+  useEffect(() => {
+    console.log("Current auth state:", authStateValue);
+  }, [authStateValue]);
 
   const onSubmit = async (formData: SigninFormData) => {
     if (!validateSigninData(formData)) {
@@ -41,6 +51,16 @@ export default function SigninForm() {
       document.cookie = `jwt=Bearer ${token}; path=/`;
       document.cookie = `id=${id}; path=/`;
       document.cookie = `userType=${type}; path=/`;
+
+      // Recoil 상태 업데이트
+      setAuthState({
+        isAuthenticated: true,
+        user: {
+          id,
+          type,
+          email: formData.email,
+        },
+      });
 
       router.push("/");
     } catch (error: any) {

@@ -28,3 +28,19 @@ export const fetchShopData = async (shopId: string) => {
     throw error;
   }
 };
+
+export const updateShopDetails = async (shopId: string, data: FormData) => {
+  const accessToken = localStorage.getItem("accessToken");
+  try {
+    const response = await axios.put(`${BASE_URL}/shops/${shopId}`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error("Shop data put failed:", error);
+    throw error;
+  }
+};

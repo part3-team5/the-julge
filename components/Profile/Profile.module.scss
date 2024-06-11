@@ -55,16 +55,6 @@
   }
 }
 
-.button-wrapper {
-  width: 346px;
-  height: 47px;
-
-  @media (max-width: $MOBILE) {
-    width: 150px;
-    height: 37px;
-  }
-}
-
 .profile.main {
   width: 100%;
   height: auto;

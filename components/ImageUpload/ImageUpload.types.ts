@@ -5,4 +5,5 @@ export interface ImageData {
 
 export interface ImageUploadProps {
   onImageSelected: (imageData: ImageData | null) => void;
+  existingImageUrl?: string;
 }

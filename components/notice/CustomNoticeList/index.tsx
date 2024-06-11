@@ -5,10 +5,12 @@ import classNames from "classnames/bind";
 import useResize from "@/hooks/useResize";
 import { TABLET } from "@/constants/constants";
 import { NoticeItem } from "@/types/types";
-import { fetchNoticeList } from "@/api/NoticeList";
+import { fetchNoticeList, fetchNoticesByAddress } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { profileAtom } from "@/atoms/profileAtom";
 
 const cx = classNames.bind(styles);
 
@@ -19,6 +21,8 @@ const CustomNoticeList = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(3);
   const isTablet = useResize(TABLET);
+  const userData = useRecoilValue(profileAtom);
+  const userAddress = userData.area;
 
   useEffect(() => {
     if (isTablet) {
@@ -28,7 +32,6 @@ const CustomNoticeList = () => {
     }
   }, [isTablet]);
 
-  // 3초마다 다음 공고로 자동 슬라이드
   const totalSlides = Math.ceil(notices.length / postsPerPage);
 
   useEffect(() => {
@@ -47,6 +50,7 @@ const CustomNoticeList = () => {
   useEffect(() => {
     const loadNotices = async () => {
       try {
+        //const data = await fetchNoticesByAddress(userAddress); 지역 선별 개선 필요
         const data = await fetchNoticeList();
         setNotices(data);
         setLoading(false);
@@ -57,7 +61,7 @@ const CustomNoticeList = () => {
     };
 
     loadNotices();
-  }, []);
+  }, [userAddress]);
 
   if (loading) {
     return <Spinner />;
@@ -79,9 +83,8 @@ const CustomNoticeList = () => {
             );
 
             return (
-              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`}>
+              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`} key={notice.id}>
                 <Post
-                  key={notice.id}
                   startsAt={notice.startsAt}
                   workhour={notice.workhour}
                   increasePercent={increasePercent}

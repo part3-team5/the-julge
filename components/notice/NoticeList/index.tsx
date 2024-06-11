@@ -16,11 +16,14 @@ const cx = classNames.bind(styles);
 
 const NoticeList: React.FC = () => {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
-  const [sortedNotices, setSortedNotices] = useState<NoticeItem[]>([]);
+  const [filteredAndSortedNotices, setFilteredAndSortedNotices] = useState<NoticeItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [sortOption, setSortOption] = useState("time");
+  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [minPay, setMinPay] = useState<number | null>(null);
 
   const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
     switch (option) {
@@ -42,6 +45,27 @@ const NoticeList: React.FC = () => {
     }
   };
 
+  const filterAndSortNotices = () => {
+    let filtered = [...notices];
+
+    if (selectedLocations.length > 0) {
+      filtered = filtered.filter((notice) => selectedLocations.includes(notice.shop.item.address1));
+    }
+
+    if (selectedDate) {
+      filtered = filtered.filter(
+        (notice) => new Date(notice.startsAt).getTime() >= selectedDate.getTime()
+      );
+    }
+
+    if (minPay !== null) {
+      filtered = filtered.filter((notice) => notice.hourlyPay >= minPay);
+    }
+
+    const sorted = sortNotices(filtered, sortOption);
+    setFilteredAndSortedNotices(sorted);
+  };
+
   const router = useRouter();
   const { page = 1 } = router.query;
   const currentPage = parseInt(page as string, 10);
@@ -55,9 +79,16 @@ const NoticeList: React.FC = () => {
     setIsFilterOpen(false);
   };
 
+  const handleApplyFilter = (locations: string[], date: Date | null, pay: number | null) => {
+    setSelectedLocations(locations);
+    setSelectedDate(date);
+    setMinPay(pay);
+    setIsFilterOpen(false);
+  };
+
   const startIndex = (currentPage - 1) * postsPerPage;
   const endIndex = startIndex + postsPerPage;
-  const currentPosts = sortedNotices.slice(startIndex, endIndex);
+  const currentPosts = filteredAndSortedNotices.slice(startIndex, endIndex);
 
   useEffect(() => {
     const loadNotices = async () => {
@@ -75,9 +106,8 @@ const NoticeList: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const sorted = sortNotices(notices, sortOption);
-    setSortedNotices(sorted);
-  }, [sortOption, notices]);
+    filterAndSortNotices();
+  }, [sortOption, selectedLocations, selectedDate, minPay, notices]);
 
   if (loading) {
     return <Spinner />;
@@ -98,12 +128,14 @@ const NoticeList: React.FC = () => {
               <button className={cx("filter__btn")} onClick={handleOpenFilter}>
                 상세 필터
               </button>
-              {isFilterOpen && <Filter onClose={handleCloseFilter} />}
+              {isFilterOpen && (
+                <Filter onClose={handleCloseFilter} onApplyFilter={handleApplyFilter} />
+              )}
             </div>
           </div>
         </div>
         <div className={cx("post__grid")}>
-          {currentPosts.map((notice) => {
+          {currentPosts.map((notice, index) => {
             const increasePercent = calculateIncreasePercent(
               notice.shop.item.originalHourlyPay,
               notice.hourlyPay
@@ -127,7 +159,7 @@ const NoticeList: React.FC = () => {
         </div>
         <Pagination
           currentPage={currentPage}
-          totalPosts={sortedNotices.length}
+          totalPosts={filteredAndSortedNotices.length}
           postsPerPage={postsPerPage}
           type="notice"
         />

@@ -10,8 +10,8 @@ import useOutsideClick from "@/hooks/useOutsideClick";
 
 const cx = classNames.bind(styles);
 
-function Dropdown({ options, id, onChange }: DropdownProps) {
-  const [selectedOption, setSelectedOption] = useState("선택");
+function Dropdown({ options, id, onChange, init = "선택" }: DropdownProps) {
+  const [selectedOption, setSelectedOption] = useState(init);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +28,7 @@ function Dropdown({ options, id, onChange }: DropdownProps) {
   useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   const inputClassName = cx("dropdown__input", {
-    "dropdown__input--selected": selectedOption !== "선택",
+    "dropdown__input--selected": selectedOption !== init,
   });
 
   return (
@@ -37,7 +37,7 @@ function Dropdown({ options, id, onChange }: DropdownProps) {
         <input
           type="text"
           className={inputClassName}
-          placeholder="선택"
+          placeholder={init}
           value={selectedOption}
           id={id}
           readOnly

@@ -1,17 +1,16 @@
 // 스웨거에서 공고 등록이 안되어서 임시로 만든 파일
 import React from "react";
 
-const PostNotice: React.FC = () => {
+const PostNotice = () => {
   const postNotice = async () => {
-    const url =
-      "https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/d10c2dde-84bd-4d81-a4e9-387a09db8fff/notices";
+    const url = `https://bootcamp-api.codeit.kr/api/0-1/the-julge/shops/b07b2624-20d3-4a40-9bb3-f8dc82c66f0a/notices`;
 
     const accessToken = localStorage.getItem("accessToken");
     const data = {
-      hourlyPay: 999999999,
-      startsAt: "2024-07-30T00:00:00Z",
+      hourlyPay: 20000,
+      startsAt: "2024-08-30T00:00:00Z",
       workhour: 5,
-      description: "하기 싫어요..",
+      description: "맛집이라고 헛소문나서 인기가 많아질 예정입니다... 많은 지원 부탁",
     };
 
     try {

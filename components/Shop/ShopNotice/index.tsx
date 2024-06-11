@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import styles from "../ShopView/ShopView.module.scss";
+import styles from "./ShopNotice.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
 import Post from "@/components/Post";
@@ -7,10 +7,11 @@ import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { getMyNoticeList } from "@/api/notice";
 import { INoticeWithShopData } from "@/types/Notice";
+import { NoticeEmptyProps } from "./ShopNotice.types";
 
 const cx = classNames.bind(styles);
 
-const ShopNotice = () => {
+const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
   const [target, setTarget] = useState(null);
   const shopValue = useRecoilValue(employerAtom);
   const [postList, setPostList] = useState<INoticeWithShopData[]>([]);
@@ -64,7 +65,7 @@ const ShopNotice = () => {
       {/* <div className={cx("notice")}>
         <div className={cx("notice-wrapper")}>
           <p>공고를 등록해 보세요.</p>
-          <Button btnColorType="orange" btnCustom="userNoticeDetailed">
+          <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={onClick}>
             공고 등록하기
           </Button>
         </div>

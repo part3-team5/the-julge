@@ -16,9 +16,7 @@ const cx = classNames.bind(styles);
 
 const NoticeList: React.FC = () => {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
-  const [filteredAndSortedNotices, setFilteredAndSortedNotices] = useState<
-    NoticeItem[]
-  >([]);
+  const [filteredAndSortedNotices, setFilteredAndSortedNotices] = useState<NoticeItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -34,19 +32,15 @@ const NoticeList: React.FC = () => {
       case "hour":
         return [...notices].sort((a, b) => a.workhour - b.workhour);
       case "shop":
-        return [...notices].sort((a, b) =>
-          a.shop.item.name.localeCompare(b.shop.item.name)
-        );
+        return [...notices].sort((a, b) => a.shop.item.name.localeCompare(b.shop.item.name));
       case "new":
         return [...notices].sort(
-          (a, b) =>
-            new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime()
+          (a, b) => new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime()
         );
       case "time":
       default:
         return [...notices].sort(
-          (a, b) =>
-            new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
+          (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
         );
     }
   };
@@ -55,15 +49,12 @@ const NoticeList: React.FC = () => {
     let filtered = [...notices];
 
     if (selectedLocations.length > 0) {
-      filtered = filtered.filter((notice) =>
-        selectedLocations.includes(notice.shop.item.address1)
-      );
+      filtered = filtered.filter((notice) => selectedLocations.includes(notice.shop.item.address1));
     }
 
     if (selectedDate) {
       filtered = filtered.filter(
-        (notice) =>
-          new Date(notice.startsAt).getTime() >= selectedDate.getTime()
+        (notice) => new Date(notice.startsAt).getTime() >= selectedDate.getTime()
       );
     }
 
@@ -88,11 +79,7 @@ const NoticeList: React.FC = () => {
     setIsFilterOpen(false);
   };
 
-  const handleApplyFilter = (
-    locations: string[],
-    date: Date | null,
-    pay: number | null
-  ) => {
+  const handleApplyFilter = (locations: string[], date: Date | null, pay: number | null) => {
     setSelectedLocations(locations);
     setSelectedDate(date);
     setMinPay(pay);
@@ -142,10 +129,7 @@ const NoticeList: React.FC = () => {
                 상세 필터
               </button>
               {isFilterOpen && (
-                <Filter
-                  onClose={handleCloseFilter}
-                  onApplyFilter={handleApplyFilter}
-                />
+                <Filter onClose={handleCloseFilter} onApplyFilter={handleApplyFilter} />
               )}
             </div>
           </div>
@@ -158,10 +142,7 @@ const NoticeList: React.FC = () => {
             );
 
             return (
-              <Link
-                key={notice.id}
-                href={`/notices/${notice.shop.item.id}/${notice.id}`}
-              >
+              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`}>
                 <Post
                   key={notice.id}
                   startsAt={notice.startsAt}

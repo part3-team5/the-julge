@@ -63,7 +63,7 @@ const DetailedNotice = () => {
                 );
 
                 return (
-                  <Link href={`/notices/${notice.shop.id}/${notice.id}`}>
+                  <Link key={notice.id} href={`/notices/${notice.shop.id}/${notice.id}`}>
                     <Post
                       key={notice.id}
                       startsAt={notice.startsAt}

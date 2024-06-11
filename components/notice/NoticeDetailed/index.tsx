@@ -8,10 +8,15 @@ import Image from "next/image";
 import { INoticeDataProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
+import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
+import { useState } from "react";
+import { postApplicant } from "@/api/notice";
 
 const cx = classNames.bind(styles);
 
 const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
+  const [isApplied, setIsApplied] = useState(false);
+
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
@@ -20,6 +25,22 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
   const endTimeFormatted = endTime.format("HH:mm");
   const duration = `${shopData.workhour}시간`;
+
+  const increasePercent = calculateIncreasePercent(
+    shopData.shop.originalHourlyPay,
+    shopData.hourlyPay
+  );
+
+  const handleApplyClick = async () => {
+    try {
+      const response = await postApplicant(shopData.shop.id, shopData.id);
+      if (response?.status === 201) {
+        setIsApplied(!isApplied);
+      }
+    } catch (error) {
+      console.error("신청 중 오류 발생:", error);
+    }
+  };
 
   return (
     <section className={cx("notice")}>
@@ -37,8 +58,8 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             src={shopData.shop.imageUrl}
             alt="가게 이미지"
           />
+          {isPast && <div className={cx("overlay")}>지난 공고</div>}
         </div>
-
         <div className={cx("notice-info--detail-wrap")}>
           <div className={cx("notice-info--detail")}>
             <div className={cx("notice-info--detail__salary")}>
@@ -48,38 +69,36 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
                   {formatCurrency(shopData.hourlyPay)}원
                 </span>
                 <div>
-                  <HourlyPayincreaseButton
-                    isPast={false}
-                    increasePercent={50}
-                  />
+                  {increasePercent >= 1 && (
+                    <HourlyPayincreaseButton isPast={isPast} increasePercent={increasePercent} />
+                  )}
                 </div>
               </div>
             </div>
             <div className={cx("with-icon-wrap")}>
               <Image src={clockIcon} alt="시계 아이콘" />
-              <span>
-                {`${startTimeFormatted}~${endTimeFormatted} (${duration})`}
-              </span>
+              <span>{`${startTimeFormatted}~${endTimeFormatted} (${duration})`}</span>
             </div>
             <div className={cx("with-icon-wrap")}>
               <Image src={pathIcon} alt="위치 아이콘" />
               <span>{shopData.shop.address1}</span>
             </div>
-            <p className={cx("notice-info__intro")}>
-              {shopData.shop.description}
-            </p>
+            <p className={cx("notice-info__intro")}>{shopData.shop.description}</p>
           </div>
-          <Button btnColorType="orange" btnCustom="userNoticeDetailed">
-            신청하기
-          </Button>
+          {isApplied ? (
+            <Button btnColorType="white" btnCustom="userNoticeDetailed">
+              취소하기
+            </Button>
+          ) : (
+            <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={handleApplyClick}>
+              신청하기
+            </Button>
+          )}
         </div>
       </div>
-
       <div className={cx("notice-info--explain")}>
         <span className={cx("notice-info--explain__title")}>공고 설명</span>
-        <p className={cx("notice-info--explain__content")}>
-          {shopData.description}
-        </p>
+        <p className={cx("notice-info--explain__content")}>{shopData.description}</p>
       </div>
     </section>
   );

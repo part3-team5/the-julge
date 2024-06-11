@@ -3,7 +3,7 @@ import styles from "./ShopView.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
 import Image from "next/image";
-import { FormData, ShopFormProps } from "../Shop.types";
+import { FormData, ShopViewProps } from "../Shop.types";
 import { fetchShopData } from "@/api/myShop";
 import { useRecoilValue } from "recoil";
 import Spinner from "@/components/Spinner";
@@ -13,7 +13,7 @@ import ShopNoticeForm from "../ShopNotice/ShopNoticeForm";
 
 const cx = classNames.bind(styles);
 
-const ShopView: React.FC<ShopFormProps> = ({ onEdit }) => {
+const ShopView: React.FC<ShopViewProps> = ({ onEdit }) => {
   const [shopData, setShopData] = useState<FormData | null>(null);
   const [showNoticeForm, setShowNoticeForm] = useState(false);
 

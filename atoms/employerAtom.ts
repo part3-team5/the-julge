@@ -9,5 +9,12 @@ export const employerAtom = atom({
     email: "",
     type: "",
     shopId: "",
+    name: "",
+    category: "",
+    address1: "",
+    address2: "",
+    description: "",
+    imageUrl: "",
+    originalHourlyPay: "",
   },
 });

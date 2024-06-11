@@ -37,3 +37,11 @@ const fetchNotices = async (
 export const fetchNoticeList = async (): Promise<NoticeItem[]> => {
   return fetchNotices();
 };
+
+export const fetchNoticesByAddress = async (userAddress: string): Promise<NoticeItem[]> => {
+  const allNotices = await fetchNoticeList();
+
+  const filteredNotices = allNotices.filter((notice) => notice.shop.item.address1 === userAddress);
+
+  return filteredNotices;
+};

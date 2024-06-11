@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import styles from "./ImageUpload.module.scss";
 import Image from "next/image";
 import { getPresignedUrl, uploadToS3 } from "@/api/ImageUpload";
@@ -7,9 +7,15 @@ import { ImageUploadProps } from "./ImageUpload.types";
 
 const cx = classNames.bind(styles);
 
-const ImageUpload: React.FC<ImageUploadProps> = ({ onImageSelected }) => {
+const ImageUpload: React.FC<ImageUploadProps> = ({ onImageSelected, existingImageUrl }) => {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (existingImageUrl) {
+      setPreview(existingImageUrl);
+    }
+  }, [existingImageUrl]);
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];

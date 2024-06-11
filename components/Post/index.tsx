@@ -30,23 +30,13 @@ const Post: React.FC<PostProps> = ({
   return (
     <div className={cx("post__container", { disabled: isPast })}>
       <div className={cx("postImage__container")}>
-        {shopImageUrl ? (
-          <Image
-            className={cx("postImage")}
-            src={shopImageUrl}
-            width={280}
-            height={160}
-            alt="공고 이미지"
-          />
-        ) : (
-          <Image
-            className={cx("postImage")}
-            src="/image/sample.jpg"
-            width={280}
-            height={160}
-            alt="공고 이미지"
-          />
-        )}
+        <Image
+          className={cx("postImage")}
+          src={shopImageUrl}
+          width={280}
+          height={160}
+          alt="공고 이미지"
+        />
         {isPast && <div className={cx("overlay")}>지난 공고</div>}
       </div>
       <p className={cx("postStoreText", { disabled: isPast })}>{shopName}</p>

@@ -8,15 +8,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { ko } from "date-fns/locale";
 import Button from "../Button";
+import { IModalProps } from "../Modal/Modal.types";
+import ConfirmModal from "../Modal/ModalContent/ConfirmModal";
 
 const cx = classNames.bind(styles);
 
 interface FilterProps {
   onClose: () => void;
+  onApplyFilter: (locations: string[], date: Date | null, pay: number | null) => void;
 }
 
-const Filter: React.FC<FilterProps> = ({ onClose }) => {
+const Filter: React.FC<FilterProps> = ({ onClose, onApplyFilter }) => {
   const initSelectedDate = new Date();
+  initSelectedDate.setDate(initSelectedDate.getDate() + 1);
   const initSelectedLocations: string[] = [];
   const initInputValue = "";
 
@@ -25,12 +29,21 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
   const [inputValue, setInputValue] = useState<string>(initInputValue);
   const [error, setError] = useState<string>("");
   const filterRef = useRef<HTMLDivElement>(null);
+  const [showAlert, setShowAlert] = useState(false);
+  const [modalData, setModalData] = useState<IModalProps>({
+    modalType: "",
+    content: "",
+    btnName: [""],
+  });
 
-  // 모달 바깥 요소 클릭 시 닫김
   const handleClickOutside = (event: MouseEvent) => {
     if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
       onClose();
     }
+  };
+
+  const handleApply = () => {
+    onApplyFilter(selectedLocations, selectedDate, inputValue ? parseInt(inputValue, 10) : null);
   };
 
   useEffect(() => {
@@ -40,10 +53,24 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
     };
   }, []);
 
-  const sortedLocations = LOCATIONS.slice().sort(); // 위치 목록 정렬
+  const sortedLocations = LOCATIONS.slice().sort();
 
-  const handleChangeDate = (date: Date | null) => {
-    setSelectedDate(date || initSelectedDate);
+  const handleChangeDate = (date: Date) => {
+    const currentDate = new Date();
+    if (date < currentDate) {
+      setModalData({
+        modalType: "alert",
+        content: "오늘 이후의 날짜를 선택하세요.",
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
+    } else {
+      setSelectedDate(date || initSelectedDate);
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   const handleSelectLocation = (location: string) => {
@@ -56,7 +83,6 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
     setSelectedLocations(selectedLocations.filter((loc) => loc !== location));
   };
 
-  // 금액 input에 숫자가 아닌 값 입력 시 error
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     if (!Number(value)) {
@@ -67,7 +93,6 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
     }
   };
 
-  // 초기화
   const handleReset = () => {
     setSelectedDate(initSelectedDate);
     setSelectedLocations(initSelectedLocations);
@@ -146,12 +171,19 @@ const Filter: React.FC<FilterProps> = ({ onClose }) => {
           </Button>
         </div>
         <div className={cx("filter__orangeBtn")}>
-          <Button btnColorType="orange">적용하기</Button>
+          <Button btnColorType="orange" onClick={handleApply}>
+            적용하기
+          </Button>
         </div>
       </div>
       <button className={cx("filter__close")} onClick={onClose}>
         <Image src="/image/icon/close.svg" width={24} height={24} alt="close button" />
       </button>
+      {showAlert && (
+        <div className={cx("overlay")}>
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
+        </div>
+      )}
     </div>
   );
 };

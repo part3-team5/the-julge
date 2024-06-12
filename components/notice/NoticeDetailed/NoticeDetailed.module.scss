@@ -37,6 +37,7 @@
   border-radius: 12px;
   @include flexBasicSet($gap: 8px);
   justify-content: space-between;
+  background-color: var(--white);
 }
 
 .notice-info__img {

@@ -2,7 +2,7 @@ import styles from "./DetailedMyShopNotice.module.scss";
 import classNames from "classnames/bind";
 import NoticeDetailed from "@/components/notice/NoticeDetailed";
 import { useGetDetailedNotice } from "@/hooks/useGetDetailedNotice";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getApplicantList, putApplicationStatus } from "@/api/notice";
 import { IApplicantGetApiData } from "./DetailedMyShopNotice.types";
 import { IApplicant } from "@/types/User";
@@ -25,13 +25,7 @@ const DetailedMyShopNotice = () => {
   const { openModal, closeModal } = useModal();
   const [applicantList, setApplicantList] = useState<IApplicant[]>([]);
 
-  useEffect(() => {
-    if (noticeShopData) {
-      handleApplicantGetData();
-    }
-  }, [noticeShopData]);
-
-  const handleApplicantGetData = async () => {
+  const handleApplicantGetData = useCallback(async () => {
     const res = await getApplicantList(shopId, noticeIdString);
 
     if (res.data.count > 0) {
@@ -45,7 +39,13 @@ const DetailedMyShopNotice = () => {
     } else {
       setApplicantList([]);
     }
-  };
+  }, [shopId, noticeIdString]);
+
+  useEffect(() => {
+    if (noticeShopData) {
+      handleApplicantGetData();
+    }
+  }, [noticeShopData, handleApplicantGetData]);
 
   const handleStatusClick = (status: string, applicationId: string) => {
     const modalText = status === "accepted" ? "승인" : "거절";

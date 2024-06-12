@@ -1,12 +1,21 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./NotiButtons.module.scss";
+import useCookie from "@/hooks/useCookies";
+import { useNoticesData } from "../hook/useUserQuery";
 
-export default function NotiButton({ activeStatus }: { activeStatus: string }) {
+export default function NotiButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { jwt, id } = useCookie();
+  const result = useNoticesData(id, jwt);
+  const activeStatus = result?.data?.count ? "active" : "inactive";
 
   const handleClickNoti = () => {
-    setIsModalOpen(!isModalOpen);
+    if (isModalOpen) {
+      setIsModalOpen(false);
+      return;
+    }
+    setIsModalOpen(true);
   };
 
   return (

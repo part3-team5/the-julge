@@ -75,6 +75,11 @@
   }
 }
 .pagination-wrapper {
+  @include flexBasicSet;
+  padding: 12px;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
 }
 .list-header {
   background-color: var(--red10);

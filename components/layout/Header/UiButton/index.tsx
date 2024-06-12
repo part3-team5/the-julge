@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./UiButton.module.scss";
-import { ButtonProps } from "./UiButton.types";
+import { ButtonProps } from "../types/UiButton.types";
 
 export default function UiButton({ name, id, handleClickButton }: ButtonProps) {
   const handleClickMovePage = () => {

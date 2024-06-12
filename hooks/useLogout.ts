@@ -13,4 +13,3 @@ export const deleteCookie = (router: {
     });
   }
 };
-export default deleteCookie;

@@ -99,11 +99,20 @@
 .my-name {
   font-weight: 700;
   font-size: 28px;
+  max-width: 350px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $TABLET) {
+    max-width: 900px;
+  }
 }
 .detail {
   color: var(--gray50);
   display: flex;
   gap: 6px;
+  align-items: center;
 }
 .notice-info__img {
   position: relative;
@@ -118,18 +127,23 @@
   }
 }
 .bio {
-  height: 100%;
+  line-height: 26px;
+  height: 130px;
   font-size: 16px;
   font-weight: 400;
+  overflow: auto;
 
   &::-webkit-scrollbar {
-    width: 4px;
+    width: 5px;
   }
 
   &::-webkit-scrollbar-thumb {
-    scrollbar-width: 4px;
-    background-color: #7d7986;
-    border-radius: 4px;
+    background-color: var(--red30);
+    border-radius: 10px;
+  }
+  @media (max-width: $MOBILE) {
+    height: 80px;
+    margin-bottom: 10px;
   }
 }
 .button-wrapper {

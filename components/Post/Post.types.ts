@@ -7,6 +7,6 @@ export interface PostProps {
   shopCategory?: string;
   shopAddress1: string;
   shopAddress2?: string;
-  shopImageUrl?: string;
+  shopImageUrl: string;
   hourlyPay: number;
 }

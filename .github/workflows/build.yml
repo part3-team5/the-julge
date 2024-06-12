@@ -1,0 +1,19 @@
+name: Build # workflow 의 이름
+
+on: push # workflow 의 실행 시점
+
+jobs:
+  build: # job 의 이름
+    runs-on: ubuntu-latest # 실행할 OS 환경
+    steps: # job 의 세부 단계
+      # step1 : 코드 체크아웃
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # step2 : Node.js 설치
+      - name: Install dependencies
+        run: npm install
+
+      # step3 : 빌드
+      - name: Build Next.js app
+        run: npm run build

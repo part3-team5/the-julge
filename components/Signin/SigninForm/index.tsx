@@ -46,12 +46,15 @@ export default function SigninForm() {
       document.cookie = `id=${id}; path=/`;
       document.cookie = `userType=${type}; path=/`;
 
+      // localStorage에 accessToken 저장
+      localStorage.setItem("accessToken", token);
+
       // Recoil 상태 업데이트
       setAuthState({
         isAuthenticated: true,
         user: {
-          id,
-          type,
+          id: id,
+          type: type,
           email: formData.email,
         },
       });

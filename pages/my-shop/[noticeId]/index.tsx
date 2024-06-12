@@ -4,13 +4,13 @@ import NoticeDetailed from "@/components/notice/NoticeDetailed";
 import { useGetDetailedNotice } from "@/hooks/useGetDetailedNotice";
 import { useEffect, useState, useCallback } from "react";
 import { getApplicantList, putApplicationStatus } from "@/api/notice";
-import { IApplicantGetApiData } from "./DetailedMyShopNotice.types";
 import { IApplicant } from "@/types/User";
 import { useModal } from "@/hooks/useModal";
 import ApplicationList from "@/components/notice/ApplicationList";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { useRouter } from "next/router";
+import { IApplicantGetApiData } from "@/types/MyShopNotice";
 
 const cx = classNames.bind(styles);
 

@@ -21,9 +21,3 @@ export interface IApplicantGetApiData {
     };
   };
 }
-
-export interface IApplicant {
-  id: string;
-  status: "pending" | "accepted" | "rejected" | "canceled";
-  user: IUserData;
-}

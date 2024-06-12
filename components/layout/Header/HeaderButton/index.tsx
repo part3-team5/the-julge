@@ -3,15 +3,17 @@ import UiButton from "../UiButton";
 import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
 import { HeaderButtonsProps } from "../types/HeaderButton.types";
+import { useRouter } from "next/router";
+import deleteCookie from "@/components/layout/Header/hook/useLogout";
 
 export default function HeaderButtons({
   userType,
-  hasNotification,
   handleClickMovePage,
 }: HeaderButtonsProps) {
+  const router = useRouter();
   return (
     <div className={styles.headerButtons}>
-      {userType === "guest" && (
+      {userType === "" && (
         <>
           <UiButton
             name="로그인"
@@ -33,9 +35,8 @@ export default function HeaderButtons({
           />
           <UiButton
             name="로그아웃"
-            handleClickButton={() => handleClickMovePage("my-shop")}
+            handleClickButton={() => deleteCookie(router)}
           />
-          <NotiButton activeStatus={hasNotification ? "active" : "inactive"} />
         </>
       )}
       {userType === "employee" && (
@@ -46,9 +47,9 @@ export default function HeaderButtons({
           />
           <UiButton
             name="로그아웃"
-            handleClickButton={() => handleClickMovePage("my-shop")}
+            handleClickButton={() => deleteCookie(router)}
           />
-          <NotiButton activeStatus={hasNotification ? "active" : "inactive"} />
+          <NotiButton />
         </>
       )}
     </div>

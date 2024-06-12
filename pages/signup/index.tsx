@@ -1,3 +1,10 @@
+import Image from "next/image";
+import logo from "@/public/image/logo.svg";
+import SignupForm from "@/components/Signup/SignupForm";
+import ToSignin from "@/components/Signup/ToSignin";
+import styles from "./Signup.module.scss";
+import Link from "next/link";
+
 export const getStaticProps = async () => {
   return {
     props: {
@@ -6,8 +13,16 @@ export const getStaticProps = async () => {
   };
 };
 
-const SignUp = () => {
-  return <div>SignUp 페이지</div>;
-};
-
-export default SignUp;
+export default function Signin() {
+  return (
+    <div className={styles.Container}>
+      <div className={styles.wrapper}>
+        <Link href="/">
+          <Image src={logo} alt="logo_button" width={208} height={38} />
+        </Link>
+        <SignupForm />
+        <ToSignin />
+      </div>
+    </div>
+  );
+}

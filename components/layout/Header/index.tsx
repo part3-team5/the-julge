@@ -1,43 +1,18 @@
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import UiGnb from "./Uignb";
+import { useState } from "react";
+import useCookie from "@/hooks/useCookies";
 
-interface GnbClientProps {
-  userType?: "guest" | "employee" | "employer";
-}
-
-export default function Gnb({ userType }: GnbClientProps) {
-  const [hasNotification, setHasNotification] = useState(false);
-  const [uType, setUType] = useState<
-    "guest" | "employee" | "employer" | undefined
-  >(userType);
+export default function Gnb() {
+  const { userType } = useCookie();
 
   const router = useRouter();
-
-  useEffect(() => {
-    if (userType === "employee") {
-      setHasNotification(true);
-    }
-    if (userType === "employer") {
-      setHasNotification(false);
-    }
-
-    setUType(userType);
-  }, [userType]);
-
-  const handleCheckNotification = () => {
-    setHasNotification(true);
-  };
 
   const handleClickMovePage = (pathname?: string) => {
     router.push(`/${pathname}`);
   };
 
   return (
-    <UiGnb
-      userType={uType}
-      hasNotification={hasNotification}
-      handleClickMovePage={handleClickMovePage}
-    />
+    <UiGnb userType={userType} handleClickMovePage={handleClickMovePage} />
   );
 }

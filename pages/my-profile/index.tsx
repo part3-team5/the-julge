@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import Application from "@/components/Application";
+import Application from "@/components/UserApplication";
 import ProfileEdit from "@/components/Profile/ProfileEdit";
 import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 import ProfileForm from "@/components/Profile/ProfileForm";

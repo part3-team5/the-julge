@@ -13,7 +13,9 @@
   display: flex;
 
   @media (max-width: $TABLET) {
-    padding: 40px 32px;
+    width: 680px;
+    // height : ;
+    padding: 40px 32px 0;
     flex-direction: column;
   }
 

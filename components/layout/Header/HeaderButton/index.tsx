@@ -27,17 +27,12 @@ export default function HeaderButtons({ userType, handleClickMovePage }: HeaderB
       {userType === "employer" && (
         <>
           <UiButton name="내 가게" handleClickButton={() => handleClickMovePage("my-shop")} />
-          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
-          <NotiButton />
-          <UiButton name="내 가게" handleClickButton={() => handleClickMovePage("my-shop")} />
           <UiButton name="로그아웃" handleClickButton={() => deleteCookie(router)} />
+          <NotiButton />
         </>
       )}
       {userType === "employee" && (
         <>
-          <UiButton name="내 프로필" handleClickButton={() => handleClickMovePage("my-profile")} />
-          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
-          <NotiButton />
           <UiButton name="내 프로필" handleClickButton={() => handleClickMovePage("my-profile")} />
           <UiButton name="로그아웃" handleClickButton={() => deleteCookie(router)} />
           <NotiButton />

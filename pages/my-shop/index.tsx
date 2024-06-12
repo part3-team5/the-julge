@@ -18,7 +18,7 @@ const MyShop = () => {
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     const userId = userData.user?.id;
-
+    console.log(userId);
     if (token && userId) {
       fetchUserInfo(token, userId).then((userInfo) => {
         if (userInfo) {

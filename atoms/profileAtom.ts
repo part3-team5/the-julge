@@ -6,6 +6,6 @@ export const profileAtom = atom({
     name: "",
     phoneNumber: "",
     area: "",
-    introduction: "",
+    bio: "",
   },
 });

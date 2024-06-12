@@ -4,4 +4,5 @@ export interface PaginationProps {
   postsPerPage: number;
   type: string;
   noticeId?: string;
+  onPageChange?: (page: number) => void;
 }

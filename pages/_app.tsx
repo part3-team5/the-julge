@@ -4,7 +4,20 @@ import type { AppProps } from "next/app";
 import Layout from "@/components/layout/Layout";
 import { RecoilRoot } from "recoil";
 import Modal from "@/components/Modal";
+import { ToastProvider } from "@/components/Toast/ToastConenxt";
+import { QueryClient, QueryClientProvider } from "react-query";
 import Head from "next/head";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: false,
+      retryDelay: 3000,
+    },
+  },
+});
 
 export default function App({ Component, pageProps }: AppProps) {
   let childContent: React.ReactNode;
@@ -30,8 +43,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <RecoilRoot>
-        {childContent}
-        <Modal />
+        <ToastProvider>
+          <QueryClientProvider client={queryClient}>
+            {childContent}
+            <Modal />
+          </QueryClientProvider>
+        </ToastProvider>
       </RecoilRoot>
     </>
   );

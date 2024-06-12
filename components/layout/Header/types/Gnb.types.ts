@@ -1,5 +1,4 @@
 export interface GnbProps {
-  userType?: "employee" | "employer" | "guest" | undefined;
-  hasNotification: boolean;
+  userType: string;
   handleClickMovePage: (pathname?: string) => void;
 }

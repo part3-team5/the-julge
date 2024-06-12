@@ -1,15 +1,18 @@
+import { useCallback, useEffect, useState } from "react";
+
 import Application from "@/components/Application";
-import { ProfileData } from "@/components/Profile/Profile.types";
+import ProfileEdit from "@/components/Profile/ProfileEdit";
 import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 import ProfileForm from "@/components/Profile/ProfileForm";
 import ProfileView from "@/components/Profile/ProfileView";
+import { ProfileData } from "@/components/Profile/Profile.types";
 import { instance } from "@/utils/instance";
-import { useCallback, useEffect, useState } from "react";
 
 function Profile() {
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [userId, setUserId] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
@@ -43,6 +46,14 @@ function Profile() {
     setShowProfileForm(false);
   };
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCloseEdit = () => {
+    setIsEditing(false);
+  };
+
   const isProfileFilled =
     profileData &&
     profileData.name &&
@@ -57,9 +68,11 @@ function Profile() {
           onClose={handleCloseProfileForm}
           onSubmit={getProfileData}
         />
+      ) : isEditing ? (
+        <ProfileEdit onClose={handleCloseEdit} onSubmit={getProfileData} />
       ) : isProfileFilled ? (
         <>
-          <ProfileView userId={userId} />
+          <ProfileView userId={userId} onEdit={handleEditClick} />
           <Application />
         </>
       ) : (

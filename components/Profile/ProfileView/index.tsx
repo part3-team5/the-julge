@@ -3,15 +3,17 @@ import { instance } from "@/utils/instance";
 import styles from "./ProfileView.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
-import { ProfileData } from "../Profile.types";
+import { ProfileData, ProfileViewProps } from "../Profile.types";
+import Spinner from "@/components/Spinner";
+import Button from "@/components/Button";
 
 const cx = classNames.bind(styles);
 
-function ProfileView({ userId }: { userId: string }) {
+function ProfileView({ userId, onEdit }: ProfileViewProps) {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const getProfileData = async () => {
       try {
         const response = await instance.get(`/users/${userId}`);
         setProfileData(response.data.item);
@@ -20,11 +22,15 @@ function ProfileView({ userId }: { userId: string }) {
       }
     };
 
-    fetchProfileData();
+    getProfileData();
   }, [userId]);
 
   if (!profileData) {
-    return <div>Loading...</div>;
+    return (
+      <div className={cx("loading")}>
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -63,7 +69,9 @@ function ProfileView({ userId }: { userId: string }) {
           </div>
         </div>
         <div className={cx("button-wrapper")}>
-          <button className={cx("button")}>편집하기</button>
+          <Button btnColorType="white" onClick={onEdit}>
+            편집하기
+          </Button>
         </div>
       </div>
     </div>

@@ -10,19 +10,22 @@ import { INoticeWithShopData } from "@/types/Notice";
 import { NoticeEmptyProps } from "./ShopNotice.types";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import Link from "next/link";
+import Spinner from "@/components/Spinner";
 
 const cx = classNames.bind(styles);
 
 const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
   const targetRef = useRef(null);
   const [hasNextData, setHasNextData] = useState(false);
-  const [offest, setOffset] = useState();
+  const [offset, setOffset] = useState(0);
   const shopValue = useRecoilValue(employerAtom);
   const [postList, setPostList] = useState<INoticeWithShopData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!shopValue) return;
-    handleGetMyNoticeList(shopValue.shopId);
+    handleGetMyNoticeList(shopValue.shopId, offset);
   }, [shopValue]);
 
   useEffect(() => {
@@ -31,7 +34,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && hasNextData) {
-          handleGetMyNoticeList(shopValue.shopId);
+          handleGetMyNoticeList(shopValue.shopId, offset);
         }
       },
       { threshold: 0 }
@@ -42,51 +45,62 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
     if (!hasNextData) observer.unobserve(targetRef.current);
 
     return () => observer.disconnect();
-  }, [targetRef, hasNextData]);
+  }, [targetRef, hasNextData, offset]);
 
-  const handleGetMyNoticeList = async (shopId: string) => {
-    // const formData = new FormData();
-    // formData.append("shopId", shopId);
+  const handleGetMyNoticeList = async (
+    shopId: string,
+    currentOffset: number
+  ) => {
+    try {
+      setLoading(true);
+      const result = await getMyNoticeList(shopId, currentOffset);
+      const resultNoticeList = result.items.map(
+        (element: { item: INoticeWithShopData; links: any[] }) => {
+          element.item.shop = {
+            id: shopValue.shopId,
+            name: shopValue.name,
+            category: shopValue.category,
+            address1: shopValue.address1,
+            address2: shopValue.address2,
+            description: shopValue.description,
+            imageUrl: shopValue.imageUrl,
+            originalHourlyPay: shopValue.originalHourlyPay,
+          };
+          return element.item;
+        }
+      );
 
-    const result = await getMyNoticeList(shopId, offest);
-    const resultNoticeList = result.items.map(
-      (element: { item: INoticeWithShopData; links: any[] }) => {
-        element.item.shop = {
-          id: shopValue.shopId,
-          name: shopValue.name,
-          category: shopValue.category,
-          address1: shopValue.address1,
-          address2: shopValue.address2,
-          description: shopValue.description,
-          imageUrl: shopValue.imageUrl,
-          originalHourlyPay: shopValue.originalHourlyPay,
-        };
-        return element.item;
-      }
-    );
-
-    setPostList((prev) => {
-      return [...prev, ...resultNoticeList];
-    });
-    setHasNextData(result.hasNext);
-    console.log("result.offset + result.limit::", result.offset + result.limit);
-    setOffset(result.offset + result.limit);
+      setPostList((prev) => {
+        return [...prev, ...resultNoticeList];
+      });
+      setHasNextData(result.hasNext);
+      setOffset((prevOffset) => prevOffset + result.limit);
+    } catch (e) {
+      setError("Failed to fetch data");
+    } finally {
+      setLoading(false);
+    }
   };
-  console.log(postList);
 
   return (
     <div className={cx("container")}>
       <div className={cx("header")}>
         <h1 className={cx("title")}>등록한 공고</h1>
       </div>
-      {/* <div className={cx("notice")}>
-        <div className={cx("notice-wrapper")}>
-          <p>공고를 등록해 보세요.</p>
-          <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={onClick}>
-            공고 등록하기
-          </Button>
+      {postList.length === 0 && (
+        <div className={cx("notice")}>
+          <div className={cx("notice-wrapper")}>
+            <p>공고를 등록해 보세요.</p>
+            <Button
+              btnColorType="orange"
+              btnCustom="userNoticeDetailed"
+              onClick={onClick}
+            >
+              공고 등록하기
+            </Button>
+          </div>
         </div>
-      </div> */}
+      )}
       <div className={cx("my-notice-list")}>
         {postList.map((item, i) => {
           const increasePercent = calculateIncreasePercent(
@@ -110,7 +124,9 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
           );
         })}
       </div>
-      {hasNextData && <div ref={targetRef}>엔드포인트</div>}
+      {loading && <Spinner />}
+      {hasNextData && <div ref={targetRef} />}
+      {error && <div>{error}</div>}
     </div>
   );
 };

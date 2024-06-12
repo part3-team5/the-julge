@@ -1,10 +1,6 @@
 import { useForm } from "react-hook-form";
 import { SigninFormData } from "../types/Signin.types";
-import {
-  INVALID_EMAIL,
-  INVALID_PASSWORD,
-  WRONG_INFORMATION,
-} from "../ErrorMessage/errorMessage";
+import { INVALID_EMAIL, INVALID_PASSWORD, WRONG_INFORMATION } from "../ErrorMessage/errorMessage";
 import axios from "axios";
 import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";
@@ -15,10 +11,8 @@ import { useToast } from "@/components/Toast/ToastConenxt";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/atoms/userAtom";
 import { useEffect } from "react";
-
-const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
-
-const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
+import { BASE_URL } from "@/constants/constants";
+import { emailRegex } from "@/utils/signupRegex";
 
 export default function SigninForm() {
   const {
@@ -64,8 +58,7 @@ export default function SigninForm() {
 
       router.push("/");
     } catch (error: any) {
-      const message =
-        error.response?.data?.message || "An unexpected error occurred.";
+      const message = error.response?.data?.message || "An unexpected error occurred.";
       showToast(message);
     }
   };

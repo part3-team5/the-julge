@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import styles from "./ShopNotice.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
@@ -23,10 +23,45 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const handleGetMyNoticeList = useCallback(
+    async (shopId: string, currentOffset: number) => {
+      try {
+        setLoading(true);
+        const result = await getMyNoticeList(shopId, currentOffset);
+        const resultNoticeList = result.items.map(
+          (element: { item: INoticeWithShopData; links: any[] }) => {
+            element.item.shop = {
+              id: shopValue.shopId,
+              name: shopValue.name,
+              category: shopValue.category,
+              address1: shopValue.address1,
+              address2: shopValue.address2,
+              description: shopValue.description,
+              imageUrl: shopValue.imageUrl,
+              originalHourlyPay: shopValue.originalHourlyPay,
+            };
+            return element.item;
+          }
+        );
+
+        setPostList((prev) => {
+          return [...prev, ...resultNoticeList];
+        });
+        setHasNextData(result.hasNext);
+        setOffset((prevOffset) => prevOffset + result.limit);
+      } catch (e) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [shopValue]
+  );
+
   useEffect(() => {
     if (!shopValue) return;
     handleGetMyNoticeList(shopValue.shopId, offset);
-  }, [shopValue]);
+  }, [shopValue, offset, handleGetMyNoticeList]);
 
   useEffect(() => {
     if (!targetRef.current || !shopValue) return;
@@ -45,42 +80,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
     if (!hasNextData) observer.unobserve(targetRef.current);
 
     return () => observer.disconnect();
-  }, [targetRef, hasNextData, offset]);
-
-  const handleGetMyNoticeList = async (
-    shopId: string,
-    currentOffset: number
-  ) => {
-    try {
-      setLoading(true);
-      const result = await getMyNoticeList(shopId, currentOffset);
-      const resultNoticeList = result.items.map(
-        (element: { item: INoticeWithShopData; links: any[] }) => {
-          element.item.shop = {
-            id: shopValue.shopId,
-            name: shopValue.name,
-            category: shopValue.category,
-            address1: shopValue.address1,
-            address2: shopValue.address2,
-            description: shopValue.description,
-            imageUrl: shopValue.imageUrl,
-            originalHourlyPay: shopValue.originalHourlyPay,
-          };
-          return element.item;
-        }
-      );
-
-      setPostList((prev) => {
-        return [...prev, ...resultNoticeList];
-      });
-      setHasNextData(result.hasNext);
-      setOffset((prevOffset) => prevOffset + result.limit);
-    } catch (e) {
-      setError("Failed to fetch data");
-    } finally {
-      setLoading(false);
-    }
-  };
+  }, [targetRef, hasNextData, offset, shopValue, handleGetMyNoticeList]);
 
   return (
     <div className={cx("container")}>
@@ -91,11 +91,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
         <div className={cx("notice")}>
           <div className={cx("notice-wrapper")}>
             <p>공고를 등록해 보세요.</p>
-            <Button
-              btnColorType="orange"
-              btnCustom="userNoticeDetailed"
-              onClick={onClick}
-            >
+            <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={onClick}>
               공고 등록하기
             </Button>
           </div>

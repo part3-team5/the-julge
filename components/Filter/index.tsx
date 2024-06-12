@@ -1,4 +1,3 @@
-// 전체 공고 내 상세 필터 버튼 및 모달
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./Filter.module.scss";
 import classNames from "classnames/bind";
@@ -54,7 +53,7 @@ const Filter: React.FC<FilterProps> = ({ onClose, onApplyFilter }) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [handleClickOutside]);
 
   const sortedLocations = LOCATIONS.slice().sort();
 

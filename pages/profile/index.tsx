@@ -58,11 +58,13 @@ function Profile() {
           onSubmit={getProfileData}
         />
       ) : isProfileFilled ? (
-        <ProfileView userId={userId} />
+        <>
+          <ProfileView userId={userId} />
+          <Application />
+        </>
       ) : (
         <ProfileEmpty onClick={handleProfileButtonClick} />
       )}
-      <Application />
     </>
   );
 }

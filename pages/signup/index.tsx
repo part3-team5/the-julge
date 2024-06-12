@@ -5,6 +5,14 @@ import ToSignin from "@/components/Signup/ToSignin";
 import styles from "./Signup.module.scss";
 import Link from "next/link";
 
+export const getStaticProps = async () => {
+  return {
+    props: {
+      layoutType: "removeLayout",
+    },
+  };
+};
+
 export default function Signin() {
   return (
     <div className={styles.Container}>

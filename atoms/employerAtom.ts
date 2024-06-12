@@ -15,6 +15,6 @@ export const employerAtom = atom({
     address2: "",
     description: "",
     imageUrl: "",
-    originalHourlyPay: "",
+    originalHourlyPay: 0,
   },
 });

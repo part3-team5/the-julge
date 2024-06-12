@@ -8,11 +8,7 @@ export default function UiButton({ name, id, handleClickButton }: ButtonProps) {
   };
 
   return (
-    <button
-      className={styles.uiButton}
-      type="button"
-      onClick={handleClickMovePage}
-    >
+    <button className={styles.uiButton} type="button" onClick={handleClickMovePage}>
       {name}
     </button>
   );

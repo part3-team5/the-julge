@@ -9,7 +9,7 @@ interface DecodedToken {
 // 토큰 유무 체크
 function getTokenFromLocalStorage(): string | null {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("token");
+    return localStorage.getItem("accessToken");
   }
   return null;
 }

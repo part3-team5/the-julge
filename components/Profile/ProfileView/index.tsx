@@ -1,11 +1,13 @@
+import Image from "next/image";
+import classNames from "classnames/bind";
 import { useState, useEffect } from "react";
+
 import { instance } from "@/utils/instance";
 import styles from "./ProfileView.module.scss";
-import classNames from "classnames/bind";
-import Image from "next/image";
 import { ProfileData, ProfileViewProps } from "../Profile.types";
 import Spinner from "@/components/Spinner";
 import Button from "@/components/Button";
+import { getUserId } from "@/utils/jwt";
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,8 @@ function ProfileView({ userId, onEdit }: ProfileViewProps) {
 
   useEffect(() => {
     const getProfileData = async () => {
+      const userId = getUserId();
+
       try {
         const response = await instance.get(`/users/${userId}`);
         setProfileData(response.data.item);
@@ -23,7 +27,7 @@ function ProfileView({ userId, onEdit }: ProfileViewProps) {
     };
 
     getProfileData();
-  }, [userId]);
+  }, []);
 
   if (!profileData) {
     return (

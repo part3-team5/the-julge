@@ -7,19 +7,14 @@ import ProfileForm from "@/components/Profile/ProfileForm";
 import ProfileView from "@/components/Profile/ProfileView";
 import { ProfileData } from "@/components/Profile/Profile.types";
 import { instance } from "@/utils/instance";
+import { getUserId } from "@/utils/jwt";
 
 function Profile() {
   const [showProfileForm, setShowProfileForm] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
-  const [userId, setUserId] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
-  }, []);
+  const userId = getUserId();
 
   const getProfileData = useCallback(async () => {
     try {

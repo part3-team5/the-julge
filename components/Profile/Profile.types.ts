@@ -24,6 +24,6 @@ export interface FormData {
 }
 
 export interface ProfileViewProps {
-  userId: string;
+  userId: string | null;
   onEdit: () => void;
 }

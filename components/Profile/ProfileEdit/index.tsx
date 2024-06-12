@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { instance } from "@/utils/instance";
-import { ProfileData, ProfileFormProps } from "../Profile.types";
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import classNames from "classnames/bind";
-import styles from "../Profile.module.scss";
-import Image from "next/image";
-import Dropdown from "@/components/Dropdown";
-import { LOCATIONS } from "@/constants/constants";
-import Spinner from "@/components/Spinner";
 import { useForm } from "react-hook-form";
-import { IModalProps } from "@/components/Modal/Modal.types";
+
+import Button from "@/components/Button";
+import classNames from "classnames/bind";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
+import Dropdown from "@/components/Dropdown";
+import Input from "@/components/Input";
+import Image from "next/image";
+import Spinner from "@/components/Spinner";
+import styles from "../Profile.module.scss";
+import { LOCATIONS } from "@/constants/constants";
+import { ProfileData, ProfileFormProps } from "../Profile.types";
+import { IModalProps } from "@/components/Modal/Modal.types";
+import { instance } from "@/utils/instance";
+import { getUserId } from "@/utils/jwt";
 
 const cx = classNames.bind(styles);
 
 function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
-  const userId = localStorage.getItem("userId");
   const { register, handleSubmit, setValue } = useForm<ProfileData>();
-
   const [initAddress, setInitAddress] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -27,6 +27,8 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
     btnName: [""],
   });
 
+  const userId = getUserId();
+
   useEffect(() => {
     const getProfileData = async () => {
       try {
@@ -34,7 +36,6 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
           const response = await instance.get<{ item: ProfileData }>(
             `/users/${userId}`
           );
-          // setProfileData(response.data.item);
           setValue("name", response.data.item.name);
           setValue("phone", response.data.item.phone);
           setValue("address", response.data.item.address);
@@ -69,7 +70,7 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
         alert("프로필 수정에 실패했습니다.");
       }
     } catch (error) {
-      console.error("Failed to update profile data:", error);
+      console.error("수정 안됨:", error);
     }
   };
 

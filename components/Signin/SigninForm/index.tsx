@@ -50,7 +50,7 @@ export default function SigninForm() {
       document.cookie = `id=${id}; path=/`;
       document.cookie = `userType=${type}; path=/`;
 
-      localStorage.setItem("token", token);
+      localStorage.setItem("accessToken", token);
 
       // Recoil 상태 업데이트
       setAuthState({

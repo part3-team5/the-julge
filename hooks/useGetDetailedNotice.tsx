@@ -50,7 +50,6 @@ export const useGetDetailedNotice = (
               originalHourlyPay: resultItem.shop.item.originalHourlyPay,
             },
           });
-          console.log("datadata :::", data);
         }
       };
 

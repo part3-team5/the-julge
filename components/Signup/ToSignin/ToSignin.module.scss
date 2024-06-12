@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  gap: 5px;
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: underline;
+}

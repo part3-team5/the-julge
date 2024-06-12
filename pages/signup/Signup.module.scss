@@ -1,0 +1,19 @@
+.Container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px;
+  font-size: 16px;
+
+  img {
+    margin-bottom: 40px;
+  }
+}

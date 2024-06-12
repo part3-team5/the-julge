@@ -4,7 +4,7 @@ import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
 import { HeaderButtonsProps } from "../types/HeaderButton.types";
 import { useRouter } from "next/router";
-import deleteCookie from "@/components/layout/Header/hook/useLogout";
+import deleteCookie from "@/hooks/useLogout";
 
 export default function HeaderButtons({ userType, handleClickMovePage }: HeaderButtonsProps) {
   const router = useRouter();

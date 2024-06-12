@@ -1,7 +1,6 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 import handleAxiosError from "./axiosError";
-
-const BASE_URL = "https://bootcamp-api.codeit.kr/api/0-1/the-julge";
+import { BASE_URL } from "@/constants/constants";
 
 axios.defaults.headers.common["Content-Type"] = "application/json";
 

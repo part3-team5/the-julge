@@ -96,11 +96,14 @@ export const getMyNoticeList = async (
   offset = 0,
   limit = 6
 ) => {
+  console.log("offsest::", offset);
   try {
     const response = await axios.get(
       `${BASE_API_URL}/shops/${shopId}/notices?offset=${offset}&limit=${limit}`
     );
-
+    console.log(
+      `${BASE_API_URL}/shops/${shopId}/notices?offset=${offset}&limit=${limit}`
+    );
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch data");

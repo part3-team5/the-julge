@@ -51,7 +51,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
     const resultNoticeList = result.items.map(
       (element: { item: INoticeWithShopData; links: any[] }) => {
         element.item.shop = {
-          id: shopValue.id,
+          id: shopValue.shopId,
           name: shopValue.name,
           category: shopValue.category,
           address1: shopValue.address1,
@@ -68,6 +68,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
       return [...prev, ...resultNoticeList];
     });
     setHasNextData(result.hasNext);
+    console.log("result.offset + result.limit::", result.offset + result.limit);
     setOffset(result.offset + result.limit);
   };
   console.log(postList);

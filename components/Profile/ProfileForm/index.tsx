@@ -12,6 +12,7 @@ import { FormData, ProfileData, ProfileFormProps } from "../Profile.types";
 import { instance } from "@/utils/instance";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
+import { getUserId } from "@/utils/jwt";
 
 const cx = classNames.bind(styles);
 
@@ -26,10 +27,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
   });
 
   useEffect(() => {
-    const storedUserId = localStorage.getItem("userId");
-    if (storedUserId) {
-      setUserId(storedUserId);
-    }
+    const fetchUserId = async () => {
+      const userId = getUserId();
+      if (userId) {
+        setUserId(userId);
+        console.log(userId);
+      }
+    };
+    fetchUserId();
   }, []);
 
   const handleCloseAlert = () => {

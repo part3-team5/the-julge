@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import styles from "./NotiButtons.module.scss";
 import useCookie from "@/hooks/useCookies";
-import { useNoticesData } from "../hook/useUserQuery";
+import { useNoticesData } from "../../../../hooks/useUserQuery";
 
 export default function NotiButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,11 +20,7 @@ export default function NotiButton() {
 
   return (
     <>
-      <button
-        className={styles.notiButton}
-        type="button"
-        onClick={handleClickNoti}
-      >
+      <button className={styles.notiButton} type="button" onClick={handleClickNoti}>
         <Image
           src={`/image/notification-${activeStatus}.svg`}
           alt="notification"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import DropdownSmall from "@/components/DropdownSmall";
@@ -45,7 +45,7 @@ const NoticeList: React.FC = () => {
     }
   };
 
-  const filterAndSortNotices = () => {
+  const filterAndSortNotices = useCallback(() => {
     let filtered = [...notices];
 
     if (selectedLocations.length > 0) {
@@ -64,7 +64,7 @@ const NoticeList: React.FC = () => {
 
     const sorted = sortNotices(filtered, sortOption);
     setFilteredAndSortedNotices(sorted);
-  };
+  }, [notices, selectedLocations, selectedDate, minPay, sortOption]);
 
   const router = useRouter();
   const { page = 1 } = router.query;
@@ -103,11 +103,11 @@ const NoticeList: React.FC = () => {
     };
 
     loadNotices();
-  }, [filteredAndSortedNotices]);
+  }, []);
 
   useEffect(() => {
     filterAndSortNotices();
-  }, [sortOption, selectedLocations, selectedDate, minPay, notices]);
+  }, [filterAndSortNotices]);
 
   if (loading) {
     return <Spinner />;

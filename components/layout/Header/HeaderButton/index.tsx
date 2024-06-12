@@ -4,12 +4,9 @@ import NotiButton from "../NotiButton";
 import styles from "./HeaderButtons.module.scss";
 import { HeaderButtonsProps } from "../types/HeaderButton.types";
 import { useRouter } from "next/router";
-import deleteCookie from "@/components/layout/Header/hook/useLogout";
+import { deleteCookie } from "@/hooks/useLogout";
 
-export default function HeaderButtons({
-  userType,
-  handleClickMovePage,
-}: HeaderButtonsProps) {
+export default function HeaderButtons({ userType, handleClickMovePage }: HeaderButtonsProps) {
   const router = useRouter();
   return (
     <div className={styles.headerButtons}>
@@ -29,26 +26,20 @@ export default function HeaderButtons({
       )}
       {userType === "employer" && (
         <>
-          <UiButton
-            name="내 가게"
-            handleClickButton={() => handleClickMovePage("my-shop")}
-          />
-          <UiButton
-            name="로그아웃"
-            handleClickButton={() => deleteCookie(router)}
-          />
+          <UiButton name="내 가게" handleClickButton={() => handleClickMovePage("my-shop")} />
+          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
+          <NotiButton />
+          <UiButton name="내 가게" handleClickButton={() => handleClickMovePage("my-shop")} />
+          <UiButton name="로그아웃" handleClickButton={() => deleteCookie(router)} />
         </>
       )}
       {userType === "employee" && (
         <>
-          <UiButton
-            name="내 프로필"
-            handleClickButton={() => handleClickMovePage("my-profile")}
-          />
-          <UiButton
-            name="로그아웃"
-            handleClickButton={() => deleteCookie(router)}
-          />
+          <UiButton name="내 프로필" handleClickButton={() => handleClickMovePage("my-profile")} />
+          <UiButton name="로그아웃" handleClickButton={() => handleClickMovePage("my-shop")} />
+          <NotiButton />
+          <UiButton name="내 프로필" handleClickButton={() => handleClickMovePage("my-profile")} />
+          <UiButton name="로그아웃" handleClickButton={() => deleteCookie(router)} />
           <NotiButton />
         </>
       )}

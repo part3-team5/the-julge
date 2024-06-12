@@ -1,6 +1,5 @@
 import { useRouter } from "next/navigation";
 import UiGnb from "./Uignb";
-import { useState } from "react";
 import useCookie from "@/hooks/useCookies";
 
 export default function Gnb() {
@@ -12,7 +11,5 @@ export default function Gnb() {
     router.push(`/${pathname}`);
   };
 
-  return (
-    <UiGnb userType={userType} handleClickMovePage={handleClickMovePage} />
-  );
+  return <UiGnb userType={userType} handleClickMovePage={handleClickMovePage} />;
 }

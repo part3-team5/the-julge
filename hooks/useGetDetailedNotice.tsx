@@ -1,11 +1,8 @@
 import { getNoticeDetailedData } from "@/api/notice";
-import { INoticeWithShopData, INoticeLinks } from "@/types/Notice";
+import { INoticeWithShopData } from "@/types/Notice";
 import { useState, useEffect } from "react";
 
-export const useGetDetailedNotice = (
-  shopId: string | undefined,
-  noticeId: string | undefined
-) => {
+export const useGetDetailedNotice = (shopId: string | undefined, noticeId: string | undefined) => {
   const [noticeShopData, setNoticeShopData] = useState<INoticeWithShopData>({
     closed: false,
     description: "",

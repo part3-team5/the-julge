@@ -15,6 +15,7 @@ import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { submitShopForm } from "@/api/myShop";
 import { uploadImageAndGetUrl } from "@/api/ImageUpload";
+import router from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -33,6 +34,7 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
     setShowAlert(false);
     if (modalType === "confirm") {
       onClose();
+      router.push("/");
     }
   };
 

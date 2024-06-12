@@ -21,18 +21,17 @@ export const getNoticeDetailedData = async (
 };
 
 export const getApplicantList = async (shopId: string, noticeId: string) => {
-  let res;
-
   try {
-    res = await axios.get(
-      `${BASE_API_URL}/shops/${shopId}/notices/${noticeId}/applications`
+    const res = await axios.get(
+      `${BASE_API_URL}/shops/${shopId}/notices/${noticeId}/applications?limit=100`
     );
+    return res;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      alert(error);
+      alert("데이터를 가져오는 중 오류가 발생했습니다.");
     }
+    throw error;
   }
-  return res?.data;
 };
 
 export const postApplicant = async (shopId: string, noticeId: string) => {
@@ -97,6 +96,7 @@ export const getMyNoticeList = async (
   limit = 6
 ) => {
   console.log("offsest::", offset);
+
   try {
     const response = await axios.get(
       `${BASE_API_URL}/shops/${shopId}/notices?offset=${offset}&limit=${limit}`

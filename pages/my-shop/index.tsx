@@ -3,25 +3,10 @@ import { useRecoilState } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import ShopEmpty from "@/components/Shop/ShopEmpty";
 import ShopForm from "@/components/Shop/ShopForm";
-import axios from "axios";
 import { useState } from "react";
-import { BASE_URL } from "@/constants/constants";
 import ShopView from "@/components/Shop/ShopView";
 import ShopEdit from "@/components/Shop/ShopEdit";
-
-const fetchUserInfo = async (token: string, userId: string) => {
-  try {
-    const response = await axios.get(`${BASE_URL}/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Failed to fetch user info:", error);
-    return null;
-  }
-};
+import { fetchUserInfo } from "@/api/myShop";
 
 const MyShop = () => {
   const [showShopForm, setShowShopForm] = useState(false);

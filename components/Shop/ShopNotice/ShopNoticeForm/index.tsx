@@ -1,4 +1,3 @@
-// components/Shop/ShopNotice/ShopNoticeForm.tsx
 import classNames from "classnames/bind";
 import { useForm } from "react-hook-form";
 import styles from "./ShopNoticeForm.module.scss";
@@ -6,21 +5,19 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { useState } from "react";
 import Image from "next/image";
-import {
-  NoticeData,
-  NoticeFormData,
-  NoticeFormProps,
-} from "../ShopNotice.types";
+import { NoticeData, NoticeFormData, NoticeFormProps } from "../ShopNotice.types";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { instance } from "@/utils/instance";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
+import { MIN_WAGE } from "@/constants/constants";
 
 const cx = classNames.bind(styles);
 
 const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [modalType, setModalType] = useState<string | null>(null);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
     content: "",
@@ -33,7 +30,9 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
+    if (modalType === "confirm") {
+      onClose();
+    }
   };
 
   const handleSubmitForm = async (data: NoticeFormData) => {
@@ -48,6 +47,17 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
       description: data.description,
     };
 
+    if (body.hourlyPay < MIN_WAGE) {
+      setModalData({
+        modalType: "alert",
+        content: `기본 시급은 최저 시급인 ${MIN_WAGE}원 이상이어야 합니다.`,
+        btnName: ["확인"],
+      });
+      setModalType("alert");
+      setShowAlert(true);
+      return;
+    }
+
     try {
       const response = await instance.post(`/shops/${shopId}/notices`, body);
       if (response.status === 200) {
@@ -58,9 +68,15 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
         });
         setShowAlert(true);
         onSubmit();
-        console.log("성공", response.data);
+        setModalType("confirm");
       } else {
-        alert("프로필 데이터를 제대로 입력해주세요.");
+        setModalData({
+          modalType: "alert",
+          content: "프로필 정보를 제대로 입력해주세요.",
+          btnName: ["확인"],
+        });
+        setModalType("alert");
+        setShowAlert(true);
       }
     } catch (error) {
       console.log("POST Error:", error);
@@ -130,10 +146,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
       </form>
       {showAlert && (
         <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
-          />
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
         </div>
       )}
     </main>

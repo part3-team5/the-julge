@@ -67,7 +67,7 @@ function Profile() {
         <ProfileEdit onClose={handleCloseEdit} onSubmit={getProfileData} />
       ) : isProfileFilled ? (
         <>
-          <ProfileView userId={userId} onEdit={handleEditClick} />
+          <ProfileView onEdit={handleEditClick} />
           <Application />
         </>
       ) : (

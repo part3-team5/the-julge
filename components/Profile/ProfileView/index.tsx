@@ -11,7 +11,7 @@ import { getUserId } from "@/utils/jwt";
 
 const cx = classNames.bind(styles);
 
-function ProfileView({ userId, onEdit }: ProfileViewProps) {
+function ProfileView({ onEdit }: ProfileViewProps) {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
 
   useEffect(() => {

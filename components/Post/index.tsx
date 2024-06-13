@@ -21,7 +21,7 @@ const Post: React.FC<PostProps> = ({
   const startTime = moment(startsAt);
   const endTime = moment(startTime).add(workhour, "hours");
   const now = moment();
-  const isPast = now.isAfter(endTime);
+  const isPast = now.isAfter(startTime);
 
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
   const endTimeFormatted = endTime.format("HH:mm");

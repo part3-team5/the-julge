@@ -21,7 +21,6 @@ export const submitShopForm = async (formData: FormData) => {
 export const fetchShopData = async (shopId: string) => {
   try {
     const response = await axios.get(`${BASE_URL}/shops/${shopId}`);
-    console.log(response);
     return response;
   } catch (error) {
     console.error("Shop data fetching failed:", error);

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 
-import { CATEGORYS, LOCATIONS } from "@/constants/constants";
+import { CATEGORYS, LOCATIONS, MIN_WAGE } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -15,6 +15,7 @@ import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { submitShopForm } from "@/api/myShop";
 import { uploadImageAndGetUrl } from "@/api/ImageUpload";
+import router from "next/router";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,7 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
   const { register, handleSubmit, setValue } = useForm<FormData>();
   const [imageData, setImageData] = useState<ImageData | null>(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [modalType, setModalType] = useState<string | null>(null);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
     content: "",
@@ -30,13 +32,32 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
+    if (modalType === "confirm") {
+      onClose();
+      router.push("/");
+    }
   };
 
   const handleSubmitForm = async (data: FormData) => {
+    if (data.originalHourlyPay < MIN_WAGE) {
+      setModalData({
+        modalType: "alert",
+        content: `기본 시급은 최저 시급인 ${MIN_WAGE}원 이상이어야 합니다.`,
+        btnName: ["확인"],
+      });
+      setModalType("alert");
+      setShowAlert(true);
+      return;
+    }
+
     if (!imageData || !imageData.file) {
-      alert("이미지를 추가해주세요.");
-      setShowAlert(false);
+      setModalData({
+        modalType: "alert",
+        content: "이미지를 추가해주세요.",
+        btnName: ["확인"],
+      });
+      setModalType("alert");
+      setShowAlert(true);
       return;
     }
 
@@ -64,12 +85,26 @@ const ShopForm: React.FC<ShopFormProps> = ({ onClose }) => {
           content: "등록이 완료되었습니다.",
           btnName: ["확인"],
         });
+        setModalType("confirm");
         setShowAlert(true);
       } else {
-        alert("가게 정보를 제대로 입력해주세요.");
+        setModalData({
+          modalType: "alert",
+          content: "가게 정보를 제대로 입력해주세요.",
+          btnName: ["확인"],
+        });
+        setModalType("alert");
+        setShowAlert(true);
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setModalData({
+        modalType: "alert",
+        content: "폼 제출 중 오류가 발생했습니다.",
+        btnName: ["확인"],
+      });
+      setModalType("alert");
+      setShowAlert(true);
     }
   };
 

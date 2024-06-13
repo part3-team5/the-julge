@@ -120,7 +120,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
           );
         })}
       </div>
-      {loading && <Spinner />}
+      {loading && postList.length > 0 && <Spinner />}
       {hasNextData && <div ref={targetRef} />}
       {error && <div>{error}</div>}
     </div>

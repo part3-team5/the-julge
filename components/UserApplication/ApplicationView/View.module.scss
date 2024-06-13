@@ -1,3 +1,5 @@
+@import "@/styles/const.scss";
+
 @mixin flexBasicSet($direction: row, $gap: 0) {
   display: flex;
   flex-direction: $direction;
@@ -13,6 +15,13 @@
   border: 1px solid $color;
   color: $color;
   cursor: pointer;
+
+  @media screen and (max-width: $MOBILE) {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
 }
 
 @mixin stateLabel($backgroundColor, $fontColor) {
@@ -24,11 +33,18 @@
   font-size: 14px;
   line-height: 16.8px;
   border: none;
+
+  @media screen and (max-width: $MOBILE) {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+  }
 }
 
 .content-wrap {
   width: 964px;
   margin: 0 auto;
+  padding: 40px 32px;
 }
 
 .application-list {
@@ -108,4 +124,58 @@
 
 .state-approve {
   @include stateLabel(var(--blue10), var(--blue20));
+}
+
+@media screen and (max-width: $TABLET) {
+  .content-wrap {
+    width: 680px;
+  }
+  .phone {
+    display: none;
+  }
+
+  .list-header,
+  .list-content {
+    > div:nth-of-type(1) {
+      width: 200px;
+    }
+    > div:nth-of-type(2) {
+      width: 250px;
+    }
+  }
+}
+@media screen and (max-width: $MOBILE) {
+  .content-wrap {
+    width: 350px;
+  }
+
+  .list-header,
+  .list-content {
+    > div:nth-of-type(1) {
+      width: 160px;
+    }
+  }
+
+  .notice--head__name {
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .list-header {
+    background-color: var(--red10);
+    line-height: 16px;
+    height: 40px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .name {
+    line-height: 22px;
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .intro {
+    display: none;
+  }
 }

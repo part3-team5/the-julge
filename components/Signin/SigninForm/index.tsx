@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
 import { SigninFormData } from "../types/Signin.types";
-import { INVALID_EMAIL, INVALID_PASSWORD, WRONG_INFORMATION } from "../ErrorMessage/errorMessage";
+import {
+  INVALID_EMAIL,
+  INVALID_PASSWORD,
+  WRONG_INFORMATION,
+} from "../ErrorMessage/errorMessage";
 import axios from "axios";
 import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";
@@ -46,19 +50,22 @@ export default function SigninForm() {
       document.cookie = `id=${id}; path=/`;
       document.cookie = `userType=${type}; path=/`;
 
+      localStorage.setItem("accessToken", token);
+
       // Recoil 상태 업데이트
       setAuthState({
         isAuthenticated: true,
         user: {
-          id,
-          type,
+          id: id,
+          type: type,
           email: formData.email,
         },
       });
 
       router.push("/");
     } catch (error: any) {
-      const message = error.response?.data?.message || "An unexpected error occurred.";
+      const message =
+        error.response?.data?.message || "An unexpected error occurred.";
       showToast(message);
     }
   };
@@ -73,6 +80,7 @@ export default function SigninForm() {
             value: emailRegex,
             message: INVALID_EMAIL,
           },
+          required: "아이디를 입력하세요.",
         })}
       />
       <Input
@@ -80,7 +88,7 @@ export default function SigninForm() {
         error={passwordError}
         type="password"
         register={register("password", {
-          required: "Password is required",
+          required: "비밀번호를 입력하세요.",
         })}
       />
       <Button btnColorType="orange">로그인</Button>

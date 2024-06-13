@@ -83,50 +83,53 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
   }, [targetRef, hasNextData, offset, shopValue, handleGetMyNoticeList]);
 
   return (
-    <div className={cx("container")}>
-      <div className={cx("header")}>
-        <h1 className={cx("title")}>등록한 공고</h1>
-      </div>
-      {postList.length === 0 && (
-        <div className={cx("notice")}>
-          <div className={cx("notice-wrapper")}>
-            <p>공고를 등록해 보세요.</p>
-            <Button
-              btnColorType="orange"
-              btnCustom="userNoticeDetailed"
-              onClick={onClick}
-            >
-              공고 등록하기
-            </Button>
-          </div>
+    <div className={cx("section")}>
+      <div className={cx("container")}>
+        <div className={cx("header")}>
+          <h1 className={cx("title")}>등록한 공고</h1>
         </div>
-      )}
-      <div className={cx("my-notice-list")}>
-        {postList.map((item, i) => {
-          const increasePercent = calculateIncreasePercent(
-            item.shop?.originalHourlyPay,
-            item.hourlyPay
-          );
+        {postList.length === 0 && (
+          <div className={cx("notice")}>
+            <div className={cx("notice-wrapper")}>
+              <p>공고를 등록해 보세요.</p>
+              <Button
+                btnColorType="orange"
+                btnCustom="userNoticeDetailed"
+                onClick={onClick}
+              >
+                공고 등록하기
+              </Button>
+            </div>
+          </div>
+        )}
+        <div className={cx("my-notice-list")}>
+          {postList.map((item, i) => {
+            const increasePercent = calculateIncreasePercent(
+              item.shop?.originalHourlyPay,
+              item.hourlyPay
+            );
 
-          return (
-            <Link key={i} href={`/my-shop/${item.id}`}>
-              <Post
-                key={item.id}
-                startsAt={item.startsAt}
-                workhour={item.workhour}
-                increasePercent={increasePercent}
-                shopName={item.shop?.name}
-                shopAddress1={item.shop?.address1}
-                hourlyPay={item.hourlyPay}
-                shopImageUrl={item.shop?.imageUrl}
-              />
-            </Link>
-          );
-        })}
-      </div>
-      {/* {loading && <Spinner />}
+            return (
+              <Link key={i} href={`/my-shop/${item.id}`}>
+                <Post
+                  key={item.id}
+                  startsAt={item.startsAt}
+                  workhour={item.workhour}
+                  increasePercent={increasePercent}
+                  shopName={item.shop?.name}
+                  shopAddress1={item.shop?.address1}
+                  hourlyPay={item.hourlyPay}
+                  shopImageUrl={item.shop?.imageUrl}
+                />
+              </Link>
+            );
+          })}
+        </div>
+
+        {/* {loading && <Spinner />}
       {hasNextData && <div ref={targetRef} />}
       {error && <div>{error}</div>} */}
+      </div>
     </div>
   );
 };

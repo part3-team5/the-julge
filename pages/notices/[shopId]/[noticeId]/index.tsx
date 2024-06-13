@@ -46,8 +46,8 @@ const DetailedNotice = () => {
   }, [noticeShopData]);
 
   return (
-    <>
-      <div className={cx("content-wrap")}>
+    <div className={cx("content-wrap")}>
+      <div className={cx("container")}>
         <NoticeDetailed shopData={noticeShopData} />
 
         <section className={cx("recentlt-viewed")}>
@@ -56,14 +56,14 @@ const DetailedNotice = () => {
             {storageNoticeList
               .slice(0)
               .reverse()
-              .map((notice) => {
+              .map((notice, index) => {
                 const increasePercent = calculateIncreasePercent(
                   notice.shop.originalHourlyPay,
                   notice.hourlyPay
                 );
 
                 return (
-                  <Link key={notice.id} href={`/notices/${notice.shop.id}/${notice.id}`}>
+                  <Link key={index} href={`/notices/${notice.shop.id}/${notice.id}`}>
                     <Post
                       key={notice.id}
                       startsAt={notice.startsAt}
@@ -80,7 +80,7 @@ const DetailedNotice = () => {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

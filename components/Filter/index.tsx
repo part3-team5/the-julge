@@ -19,7 +19,6 @@ interface FilterProps {
 
 const Filter: React.FC<FilterProps> = ({ onClose, onApplyFilter }) => {
   const initSelectedDate = new Date();
-  initSelectedDate.setDate(initSelectedDate.getDate() + 1);
   const initSelectedLocations: string[] = [];
   const initInputValue = "";
 

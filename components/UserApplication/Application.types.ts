@@ -19,3 +19,9 @@ export interface ApplicationItem {
     notice: Notice;
   };
 }
+
+export interface ApplicationResponse {
+  count: number;
+  hasNext: boolean;
+  items: ApplicationItem[];
+}

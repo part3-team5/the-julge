@@ -29,5 +29,5 @@ export const LOCATIONS = [
   "서울시 강동구",
 ];
 export const BASE_URL = "https://bootcamp-api.codeit.kr/api/5-5/the-julge";
-
+export const MIN_WAGE = 9860;
 export const CATEGORYS = ["한식", "중식", "일식", "양식", "분식", "카페", "편의점", "기타"];

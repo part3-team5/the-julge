@@ -6,15 +6,13 @@ import ShopForm from "@/components/Shop/ShopForm";
 import { useState } from "react";
 import ShopView from "@/components/Shop/ShopView";
 import ShopEdit from "@/components/Shop/ShopEdit";
-import { fetchUserInfo } from "@/api/myShop";
-import { authState } from "@/atoms/userAtom";
 
 const MyShop = () => {
   const [showShopForm, setShowShopForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [employer, setEmployer] = useRecoilState(employerAtom);
+  const [employer] = useRecoilState(employerAtom);
 
-  const isShopRegistered = employer?.shopId;
+  const isShopRegistered = employer.shopId;
 
   const handleShopButtonClick = () => {
     setShowShopForm(true);

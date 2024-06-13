@@ -30,6 +30,11 @@ export default function SigninForm() {
   const setAuthState = useSetRecoilState(authState);
   const authStateValue = useRecoilValue(authState);
 
+  // Recoil 상태 콘솔 출력
+  useEffect(() => {
+    console.log("Current auth state:", authStateValue);
+  }, [authStateValue]);
+
   const onSubmit = async (formData: SigninFormData) => {
     if (!validateSigninData(formData)) {
       showToast(WRONG_INFORMATION);
@@ -48,18 +53,7 @@ export default function SigninForm() {
       // localStorage에 accessToken 저장
       localStorage.setItem("accessToken", token);
 
-      // Recoil 상태 업데이트
-      setAuthState({
-        isAuthenticated: true,
-        user: {
-          id: id,
-          type: type,
-          email: formData.email,
-        },
-      });
-
-      //router.push("/");
-      location.replace("/");
+      router.push("/");
     } catch (error: any) {
       const message =
         error.response?.data?.message || "An unexpected error occurred.";

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Search.module.scss";
 import { useRouter } from "next/router";
 import { fetchNoticeList } from "@/api/NoticeList";
@@ -48,7 +48,7 @@ const Search = () => {
         }
     };
 
-    const filterAndSortNotices = useCallback(() => {
+    const filterAndSortNotices = () => {
         let filtered = [...notices];
 
         if (selectedLocations.length > 0) {
@@ -69,7 +69,7 @@ const Search = () => {
 
         const sorted = sortNotices(filtered, sortOption);
         setFilteredAndSortedNotices(sorted);
-    }, [notices, selectedLocations, selectedDate, minPay, sortOption]);
+    };
 
     const { page = 1, keyword } = router.query;
     const currentPage = parseInt(page as string, 10);

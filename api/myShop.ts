@@ -44,13 +44,9 @@ export const updateShopDetails = async (shopId: string, data: FormData) => {
   }
 };
 
-export const fetchUserInfo = async (token: string, userId: string) => {
+export const fetchUserInfo = async (userId: string) => {
   try {
-    const response = await axios.get(`${BASE_URL}/users/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(`${BASE_URL}/users/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Failed to fetch user info:", error);

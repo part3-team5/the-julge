@@ -20,6 +20,7 @@ function Profile() {
 
   const getProfileData = useCallback(async () => {
     try {
+      console.log("userId::::", userId);
       if (userId) {
         const response = await instance.get<{ item: ProfileData }>(
           `users/${userId}`

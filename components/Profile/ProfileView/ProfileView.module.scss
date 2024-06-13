@@ -14,13 +14,14 @@
 
   @media (max-width: $TABLET) {
     width: 680px;
-    // height : ;
     padding: 40px 32px 0;
     flex-direction: column;
   }
 
   @media (max-width: $MOBILE) {
-    padding: 40px 12px;
+    width: 350px;
+
+    padding: 12px 0;
     flex-direction: column;
   }
 }
@@ -52,6 +53,7 @@
   }
 
   @media (max-width: $MOBILE) {
+    padding: 24px;
   }
 }
 .info {

@@ -17,7 +17,12 @@ import { getUserId } from "@/utils/jwt";
 const cx = classNames.bind(styles);
 
 const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
-  const { register, handleSubmit, setValue } = useForm<FormData>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
   const [userId, setUserId] = useState<string | null>(null);
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -60,11 +65,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
         });
         setShowAlert(true);
         onSubmit();
-      } else {
-        alert("프로필 데이터를 제대로 입력해주세요.");
       }
     } catch (error) {
-      console.log("PUT Error:", error);
+      setModalData({
+        modalType: "alert",
+        content: "오류가 발생했습니다. 다시 시도해주세요.",
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
     }
   };
 
@@ -88,7 +96,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
               label="이름"
               type="text"
               id="name"
-              register={register("name", { required: true })}
+              register={register("name", {
+                required: "이름을 입력하세요.",
+                pattern: {
+                  value: /^[가-힣]+$/,
+                  message: "자음과 모음이 조합된 형태로 입력해주세요.",
+                },
+              })}
+              error={errors.name}
             />
           </section>
           <section className={cx("input__section")}>
@@ -98,8 +113,12 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
               id="phone"
               register={register("phone", {
                 required: true,
-                pattern: /^\d{3}-\d{3,4}-\d{4}$/,
+                pattern: {
+                  value: /^\d{3}-\d{3,4}-\d{4}$/,
+                  message: "전화번호 형식이 올바르지 않습니다.",
+                },
               })}
+              error={errors.phone}
             />
           </section>
           <section className={cx("input-section")}>

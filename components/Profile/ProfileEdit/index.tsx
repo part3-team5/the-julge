@@ -7,7 +7,6 @@ import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import Dropdown from "@/components/Dropdown";
 import Input from "@/components/Input";
 import Image from "next/image";
-import Spinner from "@/components/Spinner";
 import styles from "../Profile.module.scss";
 import { LOCATIONS } from "@/constants/constants";
 import { ProfileData, ProfileFormProps } from "../Profile.types";
@@ -18,8 +17,13 @@ import { getUserId } from "@/utils/jwt";
 const cx = classNames.bind(styles);
 
 function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
-  const { register, handleSubmit, setValue } = useForm<ProfileData>();
-  const [initAddress, setInitAddress] = useState("");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ProfileData>();
+  // const [initAddress, setInitAddress] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
@@ -41,7 +45,7 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
           setValue("address", response.data.item.address);
           setValue("bio", response.data.item.bio);
 
-          setInitAddress(response.data.item.address);
+          // setInitAddress(response.data.item.address);
         }
       } catch (error) {
         console.error("Get Error :", error);
@@ -93,7 +97,15 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
             <Input
               label="이름"
               type="text"
-              register={register("name", { required: true })}
+              register={register("name", {
+                required: "이름을 입력하세요.",
+                pattern: {
+                  value: /^[가-힣]+$/,
+                  message:
+                    "이름은 한글 자음과 모음이 조합된 형태로 입력해주세요.",
+                },
+              })}
+              error={errors.name}
             />
           </section>
           <section className={cx("input-section")}>
@@ -102,8 +114,12 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
               type="tel"
               register={register("phone", {
                 required: true,
-                pattern: /^\d{3}-\d{3,4}-\d{4}$/,
+                pattern: {
+                  value: /^\d{3}-\d{3,4}-\d{4}$/,
+                  message: "전화번호 형식이 올바르지 않습니다.",
+                },
               })}
+              error={errors.phone}
             />
           </section>
           <section className={cx("input-section")}>

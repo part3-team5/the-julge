@@ -31,6 +31,9 @@
 
 .application-list {
   margin: 60px 0 120px;
+  @media (max-width: $MOBILE) {
+    margin: 12px 0;
+  }
 }
 
 .notice--head__name {
@@ -113,6 +116,7 @@
 @media screen and (max-width: $MOBILE) {
   .content-wrap {
     width: 350px;
+    padding: 12px 0;
   }
 
   .list-header,

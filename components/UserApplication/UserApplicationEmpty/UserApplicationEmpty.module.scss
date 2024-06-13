@@ -8,6 +8,11 @@
 
   @media (max-width: $TABLET) {
     padding: 60px 32px;
+    width: 680px;
+  }
+  @media (max-width: $MOBILE) {
+    padding: 12px;
+    width: 350px;
   }
 }
 

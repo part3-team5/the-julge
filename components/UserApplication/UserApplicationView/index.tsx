@@ -1,9 +1,10 @@
-import styles from "./View.module.scss";
 import classNames from "classnames/bind";
+import { useCallback, useEffect, useState } from "react";
+
+import styles from "./UserApplicationView.module.scss";
 import StateButton from "../State";
 import { instance } from "@/utils/instance";
-import { useCallback, useEffect, useState } from "react";
-import { ApplicationItem } from "../Application.types";
+import { ApplicationItem } from "../UserApplication.types";
 import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
 import Pagination from "@/components/Pagination";
@@ -53,14 +54,14 @@ const ApplicationView = () => {
           <ul className={cx("list-wrap")}>
             <li className={cx("list-header")}>
               <div>가게</div>
-              <div>일자</div>
-              <div>시급</div>
+              <div className={cx("work-hours")}>일자</div>
+              <div className={cx("hourly-pay")}>시급</div>
               <div>상태</div>
             </li>
             {applicationList.map((application) => (
               <li key={application.item.id} className={cx("list-content")}>
                 <div>{application.item.shop.item.name}</div>
-                <div>
+                <div className={cx("work-hours")}>
                   {formatDateTime(
                     application.item.notice.item.startsAt,
                     "time"
@@ -75,7 +76,7 @@ const ApplicationView = () => {
                   )}
                   ({application.item.notice.item.workhour}시간)
                 </div>
-                <div>
+                <div className={cx("hourly-pay")}>
                   {formatCurrency(application.item.notice.item.hourlyPay)}원
                 </div>
                 <div>

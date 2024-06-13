@@ -1,42 +1,43 @@
 .gnbWrapper {
-  max-width: 968px;
-  margin: 0 auto;
-  padding: 15px 0;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas: "logo . search buttons";
-  align-items: center;
-  gap: 30px;
-
-  @media only screen and (max-width: 1124px) {
-    padding: 15px 32px;
-    gap: 25px;
-  }
-
-  @media only screen and (max-width: 767px) {
     width: 100%;
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "logo buttons"
-      "search search";
-    grid-row-gap: 16px;
-    gap: 20px;
-  }
+    max-width: 968px;
+    margin: 0 auto;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    @media only screen and (max-width: 1124px) {
+        padding: 15px 32px;
+        gap: 25px;
+    }
+
+    @media only screen and (max-width: 767px) {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'logo buttons'
+            'search search';
+        grid-row-gap: 16px;
+        gap: 20px;
+    }
 }
 
 .logo {
-  grid-area: logo;
-  width: 112px;
-  height: 40px;
-  margin-right: 40px;
+    grid-area: logo;
+    width: 112px;
+    height: 40px;
+    margin-right: 40px;
 
-  @media only screen and (max-width: 1124px) {
-    margin-right: 32px;
-  }
+    @media only screen and (max-width: 1124px) {
+        margin-right: 32px;
+    }
 
-  @media only screen and (max-width: 767px) {
-    width: 84px;
-    height: 30px;
-    margin-right: auto;
-  }
+    @media only screen and (max-width: 767px) {
+        width: 84px;
+        height: 30px;
+        margin-right: auto;
+    }
 }

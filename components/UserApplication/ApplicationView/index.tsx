@@ -8,6 +8,7 @@ import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
 import Pagination from "@/components/Pagination";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { getUserId } from "@/utils/jwt";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +20,8 @@ const ApplicationView = () => {
   const postsPerPage = 5;
 
   const getApplicationList = useCallback(async () => {
-    const userId = localStorage.getItem("userId");
+    const userId = getUserId();
+
     try {
       const response = await instance.get<{
         count: number;

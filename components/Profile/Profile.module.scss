@@ -7,6 +7,7 @@
     height: auto;
 
     @media (max-width: $TABLET) {
+        width: 680px;
         padding: 60px 32px;
     }
 }
@@ -161,7 +162,7 @@
     }
 
     @media (max-width: $MOBILE) {
-        margin-top: 12px;
+        margin-top: 56px;
     }
 }
 

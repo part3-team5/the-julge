@@ -13,7 +13,9 @@
   display: flex;
 
   @media (max-width: $TABLET) {
-    padding: 40px 32px;
+    width: 680px;
+    // height : ;
+    padding: 40px 32px 0;
     flex-direction: column;
   }
 
@@ -104,14 +106,8 @@
   }
 }
 
-.button {
+.button-wrapper {
   cursor: pointer;
-  color: var(--primary);
-  font-size: 16px;
-  font-weight: 700;
   width: 169px;
   height: 48px;
-  border-radius: 6px;
-  border: 1px solid var(--primary);
-  background-color: var(--white);
 }

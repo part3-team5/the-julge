@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import ShopEmpty from "@/components/Shop/ShopEmpty";
 import ShopForm from "@/components/Shop/ShopForm";
@@ -7,15 +7,18 @@ import { useState } from "react";
 import ShopView from "@/components/Shop/ShopView";
 import ShopEdit from "@/components/Shop/ShopEdit";
 import { fetchUserInfo } from "@/api/myShop";
+import { authState } from "@/atoms/userAtom";
 
 const MyShop = () => {
   const [showShopForm, setShowShopForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [employer, setEmployer] = useRecoilState(employerAtom);
+  const userData = useRecoilValue(authState);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    const userId = localStorage.getItem("userId");
+    const userId = userData.user?.id;
+    console.log(userId);
     if (token && userId) {
       fetchUserInfo(token, userId).then((userInfo) => {
         if (userInfo) {

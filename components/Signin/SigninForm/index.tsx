@@ -80,6 +80,7 @@ export default function SigninForm() {
             value: emailRegex,
             message: INVALID_EMAIL,
           },
+          required: "아이디를 입력하세요.",
         })}
       />
       <Input
@@ -87,7 +88,7 @@ export default function SigninForm() {
         error={passwordError}
         type="password"
         register={register("password", {
-          required: "Password is required",
+          required: "비밀번호를 입력하세요.",
         })}
       />
       <Button btnColorType="orange">로그인</Button>

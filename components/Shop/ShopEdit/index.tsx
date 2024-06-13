@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 
-import { CATEGORYS, LOCATIONS } from "@/constants/constants";
+import { CATEGORYS, LOCATIONS, MIN_WAGE } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -24,6 +24,7 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
   const { register, handleSubmit, setValue } = useForm<FormData>();
   const [imageData, setImageData] = useState<ImageData | null>(null);
   const [showAlert, setShowAlert] = useState(false);
+  const [modalType, setModalType] = useState<string | null>(null);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
     content: "",
@@ -62,7 +63,9 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
+    if (modalType === "confirm") {
+      onClose();
+    }
   };
 
   const handleSubmitForm = async (data: FormData) => {
@@ -73,6 +76,17 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
     formData.append("address2", data.address2);
     formData.append("originalHourlyPay", data.originalHourlyPay.toString());
     formData.append("description", data.description);
+
+    if (data.originalHourlyPay < MIN_WAGE) {
+      setModalData({
+        modalType: "alert",
+        content: `기본 시급은 최저 시급인 ${MIN_WAGE}원 이상이어야 합니다.`,
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
+      setModalType("alert");
+      return;
+    }
 
     if (imageData && imageData.file) {
       try {
@@ -95,6 +109,7 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
           btnName: ["확인"],
         });
         setShowAlert(true);
+        setModalType("confirm");
       }
     } catch (error) {
       console.error("Error submitting form:", error);

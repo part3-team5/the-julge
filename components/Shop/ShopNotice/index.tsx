@@ -60,15 +60,15 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
 
   useEffect(() => {
     if (!shopValue) return;
-    handleGetMyNoticeList(shopValue.shopId, offset);
-  }, [shopValue, offset, handleGetMyNoticeList]);
+    handleGetMyNoticeList(shopValue.shopId, 0);
+  }, []);
 
   useEffect(() => {
-    if (!targetRef.current || !shopValue) return;
+    if (!targetRef.current || !shopValue.shopId || !hasNextData) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && hasNextData) {
+        if (entry.isIntersecting) {
           handleGetMyNoticeList(shopValue.shopId, offset);
         }
       },
@@ -80,7 +80,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
     if (!hasNextData) observer.unobserve(targetRef.current);
 
     return () => observer.disconnect();
-  }, [targetRef, hasNextData, offset, shopValue, handleGetMyNoticeList]);
+  }, [targetRef, hasNextData, offset, handleGetMyNoticeList]);
 
   return (
     <div className={cx("section")}>
@@ -126,9 +126,9 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
           })}
         </div>
 
-        {/* {loading && <Spinner />}
-      {hasNextData && <div ref={targetRef} />}
-      {error && <div>{error}</div>} */}
+        {loading && <Spinner />}
+        {hasNextData && <div ref={targetRef} />}
+        {error && <div>{error}</div>}
       </div>
     </div>
   );

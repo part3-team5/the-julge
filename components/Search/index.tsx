@@ -136,7 +136,8 @@ const Search = () => {
           currentPage={currentPage}
           totalPosts={filteredAndSortedNotices.length}
           postsPerPage={postsPerPage}
-          type="notice"
+          keyword={Array.isArray(keyword) ? keyword.join(" ") : keyword}
+          type="search"
         />
       </div>
     </div>

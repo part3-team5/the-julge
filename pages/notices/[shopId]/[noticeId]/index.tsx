@@ -16,9 +16,14 @@ const cx = classNames.bind(styles);
 const DetailedNotice = () => {
   const router = useRouter();
   const { shopId, noticeId } = router.query;
-  const { noticeShopData } = useGetDetailedNotice(getStringValue(shopId), getStringValue(noticeId));
+  const { noticeShopData } = useGetDetailedNotice(
+    getStringValue(shopId),
+    getStringValue(noticeId)
+  );
 
-  const [storageNoticeList, setStorageNoticeList] = useState<INoticeWithShopData[]>([]);
+  const [storageNoticeList, setStorageNoticeList] = useState<
+    INoticeWithShopData[]
+  >([]);
 
   useEffect(() => {
     if (noticeShopData.id) {
@@ -26,10 +31,14 @@ const DetailedNotice = () => {
       const storageNoticeData = localStorage.getItem("RECENTLY_NOTICE_LIST");
 
       if (storageNoticeData) {
-        recentlyNoticeList = JSON.parse(storageNoticeData) as INoticeWithShopData[];
+        recentlyNoticeList = JSON.parse(
+          storageNoticeData
+        ) as INoticeWithShopData[];
       }
 
-      const isDuplicate = recentlyNoticeList.some((item) => item.id === noticeShopData.id);
+      const isDuplicate = recentlyNoticeList.some(
+        (item) => item.id === noticeShopData.id
+      );
 
       if (!isDuplicate) {
         recentlyNoticeList.push(noticeShopData);
@@ -37,7 +46,10 @@ const DetailedNotice = () => {
           recentlyNoticeList = recentlyNoticeList.slice(-6);
         }
 
-        localStorage.setItem("RECENTLY_NOTICE_LIST", JSON.stringify(recentlyNoticeList));
+        localStorage.setItem(
+          "RECENTLY_NOTICE_LIST",
+          JSON.stringify(recentlyNoticeList)
+        );
       }
       setStorageNoticeList((prev) => {
         return [...prev, ...recentlyNoticeList];
@@ -63,7 +75,10 @@ const DetailedNotice = () => {
                 );
 
                 return (
-                  <Link key={index} href={`/notices/${notice.shop.id}/${notice.id}`}>
+                  <Link
+                    key={index}
+                    href={`/notices/${notice.shop.id}/${notice.id}`}
+                  >
                     <Post
                       key={notice.id}
                       startsAt={notice.startsAt}

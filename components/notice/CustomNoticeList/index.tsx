@@ -59,18 +59,18 @@ const CustomNoticeList = () => {
 
         if (isAuth && sign.type === "employee") {
           data = await fetchNoticesByAddress(userAddress);
+
+          if (sign.type === "employee" && data.length < 1) {
+            setNoNoticesMessage("회원님의 지역에 공고가 없습니다.");
+          } else {
+            setNoNoticesMessage("");
+          }
         } else {
           data = await fetchNoticeList();
-        }
 
-        const now = new Date();
-        // 맞춤공고에 '지난공고'는 안 뜨게 함
-        data = data.filter((notice) => new Date(notice.startsAt) > now);
-
-        if (data.length < 1) {
-          setNoNoticesMessage("회원님의 지역에 공고가 없습니다.");
-        } else {
-          setNoNoticesMessage("");
+          const now = new Date();
+          // 맞춤공고에 '지난공고'는 안 뜨게 함
+          data = data.filter((notice) => new Date(notice.startsAt) > now);
         }
 
         setNotices(data);

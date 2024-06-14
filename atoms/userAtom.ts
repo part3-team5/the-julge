@@ -12,8 +12,6 @@ export const signupState = atom({
   key: "signupState",
   default: {
     email: "",
-    password: "",
-    passwordCheck: "",
     type: UserType.PART_TIME,
   },
 });

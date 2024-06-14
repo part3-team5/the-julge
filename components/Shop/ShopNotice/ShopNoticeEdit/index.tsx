@@ -1,95 +1,64 @@
-import classNames from "classnames/bind";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./ShopNoticeForm.module.scss";
-import Input from "@/components/Input";
+
 import Button from "@/components/Button";
-import { useState } from "react";
-import Image from "next/image";
-import {
-  NoticeData,
-  NoticeFormData,
-  NoticeFormProps,
-} from "../ShopNotice.types";
-import { useRecoilValue } from "recoil";
-import { employerAtom } from "@/atoms/employerAtom";
-import { instance } from "@/utils/instance";
-import { IModalProps } from "@/components/Modal/Modal.types";
+import classNames from "classnames/bind";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
-import { MIN_WAGE } from "@/constants/constants";
+import Input from "@/components/Input";
+import styles from "../Profile.module.scss";
+import { IModalProps } from "@/components/Modal/Modal.types";
+import { instance } from "@/utils/instance";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { NoticeData, NoticeFormProps } from "../ShopNotice.types";
+import { employerAtom } from "@/atoms/employerAtom";
+import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
-const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
+function NoticeEdit({ onClose }: NoticeFormProps) {
+  const router = useRouter();
+  const noticeId = router.query;
+  const shopValue = useRecoilValue(employerAtom);
+  const shopId = shopValue.shopId;
+
+  const { register, handleSubmit, setValue } = useForm<NoticeData>();
   const [showAlert, setShowAlert] = useState(false);
-  const [modalType, setModalType] = useState<string | null>(null);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
     content: "",
     btnName: [""],
   });
-  const { register, handleSubmit } = useForm<NoticeFormData>();
 
-  const shopValue = useRecoilValue(employerAtom);
-  const shopId = shopValue.shopId;
+
+  // 스웨거에서 get했을때의 데이터 구조 확인해보기
+useEffect(() =>{
+  const getNoticeData = async () => {
+    if (noticeId) {
+      const noticeData = await instance.get(
+        `shops/${shopId}/notices/${noticeId}`
+      );
+
+      setValue("hourlyPay",noticeData.hourlyPay)
+      setValue("startsAt",noticeData.startsAt)
+      setValue("workhour",noticeData.workhour)
+      setValue("description",noticeData.description)
+
+    }
+  }
+}, [])
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    if (modalType === "confirm") {
-      onClose();
-    }
+    onClose();
   };
 
-  const handleSubmitForm = async (data: NoticeFormData) => {
-    const startsAtDate = new Date(data.startsAt);
-    const formattedStartsAt = startsAtDate.toISOString();
 
-    const body: NoticeData = {
-      hourlyPay: parseInt(data.hourlyPay),
-      startsAt: formattedStartsAt,
-      workhour: parseInt(data.workhour),
-      description: data.description,
-    };
-
-    if (body.hourlyPay < MIN_WAGE) {
-      setModalData({
-        modalType: "alert",
-        content: `기본 시급은 최저 시급인 ${MIN_WAGE}원 이상이어야 합니다.`,
-        btnName: ["확인"],
-      });
-      setModalType("alert");
-      setShowAlert(true);
-      return;
-    }
-
-    try {
-      const response = await instance.post(`/shops/${shopId}/notices`, body);
-      if (response.status === 200) {
-        setModalData({
-          modalType: "alert",
-          content: "등록이 완료되었습니다.",
-          btnName: ["확인"],
-        });
-        setShowAlert(true);
-        onSubmit();
-        setModalType("confirm");
-      } else {
-        setModalData({
-          modalType: "alert",
-          content: "프로필 정보를 제대로 입력해주세요.",
-          btnName: ["확인"],
-        });
-        setModalType("alert");
-        setShowAlert(true);
-      }
-    } catch (error) {
-      console.log("POST Error:", error);
-    }
   };
 
   return (
     <main className={cx(["notice"], ["main"])}>
       <div className={cx("header")}>
-        <h1 className={cx("title")}>공고 등록</h1>
+        <h1 className={cx("title")}>공고 편집</h1>
         <Image
           src="/image/icon/shop_close.svg"
           width={32}
@@ -157,6 +126,6 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
       )}
     </main>
   );
-};
+}
 
-export default ShopNoticeForm;
+export default NoticeEdit;

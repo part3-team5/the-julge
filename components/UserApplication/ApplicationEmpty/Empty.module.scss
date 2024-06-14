@@ -9,6 +9,10 @@
   @media (max-width: $TABLET) {
     padding: 60px 32px;
   }
+
+  @media (max-width: $MOBILE) {
+    padding: 80px 12px;
+  }
 }
 
 .header {

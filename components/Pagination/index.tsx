@@ -13,6 +13,7 @@ const Pagination: React.FC<PaginationProps> = ({
   postsPerPage,
   type,
   noticeId,
+  keyword,
   onPageChange,
 }) => {
   const router = useRouter();
@@ -25,6 +26,8 @@ const Pagination: React.FC<PaginationProps> = ({
         router.push(`/?page=${page}`);
       } else if (type === "applicant") {
         router.push(`/my-shop/${noticeId}/?page=${page}`);
+      } else if (type === "search") {
+        router.push(`/search?keyword=${keyword}&page=${page}`);
       } else if (type === "profileNotice") {
         if (onPageChange) {
           onPageChange(page);
@@ -70,12 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
-          <Image
-            src="/image/icon/prev_icon.svg"
-            width={20}
-            height={20}
-            alt="이전"
-          />
+          <Image src="/image/icon/prev_icon.svg" width={20} height={20} alt="이전" />
         </button>
       )}
       {renderPageNumbers()}
@@ -85,12 +83,7 @@ const Pagination: React.FC<PaginationProps> = ({
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
-          <Image
-            src="/image/icon/next_icon.svg"
-            width={20}
-            height={20}
-            alt="다음"
-          />
+          <Image src="/image/icon/next_icon.svg" width={20} height={20} alt="다음" />
         </button>
       )}
     </div>

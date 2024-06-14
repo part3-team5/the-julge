@@ -11,8 +11,6 @@ import { fetchNoticeList } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { profileAtom } from "@/atoms/profileAtom";
 import useFilterAndSort from "@/hooks/useFilterAndSort";
 
 const cx = classNames.bind(styles);
@@ -22,8 +20,6 @@ const NoticeList: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const aa = useRecoilState(profileAtom);
-  console.log(aa);
 
   const {
     filteredAndSortedNotices,

@@ -23,7 +23,8 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
     setValue,
     formState: { errors },
   } = useForm<ProfileData>();
-  // const [initAddress, setInitAddress] = useState("");
+
+  const [initAddress, setInitAddress] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
@@ -45,7 +46,7 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
           setValue("address", response.data.item.address);
           setValue("bio", response.data.item.bio);
 
-          // setInitAddress(response.data.item.address);
+          setInitAddress(response.data.item.address);
         }
       } catch (error) {
         console.error("Get Error :", error);
@@ -132,6 +133,7 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
               onChange={(value) => {
                 setValue("address", value);
               }}
+              init={initAddress}
             />
           </section>
         </div>

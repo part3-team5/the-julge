@@ -3,4 +3,5 @@ export interface ButtonProps {
   btnColorType: "orange" | "white" | "gray";
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   btnCustom?: string;
+  disabled?: boolean;
 }

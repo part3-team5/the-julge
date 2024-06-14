@@ -19,13 +19,15 @@ const CustomNoticeList = () => {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [noNoticesMessage, setNoNoticesMessage] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(3);
   const isTablet = useResize(TABLET);
   const userData = useRecoilValue(profileAtom);
-  const auth = useRecoilValue(authState);
+  const userAddress = userData.address;
   const sign = useRecoilValue(signupState);
-  const userAddress = userData.area;
+  const auth = useRecoilValue(authState);
+  const isAuth = auth.isAuthenticated;
 
   useEffect(() => {
     if (isTablet) {
@@ -54,11 +56,23 @@ const CustomNoticeList = () => {
     const loadNotices = async () => {
       try {
         let data = [];
-        if (auth.isAuthenticated && sign.type === "employee") {
+
+        if (isAuth && sign.type === "employee") {
           data = await fetchNoticesByAddress(userAddress);
+
+          if (sign.type === "employee" && data.length < 1) {
+            setNoNoticesMessage("회원님의 지역에 공고가 없습니다.");
+          } else {
+            setNoNoticesMessage("");
+          }
         } else {
           data = await fetchNoticeList();
+
+          const now = new Date();
+          // 맞춤공고에 '지난공고'는 안 뜨게 함
+          data = data.filter((notice) => new Date(notice.startsAt) > now);
         }
+
         setNotices(data);
         setLoading(false);
       } catch (err) {
@@ -68,7 +82,7 @@ const CustomNoticeList = () => {
     };
 
     loadNotices();
-  }, [auth, userAddress]);
+  }, [userAddress, sign.type, isAuth]);
 
   if (loading) {
     return <Spinner />;
@@ -82,28 +96,33 @@ const CustomNoticeList = () => {
     <div className={cx("customNotice__wrapper")}>
       <div className={cx("customNotice__container")}>
         <h2 className={cx("title")}>맞춤 공고</h2>
-        <div className={cx("post__container")}>
-          {currentPosts().map((notice, index) => {
-            const increasePercent = calculateIncreasePercent(
-              notice.shop.item.originalHourlyPay,
-              notice.hourlyPay
-            );
+        {noNoticesMessage ? (
+          <p className={cx("no-notice")}>{noNoticesMessage}</p>
+        ) : (
+          <div className={cx("post__container")}>
+            {currentPosts().map((notice, index) => {
+              const increasePercent = calculateIncreasePercent(
+                notice.shop.item.originalHourlyPay,
+                notice.hourlyPay
+              );
 
-            return (
-              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`} key={notice.id}>
-                <Post
-                  startsAt={notice.startsAt}
-                  workhour={notice.workhour}
-                  increasePercent={increasePercent}
-                  shopName={notice.shop.item.name}
-                  shopAddress1={notice.shop.item.address1}
-                  shopImageUrl={notice.shop.item.imageUrl}
-                  hourlyPay={notice.hourlyPay}
-                />
-              </Link>
-            );
-          })}
-        </div>
+              return (
+                <Link href={`/notices/${notice.shop.item.id}/${notice.id}`} key={notice.id}>
+                  <Post
+                    startsAt={notice.startsAt}
+                    workhour={notice.workhour}
+                    increasePercent={increasePercent}
+                    shopName={notice.shop.item.name}
+                    shopAddress1={notice.shop.item.address1}
+                    shopImageUrl={notice.shop.item.imageUrl}
+                    hourlyPay={notice.hourlyPay}
+                    closed={notice.closed}
+                  />
+                </Link>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );

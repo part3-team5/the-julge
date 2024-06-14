@@ -5,7 +5,7 @@ export const profileAtom = atom({
   default: {
     name: "",
     phoneNumber: "",
-    area: "",
+    address: "",
     bio: "",
   },
 });

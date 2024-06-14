@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import styles from "./NoticeDetailed.module.scss";
 import classNames from "classnames/bind";
 import Button from "@/components/Button";
@@ -9,7 +10,7 @@ import { INoticeDataProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
-import { useEffect, useState } from "react";
+
 import { getApplicantList, postApplicant } from "@/api/notice";
 import { useRouter } from "next/router";
 import getStringValue from "@/utils/getStringValue";
@@ -24,8 +25,11 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
   const isPast = now.isAfter(endTime);
+
   const router = useRouter();
   const { noticeId } = router.query;
+
+  const isClosed = shopData.closed;
 
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
   const endTimeFormatted = endTime.format("HH:mm");
@@ -91,6 +95,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             alt="가게 이미지"
           />
           {isPast && <div className={cx("overlay")}>지난 공고</div>}
+          {isClosed && <div className={cx("overlay")}>마감 완료</div>}
         </div>
         <div className={cx("notice-info--detail-wrap")}>
           <div className={cx("notice-info--detail")}>
@@ -103,7 +108,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
                 <div>
                   {increasePercent >= 1 && (
                     <HourlyPayincreaseButton
-                      isPast={isPast}
+                      isPast={isPast || isClosed}
                       increasePercent={increasePercent}
                     />
                   )}
@@ -122,7 +127,11 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
               {shopData.shop.description}
             </p>
           </div>
-          {isApplied ? (
+          {isPast || isClosed ? (
+            <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
+              신청불가
+            </Button>
+          ) : isApplied ? (
             <Button btnColorType="white" btnCustom="userNoticeDetailed">
               취소하기
             </Button>

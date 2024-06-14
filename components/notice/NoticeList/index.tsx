@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Post from "@/components/Post";
 import DropdownSmall from "@/components/DropdownSmall";
@@ -11,73 +11,23 @@ import { fetchNoticeList } from "@/api/NoticeList";
 import Spinner from "@/components/Spinner";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import Link from "next/link";
-import { useRecoilState } from "recoil";
-import { profileAtom } from "@/atoms/profileAtom";
+import useFilterAndSort from "@/hooks/useFilterAndSort";
 
 const cx = classNames.bind(styles);
 
 const NoticeList: React.FC = () => {
   const [notices, setNotices] = useState<NoticeItem[]>([]);
-  const [filteredAndSortedNotices, setFilteredAndSortedNotices] = useState<
-    NoticeItem[]
-  >([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [sortOption, setSortOption] = useState("time");
-  const [selectedLocations, setSelectedLocations] = useState<string[]>([]);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [minPay, setMinPay] = useState<number | null>(null);
 
-  const aa = useRecoilState(profileAtom);
-  console.log(aa);
-  const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
-    switch (option) {
-      case "pay":
-        return [...notices].sort((a, b) => b.hourlyPay - a.hourlyPay);
-      case "hour":
-        return [...notices].sort((a, b) => a.workhour - b.workhour);
-      case "shop":
-        return [...notices].sort((a, b) =>
-          a.shop.item.name.localeCompare(b.shop.item.name)
-        );
-      case "new":
-        return [...notices].sort(
-          (a, b) =>
-            new Date(b.startsAt).getTime() - new Date(a.startsAt).getTime()
-        );
-      case "time":
-      default:
-        return [...notices].sort(
-          (a, b) =>
-            new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
-        );
-    }
-  };
-
-  const filterAndSortNotices = useCallback(() => {
-    let filtered = [...notices];
-
-    if (selectedLocations.length > 0) {
-      filtered = filtered.filter((notice) =>
-        selectedLocations.includes(notice.shop.item.address1)
-      );
-    }
-
-    if (selectedDate) {
-      filtered = filtered.filter(
-        (notice) =>
-          new Date(notice.startsAt).getTime() >= selectedDate.getTime()
-      );
-    }
-
-    if (minPay !== null) {
-      filtered = filtered.filter((notice) => notice.hourlyPay >= minPay);
-    }
-
-    const sorted = sortNotices(filtered, sortOption);
-    setFilteredAndSortedNotices(sorted);
-  }, [notices, selectedLocations, selectedDate, minPay, sortOption]);
+  const {
+    filteredAndSortedNotices,
+    setSortOption,
+    setSelectedLocations,
+    setSelectedDate,
+    setMinPay,
+  } = useFilterAndSort(notices, "time");
 
   const router = useRouter();
   const { page = 1 } = router.query;
@@ -92,11 +42,7 @@ const NoticeList: React.FC = () => {
     setIsFilterOpen(false);
   };
 
-  const handleApplyFilter = (
-    locations: string[],
-    date: Date | null,
-    pay: number | null
-  ) => {
+  const handleApplyFilter = (locations: string[], date: Date | null, pay: number | null) => {
     setSelectedLocations(locations);
     setSelectedDate(date);
     setMinPay(pay);
@@ -122,10 +68,6 @@ const NoticeList: React.FC = () => {
     loadNotices();
   }, []);
 
-  useEffect(() => {
-    filterAndSortNotices();
-  }, [filterAndSortNotices]);
-
   if (loading) {
     return <Spinner />;
   }
@@ -146,10 +88,7 @@ const NoticeList: React.FC = () => {
                 상세 필터
               </button>
               {isFilterOpen && (
-                <Filter
-                  onClose={handleCloseFilter}
-                  onApplyFilter={handleApplyFilter}
-                />
+                <Filter onClose={handleCloseFilter} onApplyFilter={handleApplyFilter} />
               )}
             </div>
           </div>
@@ -162,10 +101,7 @@ const NoticeList: React.FC = () => {
             );
 
             return (
-              <Link
-                key={notice.id}
-                href={`/notices/${notice.shop.item.id}/${notice.id}`}
-              >
+              <Link key={notice.id} href={`/notices/${notice.shop.item.id}/${notice.id}`}>
                 <Post
                   key={notice.id}
                   startsAt={notice.startsAt}
@@ -175,6 +111,7 @@ const NoticeList: React.FC = () => {
                   shopAddress1={notice.shop.item.address1}
                   shopImageUrl={notice.shop.item.imageUrl}
                   hourlyPay={notice.hourlyPay}
+                  closed={notice.closed}
                 />
               </Link>
             );

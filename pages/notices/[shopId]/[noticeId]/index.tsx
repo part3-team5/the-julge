@@ -88,6 +88,7 @@ const DetailedNotice = () => {
                       shopAddress1={notice.shop.address1}
                       shopImageUrl={notice.shop.imageUrl}
                       hourlyPay={notice.hourlyPay}
+                      closed={notice.closed}
                     />
                   </Link>
                 );

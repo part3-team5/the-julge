@@ -76,3 +76,10 @@
   transition: transform 0.5s ease;
   justify-items: center;
 }
+
+.section {
+  background-color: var(--gray5);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

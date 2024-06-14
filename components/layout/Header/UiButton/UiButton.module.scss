@@ -1,4 +1,5 @@
 .uiButton {
+  min-width: 65px;
   height: 20px;
   background-color: transparent;
   line-height: 20px;
@@ -8,5 +9,4 @@
   line-height: normal;
   border: none;
   cursor: pointer;
-  white-space: nowrap;
 }

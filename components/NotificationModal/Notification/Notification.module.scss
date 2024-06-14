@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 5px;
+  border: 1px solid var(--gray20);
+  background: var(--white);
+
+  .container {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .circle {
+    display: block;
+    min-width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+
+  .result {
+    font-weight: 700;
+  }
+
+  .notifi-text {
+    color: var(---black);
+    text-align: left;
+    font-family: "Spoqa Han Sans Neo";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20px;
+  }
+
+  .elapsed-time {
+    color: var(--gray40);
+    font-size: 12px;
+  }
+}

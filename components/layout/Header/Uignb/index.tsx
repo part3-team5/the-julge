@@ -13,7 +13,10 @@ export default function UiGnb({ userType, handleClickMovePage }: GnbProps) {
         <Image src="/image/logo.svg" alt="더줄게" width={112} height={40} />
       </Link>
       <SearchBar />
-      <HeaderButton userType={userType} handleClickMovePage={handleClickMovePage} />
+      <HeaderButton
+        userType={userType}
+        handleClickMovePage={handleClickMovePage}
+      />
     </div>
   );
 }

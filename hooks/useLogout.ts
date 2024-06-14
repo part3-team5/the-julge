@@ -6,6 +6,8 @@ export const deleteCookie = (router: {
     document.cookie = "id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     document.cookie = "jwt=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     document.cookie = "userType=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+    localStorage.removeItem("accessToken");
+
     router.push("/").then(() => {
       if (typeof window !== "undefined") {
         router.reload();

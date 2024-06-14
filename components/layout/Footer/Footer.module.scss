@@ -1,3 +1,5 @@
+@import "@/styles/const.scss";
+
 .footer {
   display: flex;
   justify-content: center;
@@ -18,7 +20,7 @@
     font-weight: 400;
     line-height: 26px;
 
-    @media (max-width: 768px) {
+    @media (max-width: $MOBILE) {
       grid-template:
         "footer-links sns"
         ". ." 1fr

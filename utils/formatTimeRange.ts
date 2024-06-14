@@ -5,7 +5,7 @@ export default function formatTimeRange(startsAt: string, workhour: number) {
   const formattedStartsAt = formatDate(startsTime, true);
   const formattedEndsAt = formatDate(endsTime, false);
 
-  return `${formattedStartsAt} ~ ${formattedEndsAt}`;
+  return `${formattedStartsAt}~${formattedEndsAt}`;
 }
 
 function formatDate(date: Date, isStartTime: boolean): string {
@@ -16,9 +16,7 @@ function formatDate(date: Date, isStartTime: boolean): string {
   const hours = date.getHours().toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
 
-  return isStartTime
-    ? `${year}-${month}-${day} ${hours}:${minutes}`
-    : `${hours}:${minutes}`;
+  return isStartTime ? `${year}-${month}-${day} ${hours}:${minutes}` : `${hours}:${minutes}`;
 }
 
 export const utilFormatDuration = (duration: string, workhour: number) => {

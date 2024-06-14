@@ -50,17 +50,8 @@ export default function SigninForm() {
       document.cookie = `id=${id}; path=/`;
       document.cookie = `userType=${type}; path=/`;
 
+      // localStorage에 accessToken 저장
       localStorage.setItem("accessToken", token);
-
-      // Recoil 상태 업데이트
-      setAuthState({
-        isAuthenticated: true,
-        user: {
-          id: id,
-          type: type,
-          email: formData.email,
-        },
-      });
 
       router.push("/");
     } catch (error: any) {
@@ -80,7 +71,6 @@ export default function SigninForm() {
             value: emailRegex,
             message: INVALID_EMAIL,
           },
-          required: "아이디를 입력하세요.",
         })}
       />
       <Input
@@ -88,7 +78,7 @@ export default function SigninForm() {
         error={passwordError}
         type="password"
         register={register("password", {
-          required: "비밀번호를 입력하세요.",
+          required: "Password is required",
         })}
       />
       <Button btnColorType="orange">로그인</Button>

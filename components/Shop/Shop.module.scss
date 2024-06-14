@@ -9,7 +9,7 @@
   max-width: 964px;
   margin: 0 auto;
   padding: 60px 0;
-  height: 395px;
+  height: auto;
 
   @media (max-width: $TABLET) {
     padding: 60px 32px;
@@ -43,6 +43,7 @@
   text-align: center;
   width: 100%;
   margin-top: 24px;
+  margin-bottom: 30vh;
 
   @media (max-width: $MOBILE) {
     height: 195px;

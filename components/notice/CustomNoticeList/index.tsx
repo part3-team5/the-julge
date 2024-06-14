@@ -11,6 +11,7 @@ import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import { profileAtom } from "@/atoms/profileAtom";
+import { authState, signupState } from "@/atoms/userAtom";
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,8 @@ const CustomNoticeList = () => {
   const [postsPerPage, setPostsPerPage] = useState(3);
   const isTablet = useResize(TABLET);
   const userData = useRecoilValue(profileAtom);
+  const auth = useRecoilValue(authState);
+  const sign = useRecoilValue(signupState);
   const userAddress = userData.area;
 
   useEffect(() => {
@@ -50,8 +53,12 @@ const CustomNoticeList = () => {
   useEffect(() => {
     const loadNotices = async () => {
       try {
-        //const data = await fetchNoticesByAddress(userAddress); 지역 선별 개선 필요
-        const data = await fetchNoticeList();
+        let data = [];
+        if (auth.isAuthenticated && sign.type === "employee") {
+          data = await fetchNoticesByAddress(userAddress);
+        } else {
+          data = await fetchNoticeList();
+        }
         setNotices(data);
         setLoading(false);
       } catch (err) {
@@ -61,7 +68,7 @@ const CustomNoticeList = () => {
     };
 
     loadNotices();
-  }, [userAddress]);
+  }, [auth, userAddress]);
 
   if (loading) {
     return <Spinner />;

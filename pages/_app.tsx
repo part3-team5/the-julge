@@ -7,6 +7,8 @@ import Modal from "@/components/Modal";
 import { ToastProvider } from "@/components/Toast/ToastConenxt";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Head from "next/head";
+import UserInitializer from "@/components/AtomInit";
+import { useState } from "react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +22,12 @@ const queryClient = new QueryClient({
 });
 
 export default function App({ Component, pageProps }: AppProps) {
+  const [initialized, setInitialized] = useState(false);
+
+  const handleInitialized = () => {
+    setInitialized(true);
+  };
+
   let childContent: React.ReactNode;
   switch (pageProps.layoutType) {
     case "removeLayout":
@@ -43,12 +51,17 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <RecoilRoot>
-        <ToastProvider>
-          <QueryClientProvider client={queryClient}>
-            {childContent}
-            <Modal />
-          </QueryClientProvider>
-        </ToastProvider>
+        <UserInitializer onInitialized={handleInitialized} />
+        {initialized ? (
+          <ToastProvider>
+            <QueryClientProvider client={queryClient}>
+              {childContent}
+              <Modal />
+            </QueryClientProvider>
+          </ToastProvider>
+        ) : (
+          <div>Initializing...</div>
+        )}
       </RecoilRoot>
     </>
   );

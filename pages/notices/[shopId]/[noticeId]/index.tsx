@@ -46,8 +46,8 @@ const DetailedNotice = () => {
   }, [noticeShopData]);
 
   return (
-    <>
-      <div className={cx("content-wrap")}>
+    <div className={cx("content-wrap")}>
+      <div className={cx("container")}>
         <NoticeDetailed shopData={noticeShopData} />
 
         <section className={cx("recentlt-viewed")}>
@@ -80,7 +80,7 @@ const DetailedNotice = () => {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

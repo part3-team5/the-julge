@@ -92,7 +92,11 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
           <div className={cx("notice")}>
             <div className={cx("notice-wrapper")}>
               <p>공고를 등록해 보세요.</p>
-              <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={onClick}>
+              <Button
+                btnColorType="orange"
+                btnCustom="userNoticeDetailed"
+                onClick={onClick}
+              >
                 공고 등록하기
               </Button>
             </div>
@@ -121,9 +125,10 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
             );
           })}
         </div>
-        {loading && postList.length > 0 && <Spinner />}
-        {hasNextData && <div ref={targetRef} />}
-        {error && <div>{error}</div>}
+
+        {/* {loading && <Spinner />}
+      {hasNextData && <div ref={targetRef} />}
+      {error && <div>{error}</div>} */}
       </div>
     </div>
   );

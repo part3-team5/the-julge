@@ -9,6 +9,8 @@ const useFilterAndSort = (notices: NoticeItem[], initialSortOption: string) => {
   const [minPay, setMinPay] = useState<number | null>(null);
 
   const sortNotices = (notices: NoticeItem[], option: string): NoticeItem[] => {
+    const now = new Date();
+
     switch (option) {
       case "pay":
         return [...notices].sort((a, b) => b.hourlyPay - a.hourlyPay);
@@ -22,9 +24,22 @@ const useFilterAndSort = (notices: NoticeItem[], initialSortOption: string) => {
         );
       case "time":
       default:
-        return [...notices].sort(
-          (a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()
-        );
+        return [...notices].sort((a, b) => {
+          const aStartsAt = new Date(a.startsAt).getTime();
+          const bStartsAt = new Date(b.startsAt).getTime();
+          const nowTime = now.getTime();
+
+          // 현재 시간보다 이전의 공고는 뒤로 정렬
+          if (aStartsAt < nowTime && bStartsAt < nowTime) {
+            return aStartsAt - bStartsAt;
+          } else if (aStartsAt < nowTime) {
+            return 1;
+          } else if (bStartsAt < nowTime) {
+            return -1;
+          } else {
+            return aStartsAt - bStartsAt;
+          }
+        });
     }
   };
 

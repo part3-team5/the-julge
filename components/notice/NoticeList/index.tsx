@@ -111,6 +111,7 @@ const NoticeList: React.FC = () => {
                   shopAddress1={notice.shop.item.address1}
                   shopImageUrl={notice.shop.item.imageUrl}
                   hourlyPay={notice.hourlyPay}
+                  closed={notice.closed}
                 />
               </Link>
             );

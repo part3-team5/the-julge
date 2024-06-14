@@ -9,4 +9,5 @@ export interface PostProps {
   shopAddress2?: string;
   shopImageUrl: string;
   hourlyPay: number;
+  closed: boolean;
 }

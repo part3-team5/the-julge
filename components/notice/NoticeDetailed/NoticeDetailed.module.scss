@@ -155,6 +155,10 @@
   }
 }
 @media screen and (max-width: $MOBILE) {
+  .notice {
+    margin: 0;
+  }
+
   .notice--head__name {
     font-size: 20px;
     line-height: 24px;
@@ -162,6 +166,30 @@
 
   .notice-info {
     padding: 20px;
+  }
+
+  .notice-info--explain {
+    padding: 20px;
+  }
+
+  .notice-info--explain__title {
+    font-size: 14px;
+  }
+
+  .notice-info--explain__content {
+    font-size: 14px;
+  }
+
+  .notice-info__salary {
+    font-size: 24px;
+  }
+
+  .notice-info--detail {
+    font-size: 14px;
+  }
+
+  .notice-info--detail {
+    @include flexBasicSet(column, 8px);
   }
 
   .notice-info__img {

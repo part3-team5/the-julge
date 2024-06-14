@@ -10,6 +10,11 @@
     width: 680px;
     padding: 60px 32px;
   }
+
+  @media (max-width: $MOBILE) {
+    width: 100%;
+    padding: 40px 12px;
+  }
 }
 
 .header {

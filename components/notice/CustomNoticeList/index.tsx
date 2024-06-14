@@ -24,7 +24,7 @@ const CustomNoticeList = () => {
   const [postsPerPage, setPostsPerPage] = useState(3);
   const isTablet = useResize(TABLET);
   const userData = useRecoilValue(profileAtom);
-  const userAddress = userData.area;
+  const userAddress = userData.address;
   const sign = useRecoilValue(signupState);
   const auth = useRecoilValue(authState);
   const isAuth = auth.isAuthenticated;

@@ -81,7 +81,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
             case "employee":
               setProfile({
                 name: userInfo.item.name,
-                phoneNumber: userInfo.item.phone,
+                phone: userInfo.item.phone,
                 area: userInfo.item.address,
                 bio: userInfo.item.bio,
               });

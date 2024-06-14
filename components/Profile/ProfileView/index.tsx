@@ -1,41 +1,15 @@
 import Image from "next/image";
 import classNames from "classnames/bind";
-import { useState, useEffect } from "react";
-
-import { instance } from "@/utils/instance";
 import styles from "./ProfileView.module.scss";
 import { ProfileData, ProfileViewProps } from "../Profile.types";
-import Spinner from "@/components/Spinner";
 import Button from "@/components/Button";
-import { getUserId } from "@/utils/jwt";
+import { useRecoilValue } from "recoil";
+import { profileAtom } from "@/atoms/profileAtom";
 
 const cx = classNames.bind(styles);
 
 function ProfileView({ onEdit }: ProfileViewProps) {
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
-
-  useEffect(() => {
-    const getProfileData = async () => {
-      const userId = getUserId();
-
-      try {
-        const response = await instance.get(`/users/${userId}`);
-        setProfileData(response.data.item);
-      } catch (error) {
-        console.error("Failed to fetch profile data:", error);
-      }
-    };
-
-    getProfileData();
-  }, []);
-
-  if (!profileData) {
-    return (
-      <div className={cx("loading")}>
-        <Spinner />
-      </div>
-    );
-  }
+  const profileData = useRecoilValue(profileAtom);
 
   return (
     <div className={cx("profile")}>
@@ -65,7 +39,7 @@ function ProfileView({ onEdit }: ProfileViewProps) {
                 src="/image/icon/location.svg"
                 alt="위치 아이콘"
               />
-              <p>선호 지역: {profileData.address}</p>
+              <p>선호 지역: {profileData.area}</p>
             </div>
           </div>
           <div className={cx("bio-wrapper")}>

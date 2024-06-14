@@ -115,7 +115,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
                 required: true,
                 pattern: {
                   value: /^\d{3}-\d{3,4}-\d{4}$/,
-                  message: "000-000-0000 형식에 맞춰주세요.",
+                  message: "전화번호 형식이 올바르지 않습니다.",
                 },
               })}
               error={errors.phone}

@@ -4,7 +4,7 @@ export const profileAtom = atom({
   key: "profileAtom",
   default: {
     name: "",
-    phoneNumber: "",
+    phone: "",
     area: "",
     bio: "",
   },

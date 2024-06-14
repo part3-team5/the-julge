@@ -12,7 +12,7 @@ interface AuthState {
   user: User | null;
 }
 
-export const authState = atom({
+export const authState = atom<AuthState>({
   key: "authState",
   default: {
     isAuthenticated: false,

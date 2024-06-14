@@ -14,11 +14,13 @@ import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 import { postApplicant, putApplicationStatus } from "@/api/notice";
 import { useRouter } from "next/router";
 import getStringValue from "@/utils/getStringValue";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilValue } from "recoil";
 import { authState, signupState } from "@/atoms/userAtom";
 import { getMyApplicationList } from "@/api/user";
 import { IApplicantGetApiData } from "@/types/MyShopNotice";
 import { useModal } from "@/hooks/useModal";
+import { profileAtom } from "@/atoms/profileAtom";
+import { employerAtom } from "@/atoms/employerAtom";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +42,8 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const duration = `${shopData.workhour}시간`;
 
   const sign = useRecoilValue(signupState);
-  const auth = useRecoilValue(authState);
+  const employeeProfile = useRecoilValue(profileAtom);
+  const employerData = useRecoilValue(employerAtom);
   const { openModal, closeModal } = useModal();
 
   const increasePercent = calculateIncreasePercent(
@@ -49,6 +52,8 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   );
 
   const handleApplyClick = async () => {
+    if (!applyValidation()) return;
+
     try {
       const response = await postApplicant(shopData.shop.id, shopData.id);
       if (response?.status === 201) {
@@ -102,6 +107,39 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
       closeModal();
       setIsApplied(false);
     }
+  };
+
+  const applyValidation = () => {
+    switch (sign.type) {
+      case "employee":
+        if (
+          !employeeProfile.name ||
+          employeeProfile.name === "" ||
+          !employeeProfile.address ||
+          employeeProfile.address === ""
+        ) {
+          openModal({
+            modalType: "warning",
+            content: "내 프로필을 먼저 등록해 주세요.",
+            btnName: ["확인"],
+          });
+          return false;
+        }
+        break;
+
+      case "employer":
+        return false;
+
+      default:
+        openModal({
+          modalType: "warning",
+          content: "로그인을 해주세요.",
+          btnName: ["확인"],
+        });
+        return false;
+    }
+
+    return true;
   };
 
   useEffect(() => {

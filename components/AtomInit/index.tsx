@@ -82,7 +82,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               setProfile({
                 name: userInfo.item.name,
                 phone: userInfo.item.phone,
-                area: userInfo.item.address,
+                address: userInfo.item.address,
                 bio: userInfo.item.bio,
               });
           }

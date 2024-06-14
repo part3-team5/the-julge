@@ -8,22 +8,24 @@ import { LOCATIONS } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { FormData, ProfileData, ProfileFormProps } from "../Profile.types";
+import { FormData, ProfileDataProps, ProfileFormProps } from "../Profile.types";
 import { instance } from "@/utils/instance";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { getUserId } from "@/utils/jwt";
+import { profileAtom } from "@/atoms/profileAtom";
+import { useRecoilState } from "recoil";
 
 const cx = classNames.bind(styles);
 
-const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
+const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
   } = useForm<FormData>();
-  const [userId, setUserId] = useState<string | null>(null);
+  const [profileData, setProfileData] = useRecoilState(profileAtom);
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
@@ -31,24 +33,13 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
     btnName: [""],
   });
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const userId = getUserId();
-      if (userId) {
-        setUserId(userId);
-        console.log(userId);
-      }
-    };
-    fetchUserId();
-  }, []);
-
   const handleCloseAlert = () => {
     setShowAlert(false);
     onClose();
   };
 
   const handleSubmitForm = async (data: FormData) => {
-    const body: ProfileData = {
+    const body: ProfileDataProps = {
       name: data.name,
       phone: data.phone,
       address: data.address,
@@ -56,15 +47,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
     };
 
     try {
+      const userId = getUserId();
+
       const response = await instance.put(`/users/${userId}`, body);
       if (response.status === 200) {
+        setProfileData(body);
         setModalData({
           modalType: "alert",
           content: "등록이 완료되었습니다.",
           btnName: ["확인"],
         });
         setShowAlert(true);
-        onSubmit();
       }
     } catch (error) {
       setModalData({

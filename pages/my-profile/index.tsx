@@ -1,38 +1,20 @@
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 
 import Application from "@/components/UserApplication";
 import ProfileEdit from "@/components/Profile/ProfileEdit";
 import ProfileEmpty from "@/components/Profile/ProfileEmpty";
 import ProfileForm from "@/components/Profile/ProfileForm";
 import ProfileView from "@/components/Profile/ProfileView";
-import { ProfileData } from "@/components/Profile/Profile.types";
-import { instance } from "@/utils/instance";
-import { getUserId } from "@/utils/jwt";
+// import { ProfileDataProps } from "@/components/Profile/Profile.types";
+// import { instance } from "@/utils/instance";
+import { useRecoilValue } from "recoil";
+import { profileAtom } from "@/atoms/profileAtom";
 
 function Profile() {
   const [showProfileForm, setShowProfileForm] = useState(false);
-  const [profileData, setProfileData] = useState<ProfileData | null>(null);
   const [isEditing, setIsEditing] = useState(false);
 
-  const userId = getUserId();
-
-  const getProfileData = useCallback(async () => {
-    try {
-      console.log("userId::::", userId);
-      if (userId) {
-        const response = await instance.get<{ item: ProfileData }>(
-          `users/${userId}`
-        );
-        setProfileData(response.data.item);
-      }
-    } catch (error) {
-      console.log("GET Error:", error);
-    }
-  }, [userId]);
-
-  useEffect(() => {
-    getProfileData();
-  }, [userId, getProfileData]);
+  const profileData = useRecoilValue(profileAtom);
 
   const handleProfileButtonClick = () => {
     setShowProfileForm(true);
@@ -60,12 +42,9 @@ function Profile() {
   return (
     <>
       {showProfileForm ? (
-        <ProfileForm
-          onClose={handleCloseProfileForm}
-          onSubmit={getProfileData}
-        />
+        <ProfileForm onClose={handleCloseProfileForm} />
       ) : isEditing ? (
-        <ProfileEdit onClose={handleCloseEdit} onSubmit={getProfileData} />
+        <ProfileEdit onClose={handleCloseEdit} />
       ) : isProfileFilled ? (
         <>
           <ProfileView onEdit={handleEditClick} />

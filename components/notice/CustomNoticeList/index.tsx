@@ -25,7 +25,7 @@ const CustomNoticeList = () => {
   const userData = useRecoilValue(profileAtom);
   const auth = useRecoilValue(authState);
   const sign = useRecoilValue(signupState);
-  const userAddress = userData.area;
+  const userAddress = userData.address;
 
   useEffect(() => {
     if (isTablet) {
@@ -90,7 +90,10 @@ const CustomNoticeList = () => {
             );
 
             return (
-              <Link href={`/notices/${notice.shop.item.id}/${notice.id}`} key={notice.id}>
+              <Link
+                href={`/notices/${notice.shop.item.id}/${notice.id}`}
+                key={notice.id}
+              >
                 <Post
                   startsAt={notice.startsAt}
                   workhour={notice.workhour}

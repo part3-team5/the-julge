@@ -1,7 +1,7 @@
 import Image from "next/image";
 import classNames from "classnames/bind";
 import styles from "./ProfileView.module.scss";
-import { ProfileData, ProfileViewProps } from "../Profile.types";
+import { ProfileViewProps } from "../Profile.types";
 import Button from "@/components/Button";
 import { useRecoilValue } from "recoil";
 import { profileAtom } from "@/atoms/profileAtom";
@@ -39,7 +39,7 @@ function ProfileView({ onEdit }: ProfileViewProps) {
                 src="/image/icon/location.svg"
                 alt="위치 아이콘"
               />
-              <p>선호 지역: {profileData.area}</p>
+              <p>선호 지역: {profileData.address}</p>
             </div>
           </div>
           <div className={cx("bio-wrapper")}>

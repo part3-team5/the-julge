@@ -9,21 +9,25 @@ import Input from "@/components/Input";
 import Image from "next/image";
 import styles from "../Profile.module.scss";
 import { LOCATIONS } from "@/constants/constants";
-import { ProfileData, ProfileFormProps } from "../Profile.types";
+import { ProfileDataProps, ProfileFormProps } from "../Profile.types";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { instance } from "@/utils/instance";
 import { getUserId } from "@/utils/jwt";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
+import { profileAtom } from "@/atoms/profileAtom";
 
 const cx = classNames.bind(styles);
 
-function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
+function ProfileEdit({ onClose }: ProfileFormProps) {
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<ProfileData>();
+  } = useForm<ProfileDataProps>();
 
+  const profileValue = useRecoilValue(profileAtom);
+  const [profileData, setProfileData] = useRecoilState(profileAtom);
   const [initAddress, setInitAddress] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -31,46 +35,37 @@ function ProfileEdit({ onClose, onSubmit }: ProfileFormProps) {
     content: "",
     btnName: [""],
   });
-
   const userId = getUserId();
 
+  console.log(profileValue);
   useEffect(() => {
-    const getProfileData = async () => {
-      try {
-        if (userId) {
-          const response = await instance.get<{ item: ProfileData }>(
-            `/users/${userId}`
-          );
-          setValue("name", response.data.item.name);
-          setValue("phone", response.data.item.phone);
-          setValue("address", response.data.item.address);
-          setValue("bio", response.data.item.bio);
+    if (profileValue) {
+      setValue("name", profileValue.name);
+      setValue("phone", profileValue.phone);
+      setValue("address", profileValue.address);
+      setValue("bio", profileValue.bio);
 
-          setInitAddress(response.data.item.address);
-        }
-      } catch (error) {
-        console.error("Get Error :", error);
-      }
-    };
-    getProfileData();
-  }, [userId, setValue]);
+      console.log(profileValue);
+      setInitAddress(profileValue.address);
+    }
+  }, [profileValue, , setValue, setInitAddress]);
 
   const handleCloseAlert = () => {
     setShowAlert(false);
     onClose();
   };
 
-  const handleSubmitForm = async (data: ProfileData) => {
+  const handleSubmitForm = async (data: ProfileDataProps) => {
     try {
       const response = await instance.put(`/users/${userId}`, data);
       if (response.status === 200) {
+        setProfileData(data);
         setModalData({
           modalType: "alert",
           content: "프로필 수정이 완료되었습니다.",
           btnName: ["확인"],
         });
         setShowAlert(true);
-        onSubmit();
       } else {
         alert("프로필 수정에 실패했습니다.");
       }

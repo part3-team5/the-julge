@@ -9,7 +9,10 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import UserTypeSelect from "../UserTypeSelect";
 import styles from "./SignupForm.module.scss";
-import { INVALID_EMAIL, INVALID_PASSWORD } from "../../Signin/ErrorMessage/errorMessage";
+import {
+  INVALID_EMAIL,
+  INVALID_PASSWORD,
+} from "../../Signin/ErrorMessage/errorMessage";
 import { useRouter } from "next/router";
 import { emailRegex, passwordRegex } from "@/utils/signupRegex";
 import { BASE_URL } from "@/constants/constants";
@@ -85,7 +88,8 @@ export default function SignupForm() {
         type="password"
         register={register("passwordCheck", {
           required: "비밀번호를 다시 입력하세요.",
-          validate: (value) => value === getValues("password") || "비밀번호가 일치하지 않습니다.",
+          validate: (value) =>
+            value === getValues("password") || "비밀번호가 일치하지 않습니다.",
         })}
       />
       <UserTypeSelect type={type} setType={setType} />

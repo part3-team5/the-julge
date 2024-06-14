@@ -1,34 +1,45 @@
 import React, { useState } from "react";
-import Image from "next/image";
-import styles from "./NotiButtons.module.scss";
+import NotificationModal from "@/components/NotificationModal";
 import useCookie from "@/hooks/useCookies";
-import { useNoticesData } from "../../../../hooks/useUserQuery";
+import Image from "next/image";
+import { useNoticesData } from "@/hooks/useUserQuery";
+import styles from "./NotiButtons.module.scss";
 
 export default function NotiButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { jwt, id } = useCookie();
-  const result = useNoticesData(id, jwt);
-  const activeStatus = result?.data?.count ? "active" : "inactive";
+  const response = useNoticesData(id, jwt);
+
+  const responseList = response?.data?.items ?? [];
+
+  const notificationList = responseList.filter(
+    (item: { item: { read: boolean } }) => item.item.read === false
+  );
+
+  const activeStatus = notificationList.length > 0 ? "active" : "inactive";
 
   const handleClickNoti = () => {
-    if (isModalOpen) {
-      setIsModalOpen(false);
-      return;
-    }
-    setIsModalOpen(true);
+    setIsModalOpen(!isModalOpen);
   };
 
   return (
     <>
-      <button className={styles.notiButton} type="button" onClick={handleClickNoti}>
+      <button className={styles.button} type="button" onClick={handleClickNoti}>
         <Image
+          priority
           src={`/image/notification-${activeStatus}.svg`}
           alt="notification"
           width={20}
           height={20}
         />
+        {isModalOpen && (
+          <NotificationModal
+            handleClickNoti={handleClickNoti}
+            isModalOpen={isModalOpen}
+            notificationList={notificationList}
+          />
+        )}
       </button>
-      {isModalOpen && <div className={styles.modalContainer}></div>}
     </>
   );
 }

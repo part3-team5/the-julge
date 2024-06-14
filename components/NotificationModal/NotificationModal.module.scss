@@ -1,0 +1,73 @@
+// NotificationModal.module.scss
+
+.wrapper {
+  position: absolute;
+  top: 35px;
+  right: 0px;
+
+  display: flex;
+  padding: 14px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 368px;
+  gap: 16px;
+
+  border-radius: 10px;
+  border: 1px solid var(--gray30);
+  background-color: #f9f9fb;
+  box-shadow: 0px 2px 8px 0px rgba(60, 59, 62, 0.26);
+
+  z-index: 10;
+
+  @media only screen and (max-width: 768px) {
+    top: 0px;
+    position: fixed;
+    box-shadow: none;
+    width: 100%;
+    height: 100vh;
+    border: none;
+    border-radius: 0;
+  }
+}
+
+.title {
+  color: var(--black);
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.alert-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  font-family: "Spoqa Han Sans Neo";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+
+  @media only screen and (max-width: 768px) {
+    height: 100%;
+  }
+}
+
+.styled-close-icon {
+  display: block;
+
+  @media (max-width: 375px) {
+    cursor: pointer;
+    display: block;
+  }
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

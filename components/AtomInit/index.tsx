@@ -4,6 +4,8 @@ import { employerAtom } from "@/atoms/employerAtom";
 import { profileAtom } from "@/atoms/profileAtom";
 import jwt from "jsonwebtoken";
 import { fetchUserInfo } from "@/api/myShop";
+import { authState, signupState } from "@/atoms/userAtom";
+import { UserType } from "../Signup/types/types";
 
 interface DecodedToken {
   userId: string;
@@ -18,6 +20,8 @@ interface UserInitializerProps {
 const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
   const setProfile = useSetRecoilState(profileAtom);
   const setEmployer = useSetRecoilState(employerAtom);
+  const setAuthState = useSetRecoilState(authState);
+  const setSignupState = useSetRecoilState(signupState);
   const [userToken, setUserToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -50,6 +54,10 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
     const fetchData = async (token: string) => {
       const userId = getUserId(token);
       if (userId) {
+        setAuthState({
+          isAuthenticated: true,
+        });
+
         const userInfo = await fetchUserInfo(userId);
 
         if (userInfo) {
@@ -77,6 +85,10 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
                 imageUrl: imageUrl,
                 originalHourlyPay: originalHourlyPay,
               });
+              setSignupState({
+                email: userInfo.item.email,
+                type: UserType.OWNER,
+              });
               break;
             case "employee":
               setProfile({
@@ -85,6 +97,11 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
                 address: userInfo.item.address,
                 bio: userInfo.item.bio,
               });
+              setSignupState({
+                email: userInfo.item.email,
+                type: UserType.PART_TIME,
+              });
+              break;
           }
         }
       }

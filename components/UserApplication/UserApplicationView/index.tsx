@@ -88,7 +88,7 @@ const ApplicationView = () => {
                 </div>
               </li>
             ))}
-            <li className={cx("pagination-wrapper")}>
+            <li className={cx("list-footer")}>
               <Pagination
                 currentPage={currentPage}
                 totalPosts={totalPosts}

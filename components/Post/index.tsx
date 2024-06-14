@@ -17,11 +17,13 @@ const Post: React.FC<PostProps> = ({
   shopAddress1,
   shopImageUrl,
   hourlyPay,
+  closed = false,
 }) => {
   const startTime = moment(startsAt);
   const endTime = moment(startTime).add(workhour, "hours");
   const now = moment();
   const isPast = now.isAfter(startTime);
+  const isClosed = closed;
 
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
   const endTimeFormatted = endTime.format("HH:mm");
@@ -38,6 +40,7 @@ const Post: React.FC<PostProps> = ({
           alt="공고 이미지"
         />
         {isPast && <div className={cx("overlay")}>지난 공고</div>}
+        {isClosed && <div className={cx("overlay")}>마감 완료</div>}
       </div>
       <p className={cx("postStoreText", { disabled: isPast })}>{shopName}</p>
       <div className={cx("postText__container", { disabled: isPast })}>

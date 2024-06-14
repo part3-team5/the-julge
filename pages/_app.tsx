@@ -60,7 +60,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </QueryClientProvider>
           </ToastProvider>
         ) : (
-          <div>Initializing...</div>
+          <div></div>
         )}
       </RecoilRoot>
     </>

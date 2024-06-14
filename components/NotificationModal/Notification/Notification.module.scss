@@ -1,44 +1,44 @@
+@import "@/styles/const.scss";
 .wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
   gap: 6px;
-  width: 100%;
-  padding: 10px 12px;
+  width: 328px;
+  padding: 16px 12px;
   border-radius: 5px;
   border: 1px solid var(--gray20);
   background: var(--white);
 
-  .container {
-    display: flex;
-    align-items: flex-start;
-    gap: 4px;
+  @media (max-width: $MOBILE) {
+    width: 335px;
   }
+}
 
-  .circle {
-    display: block;
-    min-width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    margin-top: 10px;
-  }
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-  .result {
-    font-weight: 700;
-  }
+.circle {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
 
-  .notifi-text {
-    color: var(---black);
-    text-align: left;
-    font-family: "Spoqa Han Sans Neo";
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 20px;
-  }
+.result {
+  font-weight: 700;
+}
 
-  .elapsed-time {
-    color: var(--gray40);
-    font-size: 12px;
-  }
+.notifiText {
+  color: var(--black);
+  text-align: left;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.elapsedTime {
+  color: var(--gray40);
+  text-align: left;
+  font-size: 12px;
 }

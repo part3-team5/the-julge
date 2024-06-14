@@ -24,13 +24,10 @@ export default function Notification({
         <div
           className={styles.circle}
           style={{
-            background:
-              result === "accepted"
-                ? "var(--blue20, #0080FF)"
-                : "var(--red30, #EC5A46)",
+            background: result === "accepted" ? "var(--blue20, #0080FF)" : "var(--red30, #EC5A46)",
           }}
         ></div>
-        <div className={styles.notifiText}>
+        <p className={styles.notifiText}>
           {name} ({formattedTime}) 공고 지원이{" "}
           <span
             className={styles.result}
@@ -41,9 +38,9 @@ export default function Notification({
             {result === "accepted" ? "승인" : "거절"}
           </span>{" "}
           되었어요.
-        </div>
+        </p>
+        <p className={styles.elapsedTime}>{elapsedTime}</p>
       </div>
-      <span className={styles.elapsedTime}>{elapsedTime}</span>
     </div>
   );
 }

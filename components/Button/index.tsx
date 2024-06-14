@@ -4,18 +4,9 @@ import { ButtonProps } from "./Button.types";
 
 const cx = classNames.bind(styles);
 
-const Button = ({
-  children,
-  btnColorType,
-  onClick,
-  btnCustom,
-}: ButtonProps) => {
+const Button = ({ children, btnColorType, onClick, btnCustom, disabled = false }: ButtonProps) => {
   return (
-    <button
-      className={cx(btnColorType, btnCustom)}
-      onClick={onClick}
-      disabled={btnColorType === "gray"}
-    >
+    <button className={cx(btnColorType, btnCustom)} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

@@ -92,11 +92,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
           <div className={cx("notice")}>
             <div className={cx("notice-wrapper")}>
               <p>공고를 등록해 보세요.</p>
-              <Button
-                btnColorType="orange"
-                btnCustom="userNoticeDetailed"
-                onClick={onClick}
-              >
+              <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={onClick}>
                 공고 등록하기
               </Button>
             </div>
@@ -120,6 +116,7 @@ const ShopNotice = ({ onClick }: NoticeEmptyProps) => {
                   shopAddress1={item.shop?.address1}
                   hourlyPay={item.hourlyPay}
                   shopImageUrl={item.shop?.imageUrl}
+                  closed={item.closed}
                 />
               </Link>
             );

@@ -1,14 +1,20 @@
-@import '../../../../styles/const.scss';
+@import "../../../../styles/const.scss";
 
 .headerButtons {
-    grid-area: buttons;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  grid-area: buttons;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    @media only screen and (max-width: $MOBILE) {
-        .headerButtons {
-            justify-content: flex-end;
-        }
+  @media only screen and (max-width: $MOBILE) {
+    .headerButtons {
+      justify-content: flex-end;
     }
+  }
+}
+
+.button_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

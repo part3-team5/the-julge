@@ -1,18 +1,18 @@
-// .notiButton {
-
+// .modalContainer {
+//   position: absolute;
+//   z-index: 1000;
+//   top: +50px;
+//   right: 350px;
+//   height: 200px;
+//   width: 368px;
+//   padding: 0 20px 24px;
+//   overflow-y: auto;
+//   border: 1px solid var(--gray30);
+//   border-radius: 10px;
+//   background-color: #c1bce7;
+//   box-shadow: 0 2px 8px 0 #c1b7ec40;
 // }
 
-.modalContainer {
-  position: absolute;
-  z-index: 1000;
-  top: +50px;
-  right: 350px;
-  height: 200px;
-  width: 368px;
-  padding: 0 20px 24px;
-  overflow-y: auto;
-  border: 1px solid var(--gray30);
-  border-radius: 10px;
-  background-color: #c1bce7;
-  box-shadow: 0 2px 8px 0 #c1b7ec40;
+.button {
+  position: relative;
 }

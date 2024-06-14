@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Notification.module.scss";
-import type { Notification } from "../types/types";
+import type { Notification } from "../types/NotificationModal.types";
 import useCookie from "@/hooks/useCookies";
-import { useClearNotification } from "../hooks/useUserQuery";
+import { useClearNotification } from "../../../hooks/useNotiUserQuery";
 
 export default function Notification({
   alertId,

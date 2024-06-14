@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./NotificationModal.module.scss";
 import Image from "next/image";
-import Notification from "./components/Notification";
-import extractNotificationInfo from "./utils/extractNotificationInfo";
-import { NotificationItem } from "./types/types";
+import Notification from "./Notification";
+import extractNotificationInfo from "../../utils/extractNotificationInfo";
+import { NotificationItem } from "./types/NotificationModal.types";
 import closeIcon from "@/public/image/close_icon.svg";
 
 interface NotificationModalProps {

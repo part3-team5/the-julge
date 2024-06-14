@@ -1,5 +1,5 @@
 import getElapsedTime from "./getElapsedTime";
-import { NotificationItem } from "../types/types";
+import { NotificationItem } from "../components/NotificationModal/types/NotificationModal.types";
 import formatTimeRange from "./formatTimeRange";
 
 export default function extractNotificationInfo(

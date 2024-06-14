@@ -7,7 +7,7 @@ import { useRecoilState } from "recoil";
 import { signupState } from "@/atoms/userAtom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import UserTypeSelect from "../UserTypeSelect";
+import UserTypeSelect from "@/components/Signup/UserTypeSelect";
 import styles from "./SignupForm.module.scss";
 import {
   INVALID_EMAIL,

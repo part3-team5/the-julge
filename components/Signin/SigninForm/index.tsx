@@ -15,6 +15,7 @@ import { useToast } from "@/components/Toast/ToastConenxt";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authState } from "@/atoms/userAtom";
 import { useEffect } from "react";
+
 import { BASE_URL } from "@/constants/constants";
 import { emailRegex } from "@/utils/signupRegex";
 
@@ -34,7 +35,6 @@ export default function SigninForm() {
   useEffect(() => {
     console.log("Current auth state:", authStateValue);
   }, [authStateValue]);
-
   const onSubmit = async (formData: SigninFormData) => {
     if (!validateSigninData(formData)) {
       showToast(WRONG_INFORMATION);
@@ -78,7 +78,7 @@ export default function SigninForm() {
         error={passwordError}
         type="password"
         register={register("password", {
-          required: "Password is required",
+          required: "비밀번호를 입력하세요.",
         })}
       />
       <Button btnColorType="orange">로그인</Button>

@@ -45,7 +45,6 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
       setValue("address", profileValue.address);
       setValue("bio", profileValue.bio);
 
-      console.log(profileValue);
       setInitAddress(profileValue.address);
     }
   }, [profileValue, , setValue, setInitAddress]);

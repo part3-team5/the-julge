@@ -21,6 +21,7 @@ function NoticeEdit({ onClose }: NoticeFormProps) {
   const shopValue = useRecoilValue(employerAtom);
   const shopId = shopValue.shopId;
 
+  const [noticeData, setNoticeData] = useState();
   const { register, handleSubmit, setValue } = useForm<NoticeData>();
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -29,103 +30,113 @@ function NoticeEdit({ onClose }: NoticeFormProps) {
     btnName: [""],
   });
 
+  useEffect(() => {
+    const getNoticeData = async () => {
+      if (noticeId) {
+        const response = await instance.get<{ item: NoticeData }>(
+          `shops/${shopId}/notices/${noticeId}`
+        );
+        const noticeDataValue = response.data.item;
 
-  // 스웨거에서 get했을때의 데이터 구조 확인해보기
-useEffect(() =>{
-  const getNoticeData = async () => {
-    if (noticeId) {
-      const noticeData = await instance.get(
-        `shops/${shopId}/notices/${noticeId}`
+        setValue("hourlyPay", noticeDataValue.hourlyPay);
+        setValue("startsAt", noticeDataValue.startsAt);
+        setValue("workhour", noticeDataValue.workhour);
+        setValue("description", noticeDataValue.description);
+      }
+    };
+  }, [noticeId, shopId, setValue]);
+  const handleSubmitForm = async (data: NoticeFormProps) => {
+    try {
+      const response = await instance.put(
+        `shops/${shopId}/notices/${noticeId}`,
+        data
       );
-
-      setValue("hourlyPay",noticeData.hourlyPay)
-      setValue("startsAt",noticeData.startsAt)
-      setValue("workhour",noticeData.workhour)
-      setValue("description",noticeData.description)
-
+      if (response.status === 200) {
+        setModalData({
+          modalType: "alert",
+          content: "프로필 수정이 완료되었습니다.",
+          btnName: ["확인"],
+        });
+        setShowAlert(true);
+        // onSubmit();
+      }
+    } catch (error) {
+      console.error("", error);
     }
-  }
-}, [])
-
+  };
   const handleCloseAlert = () => {
     setShowAlert(false);
     onClose();
   };
+}
 
-
-  };
-
-  return (
-    <main className={cx(["notice"], ["main"])}>
-      <div className={cx("header")}>
-        <h1 className={cx("title")}>공고 편집</h1>
-        <Image
-          src="/image/icon/shop_close.svg"
-          width={32}
-          height={32}
-          alt="close button"
-          onClick={onClose}
-          className={cx("close-button")}
-        />
-      </div>
-      <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
-        <div className={cx("input-wrapper")}>
-          <section className={cx("input__section")}>
-            <Input
-              label="시급"
-              type="number"
-              id="hourlyPay"
-              register={register("hourlyPay", { required: true })}
-              suffix="원"
-            />
-          </section>
-          <section className={cx("input__section")}>
-            <Input
-              label="시작 일시"
-              type="datetime-local"
-              id="startsAt"
-              register={register("startsAt", {
-                required: true,
-              })}
-            />
-          </section>
-          <section className={cx("input-section")}>
-            <Input
-              label="업무 시간"
-              type="number"
-              id="workhour"
-              register={register("workhour", {
-                required: true,
-              })}
-              suffix="시간"
-            />
-          </section>
-        </div>
-        <section className={cx("textarea-section")}>
+return (
+  <main className={cx(["notice"], ["main"])}>
+    <div className={cx("header")}>
+      <h1 className={cx("title")}>공고 등록</h1>
+      <Image
+        src="/image/icon/shop_close.svg"
+        width={32}
+        height={32}
+        alt="close button"
+        onClick={onClose}
+        className={cx("close-button")}
+      />
+    </div>
+    <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
+      <div className={cx("input-wrapper")}>
+        <section className={cx("input__section")}>
           <Input
-            label="공고 설명"
-            type="text"
-            id="description"
-            register={register("description", { required: true })}
-            isTextArea={true}
+            label="시급"
+            type="number"
+            id="hourlyPay"
+            register={register("hourlyPay", { required: true })}
+            suffix="원"
           />
         </section>
-        <div className={cx("button-section")}>
-          <div className={cx("button-wrapper")}>
-            <Button btnColorType="orange">등록하기</Button>
-          </div>
-        </div>
-      </form>
-      {showAlert && (
-        <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
+        <section className={cx("input__section")}>
+          <Input
+            label="시작 일시"
+            type="datetime-local"
+            id="startsAt"
+            register={register("startsAt", {
+              required: true,
+            })}
           />
+        </section>
+        <section className={cx("input-section")}>
+          <Input
+            label="업무 시간"
+            type="number"
+            id="workhour"
+            register={register("workhour", {
+              required: true,
+            })}
+            suffix="시간"
+          />
+        </section>
+      </div>
+      <section className={cx("textarea-section")}>
+        <Input
+          label="공고 설명"
+          type="text"
+          id="description"
+          register={register("description", { required: true })}
+          isTextArea={true}
+        />
+      </section>
+      <div className={cx("button-section")}>
+        <div className={cx("button-wrapper")}>
+          <Button btnColorType="orange">등록하기</Button>
         </div>
-      )}
-    </main>
-  );
-}
+      </div>
+    </form>
+    {showAlert && (
+      <div className={cx("overlay")}>
+        <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
+      </div>
+    )}
+  </main>
+);
 
 export default NoticeEdit;

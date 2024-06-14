@@ -140,6 +140,10 @@
 }
 
 @media screen and (max-width: $TABLET) {
+  .notice {
+    margin-top: 0;
+  }
+
   .notice-info {
     flex-direction: column;
   }
@@ -198,7 +202,7 @@
   }
 
   .notice-info__intro {
-    height: auto;
-    overflow: visible;
+    height: 150px;
+    overflow: auto;
   }
 }

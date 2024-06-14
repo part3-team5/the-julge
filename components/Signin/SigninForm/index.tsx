@@ -1,10 +1,6 @@
 import { useForm } from "react-hook-form";
 import { SigninFormData } from "../types/Signin.types";
-import {
-  INVALID_EMAIL,
-  INVALID_PASSWORD,
-  WRONG_INFORMATION,
-} from "../ErrorMessage/errorMessage";
+import { INVALID_EMAIL, INVALID_PASSWORD, WRONG_INFORMATION } from "../ErrorMessage/errorMessage";
 import axios from "axios";
 import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";
@@ -12,9 +8,6 @@ import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 import { useRouter } from "next/router";
 import { useToast } from "@/components/Toast/ToastConenxt";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authState } from "@/atoms/userAtom";
-import { useEffect } from "react";
 import { BASE_URL } from "@/constants/constants";
 import { emailRegex } from "@/utils/signupRegex";
 
@@ -27,13 +20,6 @@ export default function SigninForm() {
   const { showToast } = useToast();
   const router = useRouter();
   const { email: emailError, password: passwordError } = errors;
-  const setAuthState = useSetRecoilState(authState);
-  const authStateValue = useRecoilValue(authState);
-
-  // Recoil 상태 콘솔 출력
-  useEffect(() => {
-    console.log("Current auth state:", authStateValue);
-  }, [authStateValue]);
 
   const onSubmit = async (formData: SigninFormData) => {
     if (!validateSigninData(formData)) {
@@ -55,8 +41,7 @@ export default function SigninForm() {
 
       router.push("/");
     } catch (error: any) {
-      const message =
-        error.response?.data?.message || "An unexpected error occurred.";
+      const message = error.response?.data?.message || "An unexpected error occurred.";
       showToast(message);
     }
   };
@@ -78,7 +63,7 @@ export default function SigninForm() {
         error={passwordError}
         type="password"
         register={register("password", {
-          required: "Password is required",
+          required: "비밀번호를 입력하세요.",
         })}
       />
       <Button btnColorType="orange">로그인</Button>

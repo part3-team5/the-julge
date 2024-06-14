@@ -28,7 +28,6 @@ const CustomNoticeList = () => {
   const sign = useRecoilValue(signupState);
   const auth = useRecoilValue(authState);
   const isAuth = auth.isAuthenticated;
-  console.log(isAuth);
 
   useEffect(() => {
     if (isTablet) {

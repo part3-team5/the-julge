@@ -11,16 +11,20 @@ import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
 
-import { getApplicantList, postApplicant } from "@/api/notice";
+import { postApplicant, putApplicationStatus } from "@/api/notice";
 import { useRouter } from "next/router";
 import getStringValue from "@/utils/getStringValue";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { authState, signupState } from "@/atoms/userAtom";
+import { getMyApplicationList } from "@/api/user";
+import { IApplicantGetApiData } from "@/types/MyShopNotice";
+import { useModal } from "@/hooks/useModal";
 
 const cx = classNames.bind(styles);
 
 const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const [isApplied, setIsApplied] = useState(false);
+  const [applicationId, setApplicationId] = useState("");
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
@@ -37,6 +41,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
 
   const sign = useRecoilValue(signupState);
   const auth = useRecoilValue(authState);
+  const { openModal, closeModal } = useModal();
 
   const increasePercent = calculateIncreasePercent(
     shopData.shop.originalHourlyPay,
@@ -47,7 +52,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
     try {
       const response = await postApplicant(shopData.shop.id, shopData.id);
       if (response?.status === 201) {
-        setIsApplied(!isApplied);
+        handleCheckApply();
       }
     } catch (error) {
       console.error("신청 중 오류 발생:", error);
@@ -55,28 +60,55 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   };
 
   const handleCheckApply = async () => {
-    // try {
-    //   const response = await getApplicantList(shopData.shop.id, getStringValue(noticeId));
-    //   if (response?.status === 201) {
-    //     setIsApplied(!isApplied);
-    //   }
-    // } catch (error) {
-    //   console.error("신청 중 오류 발생:", error);
-    // }
+    try {
+      const response = await getMyApplicationList(sign.userId);
+
+      const application = response.items.find(
+        ({ item }: IApplicantGetApiData) => {
+          return item.shop.item.id === shopData.shop.id;
+        }
+      );
+
+      if (application) {
+        setIsApplied(true);
+        setApplicationId(application.item.id);
+      } else {
+        setIsApplied(false);
+      }
+    } catch (error) {
+      console.error("신청 중 오류 발생:", error);
+    }
+  };
+
+  const clickAppCancelBtn = () => {
+    openModal({
+      modalType: "select",
+      content: "신청을 취소하시겠어요?",
+      btnName: ["아니오", "취소하기"],
+      callBackFnc: handleAppCancel,
+    });
+  };
+
+  const handleAppCancel = async () => {
+    const urlIdObj = {
+      shopId: shopData.shop.id,
+      noticeId: getStringValue(noticeId),
+      applicationId: applicationId,
+    };
+
+    const response = await putApplicationStatus("canceled", urlIdObj);
+
+    if (response?.status === 200) {
+      closeModal();
+      setIsApplied(false);
+    }
   };
 
   useEffect(() => {
     if (!shopData) return;
 
     handleCheckApply();
-    console.log("shopData.shop.id :: ", shopData.shop.id);
-    console.log("noticeId :: ", noticeId);
-
-    console.log("auth::", auth);
-    console.log("sign.type::", sign.type);
-    if (auth.isAuthenticated && sign.type === "employee") {
-    }
-  }, []);
+  }, [shopData]);
 
   return (
     <section className={cx("notice")}>
@@ -132,7 +164,11 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
               신청불가
             </Button>
           ) : isApplied ? (
-            <Button btnColorType="white" btnCustom="userNoticeDetailed">
+            <Button
+              btnColorType="white"
+              btnCustom="userNoticeDetailed"
+              onClick={clickAppCancelBtn}
+            >
               취소하기
             </Button>
           ) : (

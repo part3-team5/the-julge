@@ -13,5 +13,6 @@ export const signupState = atom({
   default: {
     email: "",
     type: UserType.PART_TIME,
+    userId: "",
   },
 });

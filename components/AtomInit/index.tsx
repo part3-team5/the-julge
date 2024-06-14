@@ -70,7 +70,8 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               const address2 = userInfo.item.shop?.item.address2;
               const description = userInfo.item.shop?.item.description;
               const imageUrl = userInfo.item.shop?.item.imageUrl;
-              const originalHourlyPay = userInfo.item.shop?.item.originalHourlyPay;
+              const originalHourlyPay =
+                userInfo.item.shop?.item.originalHourlyPay;
               setEmployer({
                 id: userInfo.item.id,
                 email: userInfo.item.email,
@@ -87,6 +88,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               setSignupState({
                 email: userInfo.item.email,
                 type: UserType.OWNER,
+                userId: userId,
               });
               break;
             case "employee":
@@ -99,6 +101,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               setSignupState({
                 email: userInfo.item.email,
                 type: UserType.PART_TIME,
+                userId: userId,
               });
               break;
           }

@@ -61,11 +61,7 @@ const ApplicationView = () => {
               <li key={application.item.id} className={cx("list-content")}>
                 <div>{application.item.shop.item.name}</div>
                 <div>
-                  {formatDateTime(
-                    application.item.notice.item.startsAt,
-                    "time"
-                  )}
-                  ~
+                  {formatDateTime(application.item.notice.item.startsAt, "time")}~
                   {formatDateTime(
                     calculateEndTime(
                       application.item.notice.item.startsAt,
@@ -75,19 +71,15 @@ const ApplicationView = () => {
                   )}
                   ({application.item.notice.item.workhour}시간)
                 </div>
-                <div>
-                  {formatCurrency(application.item.notice.item.hourlyPay)}원
-                </div>
+                <div>{formatCurrency(application.item.notice.item.hourlyPay)}원</div>
                 <div>
                   <div className={cx("btn-wrap")}>
-                    <StateButton
-                      state={application.item.status as ApplicationStatus}
-                    />
+                    <StateButton state={application.item.status as ApplicationStatus} />
                   </div>
                 </div>
               </li>
             ))}
-            <li className={cx("pagination-wrapper")}>
+            <li className={cx("list-footer")}>
               <Pagination
                 currentPage={currentPage}
                 totalPosts={totalPosts}

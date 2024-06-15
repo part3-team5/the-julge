@@ -1,4 +1,6 @@
-export const deleteCookie = (router: {
+import { globalResetState } from "@/pages/_app";
+
+export const deleteCookie = async (router: {
   push: (arg0: string) => Promise<any>;
   reload: () => any;
 }) => {
@@ -8,10 +10,14 @@ export const deleteCookie = (router: {
     document.cookie = "userType=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
     localStorage.removeItem("accessToken");
 
-    router.push("/").then(() => {
-      if (typeof window !== "undefined") {
-        router.reload();
-      }
-    });
+    // Recoil 상태 초기화
+    if (globalResetState) {
+      globalResetState();
+    }
+
+    await router.push("/");
+    if (typeof window !== "undefined") {
+      router.reload();
+    }
   }
 };

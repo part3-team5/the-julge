@@ -22,11 +22,14 @@ import Image from "next/image";
 
 const cx = classNames.bind(styles);
 
-function NoticeEdit({ onClose, onSubmit }: NoticeFormProps) {
+function NoticeEdit({
+  onClose,
+  onSubmit,
+  noticeId,
+  shopId,
+}: NoticeFormProps & { noticeId: string; shopId: string }) {
   const router = useRouter();
-  const noticeId = router.query;
   const shopValue = useRecoilValue(employerAtom);
-  const shopId = shopValue.shopId;
 
   const { register, handleSubmit, setValue } = useForm<NoticeFormData>();
   const [showAlert, setShowAlert] = useState(false);
@@ -50,6 +53,7 @@ function NoticeEdit({ onClose, onSubmit }: NoticeFormProps) {
         setValue("description", noticeDataValue.description);
       }
     };
+    getNoticeData();
   }, [noticeId, shopId, setValue]);
 
   const handleSubmitForm = async (data: NoticeFormData) => {

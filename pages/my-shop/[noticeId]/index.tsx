@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { useRouter } from "next/router";
 import { IApplicantGetApiData } from "@/types/MyShopNotice";
+import NoticeEdit from "@/components/Shop/ShopNotice/ShopNoticeEdit";
 
 const cx = classNames.bind(styles);
 
@@ -19,8 +20,17 @@ const DetailedMyShopNotice = () => {
   const { noticeId } = router.query;
   const noticeIdString = noticeId as string;
   const shopValue = useRecoilValue(employerAtom);
-  const shopId = shopValue?.shopId; // 안전하게 접근
+  const shopId = shopValue?.shopId;
   const [loading, setLoading] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEditing(false);
+  };
 
   const { noticeShopData } = useGetDetailedNotice(shopId, noticeIdString);
   const { openModal, closeModal } = useModal();
@@ -89,15 +99,29 @@ const DetailedMyShopNotice = () => {
   return (
     <>
       <div className={cx("content-wrap")}>
-        <NoticeDetailed shopData={noticeShopData} />
-        {applicantList.length > 0 ? (
-          <ApplicationList
-            applicantList={applicantList}
-            handleStatusClick={handleStatusClick}
+        {isEditing ? (
+          <NoticeEdit
+            onClose={handleEditClose}
+            onSubmit={handleEditClose}
             noticeId={noticeIdString}
+            shopId={shopId}
           />
         ) : (
-          <div className={cx("no-applicants")}>신청자가 없습니다.</div>
+          <>
+            <NoticeDetailed
+              shopData={noticeShopData}
+              onEditClick={handleEditClick}
+            />
+            {applicantList.length > 0 ? (
+              <ApplicationList
+                applicantList={applicantList}
+                handleStatusClick={handleStatusClick}
+                noticeId={noticeIdString}
+              />
+            ) : (
+              <div className={cx("no-applicants")}>신청자가 없습니다.</div>
+            )}
+          </>
         )}
       </div>
     </>

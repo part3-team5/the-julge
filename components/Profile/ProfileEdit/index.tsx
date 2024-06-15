@@ -51,10 +51,35 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
   };
 
   const handleSubmitForm = async (data: ProfileDataProps) => {
+    let errorMessage = "";
+
+    if (!data.name) {
+      errorMessage = "이름을 입력하세요.";
+    } else if (!/^[가-힣]+$/.test(data.name)) {
+      errorMessage = "이름은 한글 자음과 모음이 조합된 형태로 입력해주세요.";
+    } else if (!data.phone) {
+      errorMessage = "전화번호를 입력하세요.";
+    } else if (!/^\d{3}-\d{3,4}-\d{4}$/.test(data.phone)) {
+      errorMessage = "전화번호 형식이 올바르지 않습니다.";
+    } else if (!data.address) {
+      errorMessage = "선호 지역을 선택하세요.";
+    } else if (!data.bio) {
+      errorMessage;
+    }
+
+    if (errorMessage) {
+      setModalData({
+        modalType: "alert",
+        content: errorMessage,
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
+      return;
+    }
+
     try {
       const response = await instance.put(`/users/${userId}`, data);
       if (response.status === 200) {
@@ -65,11 +90,19 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
           btnName: ["확인"],
         });
         setShowAlert(true);
+        onClose();
       } else {
         alert("프로필 수정에 실패했습니다.");
       }
     } catch (error) {
       console.error("수정 안됨:", error);
+
+      setModalData({
+        modalType: "alert",
+        content: "프로필 수정 중 오류가 발생했습니다.",
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
     }
   };
 
@@ -89,19 +122,7 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
       <form className={cx("form")} onSubmit={handleSubmit(handleSubmitForm)}>
         <div className={cx("input-wrapper")}>
           <section className={cx("input-section")}>
-            <Input
-              label="이름"
-              type="text"
-              register={register("name", {
-                required: "이름을 입력하세요.",
-                pattern: {
-                  value: /^[가-힣]+$/,
-                  message:
-                    "이름은 한글 자음과 모음이 조합된 형태로 입력해주세요.",
-                },
-              })}
-              error={errors.name}
-            />
+            <Input label="이름" type="text" register={register("name")} />
           </section>
           <section className={cx("input-section")}>
             <Input
@@ -109,12 +130,7 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
               type="tel"
               register={register("phone", {
                 required: true,
-                pattern: {
-                  value: /^\d{3}-\d{3,4}-\d{4}$/,
-                  message: "전화번호 형식이 올바르지 않습니다.",
-                },
               })}
-              error={errors.phone}
             />
           </section>
           <section className={cx("input-section")}>
@@ -136,7 +152,7 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
             label="소개"
             type="text"
             id="introduction"
-            register={register("bio", { required: true })}
+            register={register("bio")}
             isTextArea={true}
           />
         </section>

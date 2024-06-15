@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import { SignupFormData, UserType } from "../types/types";
 import { validateSignupData } from "@/utils/validateFormData";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { signupState } from "@/atoms/userAtom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import UserTypeSelect from "../UserTypeSelect";
@@ -19,7 +17,6 @@ import { BASE_URL } from "@/constants/constants";
 
 export default function SignupForm() {
   const [type, setType] = useState<UserType>(UserType.PART_TIME);
-  const [_, setSignupState] = useRecoilState(signupState);
   const {
     register,
     handleSubmit,
@@ -40,8 +37,7 @@ export default function SignupForm() {
       const request = { email, password, type };
       await axios.post(`${BASE_URL}/users`, request);
 
-      // 회원가입 완료 시 Recoil 상태 업데이트 및 페이지 이동
-      setSignupState(formData);
+      // 회원가입 완료 시 페이지 이동
       alert("가입이 완료되었습니다!");
       router.push("/signin");
     } catch (error) {

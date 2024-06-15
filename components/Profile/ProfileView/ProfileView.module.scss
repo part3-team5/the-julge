@@ -6,23 +6,24 @@
 }
 
 .profile {
+  width: 100%;
   max-width: 964px;
   margin: 0 auto;
   padding: 60px 0;
   height: 395px;
   display: flex;
+  justify-content: center;
 
   @media (max-width: $TABLET) {
-    width: 680px;
     padding: 40px 32px 0;
     flex-direction: column;
   }
 
   @media (max-width: $MOBILE) {
-    width: 350px;
-
-    padding: 12px 0;
+    width: 375px;
+    padding: 40px 12px;
     flex-direction: column;
+    height: auto;
   }
 }
 
@@ -41,7 +42,7 @@
 }
 .info-wrapper {
   width: 70%;
-  height: 100%;
+  height: auto;
   background-color: var(--red10);
   border-radius: 12px;
   padding: 32px;
@@ -53,7 +54,8 @@
   }
 
   @media (max-width: $MOBILE) {
-    padding: 24px;
+    width: 100%;
+    padding: 20px;
   }
 }
 .info {
@@ -99,6 +101,7 @@
   height: 100%;
   font-size: 16px;
   font-weight: 400;
+  width: 100%;
   overflow: auto;
 
   &::-webkit-scrollbar {
@@ -109,6 +112,10 @@
     scrollbar-width: 4px;
     background-color: #7d7986;
     border-radius: 4px;
+  }
+
+  @media (max-width: $MOBILE) {
+    overflow: hidden;
   }
 }
 

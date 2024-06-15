@@ -69,6 +69,10 @@
   > div:nth-of-type(3) {
     width: 200px;
   }
+
+  > div:nth-of-type(4) {
+    width: 200px;
+  }
 }
 
 .list-content {
@@ -95,20 +99,19 @@
   .content-wrap {
     width: 680px;
   }
-  .hourly-pay {
-    display: none;
-  }
 
   .list-header,
   .list-content {
     > div:nth-of-type(1) {
       width: 200px;
     }
-    > div:nth-of-type(2) {
-      width: 250px;
+    > div:nth-of-type(2),
+    > div:nth-of-type(3) {
+      display: none;
     }
   }
 }
+
 @media screen and (max-width: $MOBILE) {
   .content-wrap {
     width: 350px;
@@ -119,6 +122,10 @@
   .list-content {
     > div:nth-of-type(1) {
       width: 160px;
+    }
+    > div:nth-of-type(2),
+    > div:nth-of-type(3) {
+      display: none;
     }
   }
 

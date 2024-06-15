@@ -88,6 +88,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               setSignupState({
                 email: userInfo.item.email,
                 type: UserType.OWNER,
+                userId: userId,
               });
               break;
             case "employee":
@@ -100,6 +101,7 @@ const UserInitializer: React.FC<UserInitializerProps> = ({ onInitialized }) => {
               setSignupState({
                 email: userInfo.item.email,
                 type: UserType.PART_TIME,
+                userId: userId,
               });
               break;
           }

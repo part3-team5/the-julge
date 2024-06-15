@@ -75,6 +75,11 @@
   width: 100%;
   transition: transform 0.5s ease;
   justify-items: center;
+
+  @media (max-width: $TABLET) {
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 28px 0;
+  }
 }
 
 .section {
@@ -82,4 +87,8 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
+  @media (max-width: $TABLET) {
+    background: none;
+  }
 }

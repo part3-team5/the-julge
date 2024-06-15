@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import styles from "./View.module.scss";
+import styles from "./UserApplicationView.module.scss";
 import classNames from "classnames/bind";
 import StateButton from "../State";
 import { instance } from "@/utils/instance";

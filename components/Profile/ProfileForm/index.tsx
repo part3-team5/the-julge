@@ -26,6 +26,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
     formState: { errors },
   } = useForm<FormData>();
   const [profileData, setProfileData] = useRecoilState(profileAtom);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
@@ -35,10 +36,35 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
   };
 
   const handleSubmitForm = async (data: FormData) => {
+    let errorMessage = "";
+
+    if (!data.name) {
+      errorMessage = "이름을 입력하세요.";
+    } else if (!/^[가-힣]+$/.test(data.name)) {
+      errorMessage = "자음과 모음이 조합된 형태로 입력해주세요.";
+    } else if (!data.phone) {
+      errorMessage = "전화번호를 입력하세요.";
+    } else if (!/^\d{3}-\d{3,4}-\d{4}$/.test(data.phone)) {
+      errorMessage = "전화번호 형식이 올바르지 않습니다.";
+    } else if (!data.address) {
+      errorMessage = "선호 지역을 선택하세요.";
+    } else if (!data.bio) {
+      errorMessage = "소개를 입력하세요.";
+    }
+
+    if (errorMessage) {
+      setModalData({
+        modalType: "alert",
+        content: errorMessage,
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
+      return;
+    }
+
     const body: ProfileDataProps = {
       name: data.name,
       phone: data.phone,
@@ -58,6 +84,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
           btnName: ["확인"],
         });
         setShowAlert(true);
+        onClose();
       }
     } catch (error) {
       setModalData({
@@ -89,14 +116,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
               label="이름"
               type="text"
               id="name"
-              register={register("name", {
-                required: "이름을 입력하세요.",
-                pattern: {
-                  value: /^[가-힣]+$/,
-                  message: "자음과 모음이 조합된 형태로 입력해주세요.",
-                },
-              })}
-              error={errors.name}
+              register={register("name")}
             />
           </section>
           <section className={cx("input__section")}>
@@ -104,14 +124,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
               label="전화번호"
               type="tel"
               id="phone"
-              register={register("phone", {
-                required: true,
-                pattern: {
-                  value: /^\d{3}-\d{3,4}-\d{4}$/,
-                  message: "전화번호 형식이 올바르지 않습니다.",
-                },
-              })}
-              error={errors.phone}
+              register={register("phone")}
             />
           </section>
           <section className={cx("input-section")}>

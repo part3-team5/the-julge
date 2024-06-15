@@ -15,7 +15,7 @@ import { postApplicant, putApplicationStatus } from "@/api/notice";
 import { useRouter } from "next/router";
 import getStringValue from "@/utils/getStringValue";
 import { useRecoilValue } from "recoil";
-import { authState, signupState } from "@/atoms/userAtom";
+import { signupState } from "@/atoms/userAtom";
 import { getMyApplicationList } from "@/api/user";
 import { IApplicantGetApiData } from "@/types/MyShopNotice";
 import { useModal } from "@/hooks/useModal";
@@ -26,6 +26,7 @@ const cx = classNames.bind(styles);
 
 const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const [isApplied, setIsApplied] = useState(false);
+  const [isOwnerNotice, setOwnerNotice] = useState(false);
   const [applicationId, setApplicationId] = useState("");
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
@@ -33,7 +34,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   const isPast = now.isAfter(endTime);
 
   const router = useRouter();
-  const { noticeId } = router.query;
+  const { noticeId, shopId } = router.query;
 
   const isClosed = shopData.closed;
 
@@ -85,6 +86,13 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
     }
   };
 
+  const handleCheckMyShop = () => {
+    console.log("employerData::", employerData);
+    console.log("shopData.shop.id::", shopData.shop.id);
+    if (employerData.shopId !== shopData.shop.id) router.replace("/");
+    setOwnerNotice(true);
+  };
+
   const clickAppCancelBtn = () => {
     openModal({
       modalType: "select",
@@ -109,6 +117,10 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
     }
   };
 
+  const handleEditClick = () => {
+    alert("여기다 편집하기 이동 로직 작성");
+  };
+
   const applyValidation = () => {
     switch (sign.type) {
       case "employee":
@@ -128,6 +140,11 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
         break;
 
       case "employer":
+        openModal({
+          modalType: "warning",
+          content: "사장님 계정으로는 신청할 수 없어요.",
+          btnName: ["확인"],
+        });
         return false;
 
       default:
@@ -143,10 +160,9 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
   };
 
   useEffect(() => {
-    if (!shopData) return;
-
-    handleCheckApply();
-  }, [shopData]);
+    if (!shopData.id) return;
+    shopId ? handleCheckApply() : handleCheckMyShop();
+  }, [shopData, shopId]);
 
   return (
     <section className={cx("notice")}>
@@ -197,7 +213,15 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
               {shopData.shop.description}
             </p>
           </div>
-          {isPast || isClosed ? (
+          {isOwnerNotice ? (
+            <Button
+              btnColorType="white"
+              btnCustom="userNoticeDetailed"
+              onClick={handleEditClick}
+            >
+              편집하기
+            </Button>
+          ) : isPast || isClosed ? (
             <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
               신청불가
             </Button>

@@ -23,23 +23,22 @@ export default function NotiButton() {
   };
 
   return (
-    <>
-      <button className={styles.button} type="button" onClick={handleClickNoti}>
-        <Image
-          priority
-          src={`/image/notification-${activeStatus}.svg`}
-          alt="notification"
-          width={20}
-          height={20}
+    <button className={styles.button} type="button">
+      <Image
+        priority
+        src={`/image/notification-${activeStatus}.svg`}
+        alt="notification"
+        width={20}
+        height={20}
+        onClick={handleClickNoti}
+      />
+      {isModalOpen && (
+        <NotificationModal
+          isModalOpen={isModalOpen}
+          notificationList={notificationList}
+          onClick={handleClickNoti}
         />
-        {isModalOpen && (
-          <NotificationModal
-            handleClickNoti={handleClickNoti}
-            isModalOpen={isModalOpen}
-            notificationList={notificationList}
-          />
-        )}
-      </button>
-    </>
+      )}
+    </button>
   );
 }

@@ -1,191 +1,197 @@
 @import "@/styles/const.scss";
 
 .profile {
-    max-width: 964px;
-    margin: 0 auto;
-    padding: 60px 0;
-    height: auto;
+  max-width: 964px;
+  margin: 0 auto;
+  padding: 60px 0;
+  height: auto;
 
-    @media (max-width: $TABLET) {
-        width: 680px;
-        padding: 60px 32px;
-    }
+  @media (max-width: $TABLET) {
+    width: 680px;
+    padding: 60px 32px;
+  }
+
+  @media (max-width: $MOBILE) {
+    width: 100%;
+    padding: 40px 12px;
+  }
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .title {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
 
-    @media (max-width: $MOBILE) {
-        font-size: 20px;
-    }
+  @media (max-width: $MOBILE) {
+    font-size: 20px;
+  }
 }
 
 .box {
-    border: 1px solid var(--gray20);
-    border-radius: 8px;
-    height: 275px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100%;
-    margin-bottom: 30vh;
+  border: 1px solid var(--gray20);
+  border-radius: 8px;
+  height: 275px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 30vh;
 
-    @media (max-width: $MOBILE) {
-        height: 195px;
-        padding: 50px 24px;
-    }
+  @media (max-width: $MOBILE) {
+    height: 195px;
+    padding: 50px 24px;
+  }
 }
 
 .description {
-    font-size: 16px;
-    color: var(--black);
-    margin-bottom: 20px;
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: 20px;
 
-    @media (max-width: $MOBILE) {
-        font-size: 14px;
-    }
+  @media (max-width: $MOBILE) {
+    font-size: 14px;
+  }
 }
 
 .profile.main {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding-bottom: 60px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 60px;
 
-    @media (max-width: $TABLET) {
-        width: 744px;
-        padding: 32px;
-        margin: auto;
-    }
-    @media (max-width: $MOBILE) {
-        width: 375px;
-        padding: 40px 12px;
-    }
+  @media (max-width: $TABLET) {
+    width: 744px;
+    padding: 32px;
+    margin: auto;
+  }
+  @media (max-width: $MOBILE) {
+    width: 375px;
+    padding: 40px 12px;
+  }
 }
 
 .form {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background-color: var(-gray20);
+
+  @media (max-width: $TABLET) {
     width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-    background-color: var(-gray20);
+    gap: 24px;
+  }
 
-    @media (max-width: $TABLET) {
-        width: 100%;
-        gap: 24px;
-    }
-
-    @media (max-width: $MOBILE) {
-        gap: 8px;
-    }
+  @media (max-width: $MOBILE) {
+    gap: 8px;
+  }
 }
 
 .input-wrapper {
-    display: grid;
-    gap: 20px;
-    grid-template-rows: 1fr;
-    grid-template-columns: repeat(3, 1fr);
+  display: grid;
+  gap: 20px;
+  grid-template-rows: 1fr;
+  grid-template-columns: repeat(3, 1fr);
 
-    @media (max-width: $TABLET) {
-        grid-template-rows: repeat(2, 1fr);
-        grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: $MOBILE) {
-        grid-template-rows: repeat(3, 1fr);
-        grid-template-columns: 1fr;
-    }
+  @media (max-width: $TABLET) {
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $MOBILE) {
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
+  }
 }
 
 .input-section {
-    flex: 1;
-    min-width: 308px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    @media (max-width: $TABLET) {
-        width: 330px;
-    }
-    @media (max-width: $MOBILE) {
-        width: 100%;
-    }
+  flex: 1;
+  min-width: 308px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  @media (max-width: $TABLET) {
+    width: 330px;
+  }
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
 }
 .label {
-    color: var(--black);
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 26px;
+  color: var(--black);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 26px;
 }
 .input {
-    font-weight: 400;
-    font-size: 16px;
-    width: 100%;
-    border-radius: 6px;
-    border: 1px solid var(--gray20);
-    padding: 16px 20px;
+  font-weight: 400;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--gray20);
+  padding: 16px 20px;
 }
 .textarea-section {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 12px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
 
-    @media (max-width: $TABLET) {
-        height: 153px;
-    }
+  @media (max-width: $TABLET) {
+    height: 153px;
+  }
 }
 
 .button-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    @media (max-width: $TABLET) {
-        margin-top: 48px;
-        margin-bottom: 96px;
-    }
+  @media (max-width: $TABLET) {
+    margin-top: 48px;
+    margin-bottom: 96px;
+  }
 
-    @media (max-width: $MOBILE) {
-        margin-top: 56px;
-    }
+  @media (max-width: $MOBILE) {
+    margin-top: 56px;
+  }
 }
 
 .button-wrapper {
-    width: 312px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 312px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    @media (max-width: $MOBILE) {
-        width: 100%;
-    }
+  @media (max-width: $MOBILE) {
+    width: 100%;
+  }
 }
 
 .close-button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
 }

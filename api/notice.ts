@@ -1,7 +1,10 @@
 import { BASE_URL } from "@/constants/constants";
 import axios from "axios";
 
-export const getNoticeDetailedData = async (shopId: string, noticeId: string) => {
+export const getNoticeDetailedData = async (
+  shopId: string,
+  noticeId: string
+) => {
   let res;
 
   try {
@@ -23,6 +26,7 @@ export const getApplicantList = async (shopId: string, noticeId: string) => {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       alert("데이터를 가져오는 중 오류가 발생했습니다.");
+      if (error.response?.status === 500) window.location.replace("/");
     }
     throw error;
   }
@@ -52,7 +56,10 @@ export const postApplicant = async (shopId: string, noticeId: string) => {
   }
 };
 
-export const putApplicationStatus = async (status: string, idObj: { [key: string]: string }) => {
+export const putApplicationStatus = async (
+  status: string,
+  idObj: { [key: string]: string }
+) => {
   const accessToken = localStorage.getItem("accessToken");
   let res;
 
@@ -80,7 +87,11 @@ export interface FormData {
   shopId: string;
 }
 
-export const getMyNoticeList = async (shopId: string, offset = 0, limit = 6) => {
+export const getMyNoticeList = async (
+  shopId: string,
+  offset = 0,
+  limit = 6
+) => {
   try {
     const response = await axios.get(
       `${BASE_URL}/shops/${shopId}/notices?offset=${offset}&limit=${limit}`

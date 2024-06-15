@@ -20,6 +20,13 @@
   font-weight: 600;
 }
 
+.no-notice {
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .post__container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

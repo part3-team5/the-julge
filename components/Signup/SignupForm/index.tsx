@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import { SignupFormData, UserType } from "../types/types";
 import { validateSignupData } from "@/utils/validateFormData";
 import axios from "axios";
-import { useRecoilState } from "recoil";
-import { signupState } from "@/atoms/userAtom";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import UserTypeSelect from "../UserTypeSelect";
@@ -22,7 +20,6 @@ import { useToast } from "@/components/Toast/ToastConenxt";
 
 export default function SignupForm() {
   const [type, setType] = useState<UserType>(UserType.PART_TIME);
-  const [_, setSignupState] = useRecoilState(signupState);
   const {
     register,
     handleSubmit,
@@ -48,8 +45,6 @@ export default function SignupForm() {
       const { email, password } = formData;
       const request = { email, password, type };
       await axios.post(`${BASE_URL}/users`, request);
-
-      setSignupState(formData);
 
       setModalData({
         modalType: "alert",

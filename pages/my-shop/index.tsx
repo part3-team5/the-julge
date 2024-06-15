@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import ShopEmpty from "@/components/Shop/ShopEmpty";
 import ShopForm from "@/components/Shop/ShopForm";

@@ -8,7 +8,8 @@ import { ToastProvider } from "@/components/Toast/ToastConenxt";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Head from "next/head";
 import UserInitializer from "@/components/AtomInit";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { AtomReset } from "@/components/AtomReset";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,12 +22,20 @@ const queryClient = new QueryClient({
   },
 });
 
+export let globalResetState: () => void;
+
 export default function App({ Component, pageProps }: AppProps) {
   const [initialized, setInitialized] = useState(false);
+  const [resetState, setResetState] = useState<() => void>(() => () => {});
 
   const handleInitialized = () => {
     setInitialized(true);
   };
+
+  const handleReset = useCallback((reset: () => void) => {
+    setResetState(() => reset);
+    globalResetState = reset;
+  }, []);
 
   let childContent: React.ReactNode;
   switch (pageProps.layoutType) {
@@ -63,6 +72,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       <RecoilRoot>
         <UserInitializer onInitialized={handleInitialized} />
+        <AtomReset onReset={handleReset} />
         {initialized ? (
           <ToastProvider>
             <QueryClientProvider client={queryClient}>

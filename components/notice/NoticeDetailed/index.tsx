@@ -23,10 +23,7 @@ import { employerAtom } from "@/atoms/employerAtom";
 
 const cx = classNames.bind(styles);
 
-const NoticeDetailed = ({
-  shopData,
-  onEditClick,
-}: NoticeDetailedProps & { onEditClick: () => void }) => {
+const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
   const [isApplied, setIsApplied] = useState(false);
   const [isOwnerNotice, setOwnerNotice] = useState(false);
   const [applicationId, setApplicationId] = useState("");

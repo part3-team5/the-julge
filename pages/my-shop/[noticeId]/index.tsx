@@ -11,7 +11,7 @@ import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { useRouter } from "next/router";
 import { IApplicantGetApiData } from "@/types/MyShopNotice";
-import NoticeEdit from "@/components/Shop/ShopNotice/ShopNoticeEdit";
+import NoticeDetailedEdit from "@/components/notice/NoticeDetailed/NoticeDetailedEdit";
 
 const cx = classNames.bind(styles);
 
@@ -100,7 +100,7 @@ const DetailedMyShopNotice = () => {
     <>
       <div className={cx("content-wrap")}>
         {isEditing ? (
-          <NoticeEdit
+          <NoticeDetailedEdit
             onClose={handleEditClose}
             onSubmit={handleEditClose}
             noticeId={noticeIdString}
@@ -112,6 +112,7 @@ const DetailedMyShopNotice = () => {
               shopData={noticeShopData}
               onEditClick={handleEditClick}
             />
+
             {applicantList.length > 0 ? (
               <ApplicationList
                 applicantList={applicantList}

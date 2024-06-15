@@ -36,5 +36,5 @@ export interface INoticeLinks {
 
 export interface NoticeDetailedProps {
   shopData: INoticeWithShopData;
-  onEditClick: () => void;
+  onEditClick?: () => void;
 }

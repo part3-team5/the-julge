@@ -45,15 +45,15 @@
 }
 
 .filter__btn {
-  width: 79px;
+  width: auto;
   height: 30px;
+  padding: 0 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--red30);
   color: var(--white);
   font-size: 14px;
-  font-weight: 600;
   border: none;
   border-radius: 5px;
   cursor: pointer;

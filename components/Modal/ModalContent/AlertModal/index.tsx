@@ -9,6 +9,13 @@ const cx = classNames.bind(styles);
 const ConfirmModal = ({ modalData, closeFunction }: IModalContentProps) => {
   useModalScrollBlock();
 
+  const handleClick = async () => {
+    closeFunction();
+    if (modalData.callBackFnc) {
+      await modalData.callBackFnc();
+    }
+  };
+
   return (
     <div className={cx("modal--wrap")}>
       <span className={cx("modal--content")}>{modalData.content}</span>
@@ -16,7 +23,7 @@ const ConfirmModal = ({ modalData, closeFunction }: IModalContentProps) => {
         <Button
           btnColorType="orange"
           btnCustom="modal--120"
-          onClick={closeFunction}
+          onClick={handleClick}
         >
           {modalData.btnName[0]}
         </Button>

@@ -18,6 +18,7 @@ import { emailRegex, passwordRegex } from "@/utils/signupRegex";
 import { BASE_URL } from "@/constants/constants";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
+import { useToast } from "@/components/Toast/ToastConenxt";
 
 export default function SignupForm() {
   const [type, setType] = useState<UserType>(UserType.PART_TIME);
@@ -30,6 +31,7 @@ export default function SignupForm() {
     getValues,
   } = useForm<SignupFormData>({ mode: "onChange" });
   const router = useRouter();
+  const { showToast } = useToast();
 
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
@@ -59,9 +61,9 @@ export default function SignupForm() {
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         const { message } = error.response.data;
-        alert(message);
+        showToast(message);
       } else if (error instanceof TypeError) {
-        alert(error.message);
+        showToast(error.message);
       } else if (error instanceof ReferenceError) {
         setError("passwordCheck", { message: error.message });
       }

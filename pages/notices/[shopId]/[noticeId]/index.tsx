@@ -41,19 +41,22 @@ const DetailedNotice = () => {
       );
 
       if (!isDuplicate) {
-        recentlyNoticeList.push(noticeShopData);
+        recentlyNoticeList.unshift(noticeShopData);
         if (recentlyNoticeList.length > 6) {
-          recentlyNoticeList = recentlyNoticeList.slice(-6);
+          recentlyNoticeList = recentlyNoticeList.slice(0, 6);
         }
 
         localStorage.setItem(
           "RECENTLY_NOTICE_LIST",
           JSON.stringify(recentlyNoticeList)
         );
+      } else {
+        recentlyNoticeList = [
+          noticeShopData,
+          ...recentlyNoticeList.filter((item) => item.id !== noticeShopData.id),
+        ];
       }
-      setStorageNoticeList((prev) => {
-        return [...prev, ...recentlyNoticeList];
-      });
+      setStorageNoticeList(recentlyNoticeList);
     }
   }, [noticeShopData]);
 
@@ -65,34 +68,31 @@ const DetailedNotice = () => {
         <section className={cx("recentlt-viewed")}>
           <h2 className={cx("notice--head__name")}>최근에 본 공고</h2>
           <div className={cx("post__grid")}>
-            {storageNoticeList
-              .slice(0)
-              .reverse()
-              .map((notice, index) => {
-                const increasePercent = calculateIncreasePercent(
-                  notice.shop.originalHourlyPay,
-                  notice.hourlyPay
-                );
+            {storageNoticeList.map((notice, index) => {
+              const increasePercent = calculateIncreasePercent(
+                notice.shop.originalHourlyPay,
+                notice.hourlyPay
+              );
 
-                return (
-                  <Link
-                    key={index}
-                    href={`/notices/${notice.shop.id}/${notice.id}`}
-                  >
-                    <Post
-                      key={notice.id}
-                      startsAt={notice.startsAt}
-                      workhour={notice.workhour}
-                      increasePercent={increasePercent}
-                      shopName={notice.shop.name}
-                      shopAddress1={notice.shop.address1}
-                      shopImageUrl={notice.shop.imageUrl}
-                      hourlyPay={notice.hourlyPay}
-                      closed={notice.closed}
-                    />
-                  </Link>
-                );
-              })}
+              return (
+                <Link
+                  key={index}
+                  href={`/notices/${notice.shop.id}/${notice.id}`}
+                >
+                  <Post
+                    key={notice.id}
+                    startsAt={notice.startsAt}
+                    workhour={notice.workhour}
+                    increasePercent={increasePercent}
+                    shopName={notice.shop.name}
+                    shopAddress1={notice.shop.address1}
+                    shopImageUrl={notice.shop.imageUrl}
+                    hourlyPay={notice.hourlyPay}
+                    closed={notice.closed}
+                  />
+                </Link>
+              );
+            })}
           </div>
         </section>
       </div>

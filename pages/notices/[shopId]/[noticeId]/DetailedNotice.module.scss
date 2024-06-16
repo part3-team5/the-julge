@@ -31,7 +31,8 @@
 
 // ---------------------
 .recentlt-viewed {
-  margin: 120px 0 120px;
+  margin: 120px 0;
+  max-width: 964px;
 }
 
 .post__grid {
@@ -45,12 +46,17 @@
 
 @media screen and (max-width: $TABLET) {
   .content-wrap {
-    padding: 60px 32px;
+    padding: 0px 32px;
   }
 
   .post__grid {
+    width: 100%;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 28px 0;
+  }
+
+  .recentlt-viewed {
+    width: 100%;
   }
 }
 

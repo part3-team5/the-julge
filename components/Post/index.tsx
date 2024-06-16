@@ -39,8 +39,11 @@ const Post: React.FC<PostProps> = ({
           height={160}
           alt="공고 이미지"
         />
-        {isPast && <div className={cx("overlay")}>지난 공고</div>}
-        {isClosed && <div className={cx("overlay")}>마감 완료</div>}
+        {isPast ? (
+          <div className={cx("overlay")}>지난 공고</div>
+        ) : isClosed ? (
+          <div className={cx("overlay")}>마감 완료</div>
+        ) : null}
       </div>
       <p className={cx("postStoreText", { disabled: isPast })}>{shopName}</p>
       <div className={cx("postText__container", { disabled: isPast })}>

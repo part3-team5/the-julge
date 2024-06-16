@@ -1,10 +1,6 @@
 import { useForm } from "react-hook-form";
 import { SigninFormData } from "../types/Signin.types";
-import {
-  INVALID_EMAIL,
-  INVALID_PASSWORD,
-  WRONG_INFORMATION,
-} from "../ErrorMessage/errorMessage";
+import { INVALID_EMAIL, INVALID_PASSWORD, WRONG_INFORMATION } from "../ErrorMessage/errorMessage";
 import axios from "axios";
 import { validateSigninData } from "@/utils/validateFormData";
 import Input from "@/components/Input";
@@ -55,8 +51,7 @@ export default function SigninForm() {
 
       router.push("/");
     } catch (error: any) {
-      const message =
-        error.response?.data?.message || "An unexpected error occurred.";
+      const message = error.response?.data?.message || "An unexpected error occurred.";
       showToast(message);
     }
   };
@@ -71,6 +66,7 @@ export default function SigninForm() {
             value: emailRegex,
             message: INVALID_EMAIL,
           },
+          required: "아이디를 입력하세요.",
         })}
       />
       <Input

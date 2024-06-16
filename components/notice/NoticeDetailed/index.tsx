@@ -204,9 +204,15 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
             <p className={cx("notice-info__intro")}>{shopData.shop.description}</p>
           </div>
           {isOwnerNotice ? (
-            <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEditClick}>
-              편집하기
-            </Button>
+            isPast || isClosed ? (
+              <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
+                편집불가
+              </Button>
+            ) : (
+              <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEditClick}>
+                편집하기
+              </Button>
+            )
           ) : isPast || isClosed ? (
             <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
               신청불가

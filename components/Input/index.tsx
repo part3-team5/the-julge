@@ -2,6 +2,7 @@ import styles from "./Input.module.scss";
 import classNames from "classnames/bind";
 import { InputProps } from "./types/Input.types";
 import { FieldError } from "react-hook-form";
+import phoneInsertHyphen from "@/utils/phoneInsertHyphen";
 
 const cx = classNames.bind(styles);
 
@@ -16,6 +17,12 @@ export default function Input({
   suffix,
 }: InputProps) {
   const hasError = !!error;
+
+  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputPhoneNumber = e.target.value;
+    const formattedPhoneNumber = phoneInsertHyphen(inputPhoneNumber);
+    e.target.value = formattedPhoneNumber;
+  };
 
   return (
     <div className={cx("inputWrapper")}>
@@ -37,6 +44,8 @@ export default function Input({
             placeholder="입력"
             className={cx("styledInput", { error: hasError })}
             {...register}
+            onChange={type === "tel" ? handlePhoneNumberChange : undefined}
+            maxLength={type === "tel" ? 13 : undefined}
           />
           {suffix && <span className={cx("suffix")}>{suffix}</span>}
         </div>

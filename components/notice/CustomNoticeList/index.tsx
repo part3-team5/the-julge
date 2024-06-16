@@ -107,7 +107,10 @@ const CustomNoticeList = () => {
               );
 
               return (
-                <Link href={`/notices/${notice.shop.item.id}/${notice.id}`} key={notice.id}>
+                <Link
+                  href={`/notices/${notice.shop.item.id}/${notice.id}`}
+                  key={notice.id}
+                >
                   <Post
                     startsAt={notice.startsAt}
                     workhour={notice.workhour}

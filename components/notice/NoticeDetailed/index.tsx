@@ -6,11 +6,10 @@ import clockIcon from "@/public/image/icon/clock-icon.svg";
 import pathIcon from "@/public/image/icon/path-icon.svg";
 import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
 import Image from "next/image";
-import { INoticeDataProps } from "@/types/Notice";
+import { INoticeDataProps, NoticeDetailedProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
-
 import { postApplicant, putApplicationStatus } from "@/api/notice";
 import { useRouter } from "next/router";
 import getStringValue from "@/utils/getStringValue";
@@ -24,10 +23,11 @@ import { employerAtom } from "@/atoms/employerAtom";
 
 const cx = classNames.bind(styles);
 
-const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
+const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
   const [isApplied, setIsApplied] = useState(false);
   const [isOwnerNotice, setOwnerNotice] = useState(false);
   const [applicationId, setApplicationId] = useState("");
+
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
@@ -35,6 +35,8 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
 
   const router = useRouter();
   const { noticeId, shopId } = router.query;
+  const shopIdString = Array.isArray(shopId) ? shopId[0] : shopId;
+  const noticeIdString = Array.isArray(shopId) ? shopId[0] : shopId;
 
   const isClosed = shopData.closed;
 
@@ -115,10 +117,6 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
       closeModal();
       setIsApplied(false);
     }
-  };
-
-  const handleEditClick = () => {
-    alert("여기다 편집하기 이동 로직 작성");
   };
 
   const applyValidation = () => {
@@ -217,7 +215,7 @@ const NoticeDetailed = ({ shopData }: INoticeDataProps) => {
             <Button
               btnColorType="white"
               btnCustom="userNoticeDetailed"
-              onClick={handleEditClick}
+              onClick={onEditClick}
             >
               편집하기
             </Button>

@@ -8,17 +8,25 @@ import { LOCATIONS } from "@/constants/constants";
 import Dropdown from "@/components/Dropdown";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { FormData, ProfileData, ProfileFormProps } from "../Profile.types";
+import { FormData, ProfileDataProps, ProfileFormProps } from "../Profile.types";
 import { instance } from "@/utils/instance";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { getUserId } from "@/utils/jwt";
+import { profileAtom } from "@/atoms/profileAtom";
+import { useRecoilState } from "recoil";
 
 const cx = classNames.bind(styles);
 
-const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
-  const { register, handleSubmit, setValue } = useForm<FormData>();
-  const [userId, setUserId] = useState<string | null>(null);
+const ProfileForm: React.FC<ProfileFormProps> = ({ onClose }) => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>();
+  const [profileData, setProfileData] = useRecoilState(profileAtom);
+  const [errorMessage, setErrorMessage] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [modalData, setModalData] = useState<IModalProps>({
     modalType: "",
@@ -26,24 +34,38 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
     btnName: [""],
   });
 
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const userId = getUserId();
-      if (userId) {
-        setUserId(userId);
-        console.log(userId);
-      }
-    };
-    fetchUserId();
-  }, []);
-
   const handleCloseAlert = () => {
     setShowAlert(false);
-    onClose();
   };
 
   const handleSubmitForm = async (data: FormData) => {
-    const body: ProfileData = {
+    let errorMessage = "";
+
+    if (!data.name) {
+      errorMessage = "이름을 입력하세요.";
+    } else if (!/^[가-힣]+$/.test(data.name)) {
+      errorMessage = "자음과 모음이 조합된 형태로 입력해주세요.";
+    } else if (!data.phone) {
+      errorMessage = "전화번호를 입력하세요.";
+    } else if (!/^\d{3}-\d{3,4}-\d{4}$/.test(data.phone)) {
+      errorMessage = "전화번호 형식이 올바르지 않습니다.";
+    } else if (!data.address) {
+      errorMessage = "선호 지역을 선택하세요.";
+    } else if (!data.bio) {
+      errorMessage = "소개를 입력하세요.";
+    }
+
+    if (errorMessage) {
+      setModalData({
+        modalType: "alert",
+        content: errorMessage,
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
+      return;
+    }
+
+    const body: ProfileDataProps = {
       name: data.name,
       phone: data.phone,
       address: data.address,
@@ -51,20 +73,26 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
     };
 
     try {
+      const userId = getUserId();
+
       const response = await instance.put(`/users/${userId}`, body);
       if (response.status === 200) {
+        setProfileData(body);
         setModalData({
           modalType: "alert",
           content: "등록이 완료되었습니다.",
           btnName: ["확인"],
         });
         setShowAlert(true);
-        onSubmit();
-      } else {
-        alert("프로필 데이터를 제대로 입력해주세요.");
+        onClose();
       }
     } catch (error) {
-      console.log("PUT Error:", error);
+      setModalData({
+        modalType: "alert",
+        content: "오류가 발생했습니다. 다시 시도해주세요.",
+        btnName: ["확인"],
+      });
+      setShowAlert(true);
     }
   };
 
@@ -88,7 +116,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
               label="이름"
               type="text"
               id="name"
-              register={register("name", { required: true })}
+              register={register("name")}
             />
           </section>
           <section className={cx("input__section")}>
@@ -96,10 +124,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onClose, onSubmit }) => {
               label="전화번호"
               type="tel"
               id="phone"
-              register={register("phone", {
-                required: true,
-                pattern: /^\d{3}-\d{3,4}-\d{4}$/,
-              })}
+              register={register("phone")}
             />
           </section>
           <section className={cx("input-section")}>

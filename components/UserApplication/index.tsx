@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ApplicationView from "./ApplicationView";
+import ApplicationView from "./UserApplicationView";
 import { getUserId } from "@/utils/jwt";
 import { instance } from "@/utils/instance";
-import { ApplicationResponse } from "./Application.types";
-import ApplicationEmpty from "./ApplicationEmpty";
+import { ApplicationResponse } from "./UserApplication.types";
+import ApplicationEmpty from "./UserApplicationEmpty";
 
 function Application() {
   const [hasApplications, setHasApplications] = useState(false);

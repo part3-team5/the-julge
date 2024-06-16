@@ -6,10 +6,9 @@ export interface ProfileEmptyProps {
 
 export interface ProfileFormProps {
   onClose: () => void;
-  onSubmit: () => void;
 }
 
-export interface ProfileData {
+export interface ProfileDataProps {
   name: string;
   phone: string;
   address: string;
@@ -24,6 +23,5 @@ export interface FormData {
 }
 
 export interface ProfileViewProps {
-  userId: string | null;
   onEdit: () => void;
 }

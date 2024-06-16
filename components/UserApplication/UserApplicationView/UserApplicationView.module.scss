@@ -6,24 +6,6 @@
   gap: $gap;
 }
 
-@mixin stateBtn($color) {
-  padding: 10px 20px;
-  border-radius: 6px;
-  background-color: var(--white);
-  font-weight: 700;
-  line-height: 17.53px;
-  border: 1px solid $color;
-  color: $color;
-  cursor: pointer;
-
-  @media screen and (max-width: $MOBILE) {
-    padding: 8px 12px;
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16px;
-  }
-}
-
 @mixin stateLabel($backgroundColor, $fontColor) {
   padding: 6px 10px;
   border-radius: 20px;
@@ -49,6 +31,9 @@
 
 .application-list {
   margin: 60px 0 120px;
+  @media (max-width: $MOBILE) {
+    margin: 12px 0;
+  }
 }
 
 .notice--head__name {
@@ -110,22 +95,6 @@
   @include flexBasicSet($gap: 12px);
 }
 
-.state-btn-reject {
-  @include stateBtn(var(--primary));
-}
-
-.state-btn-approve {
-  @include stateBtn(var(--blue20));
-}
-
-.state-reject {
-  @include stateLabel(var(--red10), var(--red40));
-}
-
-.state-approve {
-  @include stateLabel(var(--blue10), var(--blue20));
-}
-
 @media screen and (max-width: $TABLET) {
   .content-wrap {
     width: 680px;
@@ -146,6 +115,7 @@
 @media screen and (max-width: $MOBILE) {
   .content-wrap {
     width: 350px;
+    padding: 12px 0;
   }
 
   .list-header,
@@ -178,7 +148,7 @@
     font-weight: 400;
   }
 
-  .intro {
+  .work-hours {
     display: none;
   }
 }

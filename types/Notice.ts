@@ -33,3 +33,8 @@ export interface INoticeLinks {
     offset?: number;
   };
 }
+
+export interface NoticeDetailedProps {
+  shopData: INoticeWithShopData;
+  onEditClick?: () => void;
+}

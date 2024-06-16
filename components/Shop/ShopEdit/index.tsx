@@ -13,7 +13,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { ImageData } from "@/components/ImageUpload/ImageUpload.types";
 import ConfirmModal from "@/components/Modal/ModalContent/AlertModal";
 import { IModalProps } from "@/components/Modal/Modal.types";
-import { fetchShopData, submitShopForm, updateShopDetails } from "@/api/myShop";
+import { fetchShopData, updateShopDetails } from "@/api/myShop";
 import { uploadImageAndGetUrl } from "@/api/ImageUpload";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
@@ -183,7 +183,10 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
               />
             </section>
           </div>
-          <ImageUpload onImageSelected={setImageData} existingImageUrl={initImageUrl} />
+          <ImageUpload
+            onImageSelected={setImageData}
+            existingImageUrl={initImageUrl}
+          />
           <section className={cx("textarea-section")}>
             <label className={cx("label")} htmlFor="description">
               가게 설명
@@ -202,7 +205,10 @@ const ShopEdit: React.FC<ShopFormProps> = ({ onClose }) => {
         </form>
         {showAlert && (
           <div className={cx("overlay")}>
-            <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
+            <ConfirmModal
+              modalData={modalData}
+              closeFunction={handleCloseAlert}
+            />
           </div>
         )}
       </main>

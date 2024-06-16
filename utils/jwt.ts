@@ -14,7 +14,7 @@ function getTokenFromLocalStorage(): string | null {
   return null;
 }
 
-// 디코딩, 디코딩된 토큰 저장하는 함수
+// 로컬 스토리지에 있는 토큰 디코딩, 디코딩되어서 나온 값들을 저장!( id,iat 등)
 function decodeToken(): DecodedToken | null {
   const token = getTokenFromLocalStorage();
   if (token) {

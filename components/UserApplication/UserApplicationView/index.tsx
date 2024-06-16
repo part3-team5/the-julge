@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
-import styles from "./View.module.scss";
+import styles from "./UserApplicationView.module.scss";
 import classNames from "classnames/bind";
 import StateButton from "../State";
 import { instance } from "@/utils/instance";
-import { ApplicationItem } from "../Application.types";
+import { ApplicationItem } from "../UserApplication.types";
 import { calculateEndTime, formatDateTime } from "@/utils/time";
 import { ApplicationStatus } from "../State/State.types";
 import Pagination from "@/components/Pagination";
@@ -65,7 +65,11 @@ const ApplicationView = () => {
               <li key={application.item.id} className={cx("list-content")}>
                 <div>{application.item.shop.item.name}</div>
                 <div className={cx({ hidden: isMobile })}>
-                  {formatDateTime(application.item.notice.item.startsAt, "time")}~
+                  {formatDateTime(
+                    application.item.notice.item.startsAt,
+                    "time"
+                  )}
+                  ~
                   {formatDateTime(
                     calculateEndTime(
                       application.item.notice.item.startsAt,
@@ -80,7 +84,9 @@ const ApplicationView = () => {
                 </div>
                 <div>
                   <div className={cx("btn-wrap")}>
-                    <StateButton state={application.item.status as ApplicationStatus} />
+                    <StateButton
+                      state={application.item.status as ApplicationStatus}
+                    />
                   </div>
                 </div>
               </li>

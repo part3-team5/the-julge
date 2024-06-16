@@ -37,7 +37,6 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
   });
   const userId = getUserId();
 
-  console.log(profileValue);
   useEffect(() => {
     if (profileValue) {
       setValue("name", profileValue.name);
@@ -164,10 +163,7 @@ function ProfileEdit({ onClose }: ProfileFormProps) {
       </form>
       {showAlert && (
         <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
-          />
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
         </div>
       )}
     </div>

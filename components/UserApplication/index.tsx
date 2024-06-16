@@ -13,19 +13,16 @@ function Application() {
       const userId = getUserId();
 
       try {
-        const response = await instance.get<ApplicationResponse>(
-          `/users/${userId}/applications`,
-          {
-            params: {
-              offset: 0,
-              limit: 1,
-            },
-          }
-        );
+        const response = await instance.get<ApplicationResponse>(`/users/${userId}/applications`, {
+          params: {
+            offset: 0,
+            limit: 1,
+          },
+        });
 
         setHasApplications(response.data.items.length > 0);
       } catch (error) {
-        console.log("GET ApplicationList Error:", error);
+        alert("GET ApplicationList Error");
       }
     };
 

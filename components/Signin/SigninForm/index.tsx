@@ -8,9 +8,6 @@ import Button from "@/components/Button";
 import styles from "./SigninForm.module.scss";
 import { useRouter } from "next/router";
 import { useToast } from "@/components/Toast/ToastConenxt";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { authState } from "@/atoms/userAtom";
-import { useEffect } from "react";
 
 import { BASE_URL } from "@/constants/constants";
 import { emailRegex } from "@/utils/signupRegex";
@@ -24,13 +21,7 @@ export default function SigninForm() {
   const { showToast } = useToast();
   const router = useRouter();
   const { email: emailError, password: passwordError } = errors;
-  const setAuthState = useSetRecoilState(authState);
-  const authStateValue = useRecoilValue(authState);
 
-  // Recoil 상태 콘솔 출력
-  useEffect(() => {
-    console.log("Current auth state:", authStateValue);
-  }, [authStateValue]);
   const onSubmit = async (formData: SigninFormData) => {
     if (!validateSigninData(formData)) {
       showToast(WRONG_INFORMATION);

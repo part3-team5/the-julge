@@ -18,7 +18,6 @@ const ApplicationList = ({ applicantList, handleStatusClick, noticeId }: Applica
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentApplicants = applicantList.slice(indexOfFirstPost, indexOfLastPost);
 
-  console.log(currentApplicants[0].status);
   return (
     <section className={cx("applicant-list")}>
       <h2 className={cx("notice--head__name")}>신청자 목록</h2>

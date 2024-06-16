@@ -41,7 +41,7 @@ const ApplicationView = () => {
       setTotalPosts(response.data.count);
       setHasNext(response.data.hasNext);
     } catch (error) {
-      console.log("GET ApplicationList Error :", error);
+      alert("GET ApplicationList Error");
     }
   }, [currentPage, postsPerPage]);
 
@@ -65,11 +65,7 @@ const ApplicationView = () => {
               <li key={application.item.id} className={cx("list-content")}>
                 <div>{application.item.shop.item.name}</div>
                 <div className={cx({ hidden: isMobile })}>
-                  {formatDateTime(
-                    application.item.notice.item.startsAt,
-                    "time"
-                  )}
-                  ~
+                  {formatDateTime(application.item.notice.item.startsAt, "time")}~
                   {formatDateTime(
                     calculateEndTime(
                       application.item.notice.item.startsAt,
@@ -84,9 +80,7 @@ const ApplicationView = () => {
                 </div>
                 <div>
                   <div className={cx("btn-wrap")}>
-                    <StateButton
-                      state={application.item.status as ApplicationStatus}
-                    />
+                    <StateButton state={application.item.status as ApplicationStatus} />
                   </div>
                 </div>
               </li>

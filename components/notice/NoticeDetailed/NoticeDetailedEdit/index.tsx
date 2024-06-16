@@ -73,10 +73,8 @@ function NoticeDetailedEdit({
     };
 
     try {
-      const response = await instance.put(
-        `shops/${shopId}/notices/${noticeId}`,
-        body
-      );
+      const response = await instance.put(`shops/${shopId}/notices/${noticeId}`, body);
+
       if (response.status === 200) {
         setModalData({
           modalType: "alert",
@@ -84,8 +82,7 @@ function NoticeDetailedEdit({
           btnName: ["확인"],
         });
         setShowAlert(true);
-        onSubmit();
-        setModalType("alert");
+        setModalType("confirm");
       } else {
         setModalData({
           modalType: "alert",
@@ -163,10 +160,7 @@ function NoticeDetailedEdit({
       </form>
       {showAlert && (
         <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
-          />
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
         </div>
       )}
     </main>

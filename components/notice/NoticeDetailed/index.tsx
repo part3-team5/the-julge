@@ -27,6 +27,7 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
   const [isApplied, setIsApplied] = useState(false);
   const [isOwnerNotice, setOwnerNotice] = useState(false);
   const [applicationId, setApplicationId] = useState("");
+
   const startTime = moment(shopData.startsAt);
   const endTime = moment(startTime).add(shopData.workhour, "hours");
   const now = moment();
@@ -34,6 +35,8 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
 
   const router = useRouter();
   const { noticeId, shopId } = router.query;
+  const shopIdString = Array.isArray(shopId) ? shopId[0] : shopId;
+  const noticeIdString = Array.isArray(shopId) ? shopId[0] : shopId;
 
   const isClosed = shopData.closed;
 

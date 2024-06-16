@@ -1,4 +1,5 @@
 import { BASE_URL } from "@/constants/constants";
+import { instance } from "@/utils/instance";
 import axios from "axios";
 
 export const getNoticeDetailedData = async (
@@ -19,7 +20,7 @@ export const getNoticeDetailedData = async (
 
 export const getApplicantList = async (shopId: string, noticeId: string) => {
   try {
-    const res = await axios.get(
+    const res = await instance.get(
       `${BASE_URL}/shops/${shopId}/notices/${noticeId}/applications?limit=100`
     );
     return res;

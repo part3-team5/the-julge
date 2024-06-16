@@ -8,7 +8,6 @@ import Input from "@/components/Input";
 import styles from "@/components/Shop/ShopNotice/ShopNoticeForm/ShopNoticeForm.module.scss";
 import { IModalProps } from "@/components/Modal/Modal.types";
 import { instance } from "@/utils/instance";
-import { useRecoilState, useRecoilValue } from "recoil";
 import {
   NoticeData,
   NoticeFormData,
@@ -27,7 +26,6 @@ function NoticeDetailedEdit({
   shopId,
 }: NoticeFormProps & { noticeId: string; shopId: string }) {
   const router = useRouter();
-  const shopValue = useRecoilValue(employerAtom);
   const { register, handleSubmit, setValue } = useForm<NoticeFormData>();
 
   const [showAlert, setShowAlert] = useState(false);
@@ -58,6 +56,7 @@ function NoticeDetailedEdit({
     setShowAlert(false);
     if (modalType === "confirm") {
       onClose();
+      location.reload();
     }
   };
 

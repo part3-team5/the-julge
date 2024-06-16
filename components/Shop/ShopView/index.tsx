@@ -18,7 +18,6 @@ const ShopView: React.FC<ShopViewProps> = ({ onEdit }) => {
   const [showNoticeForm, setShowNoticeForm] = useState(false);
 
   const shopValue = useRecoilValue(employerAtom);
-
   useEffect(() => {
     const fetchAndSetShopData = async () => {
       if (shopValue) {
@@ -52,7 +51,10 @@ const ShopView: React.FC<ShopViewProps> = ({ onEdit }) => {
   return (
     <div className={cx("profile")}>
       {showNoticeForm ? (
-        <ShopNoticeForm onClose={handleCloseNoticeForm} onSubmit={handleCloseNoticeForm} />
+        <ShopNoticeForm
+          onClose={handleCloseNoticeForm}
+          onSubmit={handleCloseNoticeForm}
+        />
       ) : (
         <>
           <div className={cx("container")}>
@@ -88,7 +90,11 @@ const ShopView: React.FC<ShopViewProps> = ({ onEdit }) => {
                   <p className={cx("bio")}>{shopData.description}</p>
                 </div>
                 <div className={cx("button-wrapper")}>
-                  <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEdit}>
+                  <Button
+                    btnColorType="white"
+                    btnCustom="userNoticeDetailed"
+                    onClick={onEdit}
+                  >
                     편집하기
                   </Button>
                   <Button

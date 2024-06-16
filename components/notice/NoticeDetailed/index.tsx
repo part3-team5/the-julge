@@ -35,7 +35,7 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
 
   const router = useRouter();
   const { noticeId, shopId } = router.query;
-
+  
   const isClosed = shopData.closed;
 
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
@@ -51,6 +51,7 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
     shopData.shop.originalHourlyPay,
     shopData.hourlyPay
   );
+  console.log("NoticeDetailed ShopId : ", shopId);
 
   const handleApplyClick = async () => {
     if (!applyValidation()) return;

@@ -5,11 +5,7 @@ import Input from "@/components/Input";
 import Button from "@/components/Button";
 import { useState } from "react";
 import Image from "next/image";
-import {
-  NoticeData,
-  NoticeFormData,
-  NoticeFormProps,
-} from "../ShopNotice.types";
+import { NoticeData, NoticeFormData, NoticeFormProps } from "../ShopNotice.types";
 import { useRecoilValue } from "recoil";
 import { employerAtom } from "@/atoms/employerAtom";
 import { instance } from "@/utils/instance";
@@ -82,7 +78,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
         setShowAlert(true);
       }
     } catch (error) {
-      console.log("POST Error:", error);
+      alert("공고등록 error");
     }
   };
 
@@ -149,10 +145,7 @@ const ShopNoticeForm = ({ onClose, onSubmit }: NoticeFormProps) => {
       </form>
       {showAlert && (
         <div className={cx("overlay")}>
-          <ConfirmModal
-            modalData={modalData}
-            closeFunction={handleCloseAlert}
-          />
+          <ConfirmModal modalData={modalData} closeFunction={handleCloseAlert} />
         </div>
       )}
     </main>

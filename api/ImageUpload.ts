@@ -20,9 +20,8 @@ export const uploadToS3 = async (url: string, file: File) => {
         "Content-Type": file.type,
       },
     });
-    console.log("파일 업로드 성공");
   } catch (error) {
-    console.error("파일 업로드 실패", error);
+    alert("파일 업로드 실패");
     throw error;
   }
 };

@@ -6,7 +6,7 @@ import clockIcon from "@/public/image/icon/clock-icon.svg";
 import pathIcon from "@/public/image/icon/path-icon.svg";
 import HourlyPayincreaseButton from "@/components/HourlyPayincreaseButton";
 import Image from "next/image";
-import { INoticeDataProps, NoticeDetailedProps } from "@/types/Notice";
+import { NoticeDetailedProps } from "@/types/Notice";
 import { formatCurrency } from "@/utils/formatCurrency";
 import moment from "moment";
 import { calculateIncreasePercent } from "@/utils/calculateIncreasePercent";
@@ -35,6 +35,7 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
 
   const router = useRouter();
   const { noticeId, shopId } = router.query;
+  
   const isClosed = shopData.closed;
 
   const startTimeFormatted = startTime.format("YYYY-MM-DD HH:mm");
@@ -69,11 +70,9 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
     try {
       const response = await getMyApplicationList(sign.userId);
 
-      const application = response.items.find(
-        ({ item }: IApplicantGetApiData) => {
-          return item.shop.item.id === shopData.shop.id;
-        }
-      );
+      const application = response.items.find(({ item }: IApplicantGetApiData) => {
+        return item.shop.item.id === shopData.shop.id;
+      });
 
       if (application) {
         setIsApplied(true);
@@ -87,8 +86,6 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
   };
 
   const handleCheckMyShop = () => {
-    console.log("employerData::", employerData);
-    console.log("shopData.shop.id::", shopData.shop.id);
     if (employerData.shopId !== shopData.shop.id) router.replace("/");
     setOwnerNotice(true);
   };
@@ -205,36 +202,28 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
               <Image src={pathIcon} alt="위치 아이콘" />
               <span>{shopData.shop.address1}</span>
             </div>
-            <p className={cx("notice-info__intro")}>
-              {shopData.shop.description}
-            </p>
+            <p className={cx("notice-info__intro")}>{shopData.shop.description}</p>
           </div>
           {isOwnerNotice ? (
-            <Button
-              btnColorType="white"
-              btnCustom="userNoticeDetailed"
-              onClick={onEditClick}
-            >
-              편집하기
-            </Button>
+            isPast || isClosed ? (
+              <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
+                편집불가
+              </Button>
+            ) : (
+              <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={onEditClick}>
+                편집하기
+              </Button>
+            )
           ) : isPast || isClosed ? (
             <Button btnColorType="gray" btnCustom="userNoticeDetailed" disabled>
               신청불가
             </Button>
           ) : isApplied ? (
-            <Button
-              btnColorType="white"
-              btnCustom="userNoticeDetailed"
-              onClick={clickAppCancelBtn}
-            >
+            <Button btnColorType="white" btnCustom="userNoticeDetailed" onClick={clickAppCancelBtn}>
               취소하기
             </Button>
           ) : (
-            <Button
-              btnColorType="orange"
-              btnCustom="userNoticeDetailed"
-              onClick={handleApplyClick}
-            >
+            <Button btnColorType="orange" btnCustom="userNoticeDetailed" onClick={handleApplyClick}>
               신청하기
             </Button>
           )}
@@ -242,9 +231,7 @@ const NoticeDetailed = ({ shopData, onEditClick }: NoticeDetailedProps) => {
       </div>
       <div className={cx("notice-info--explain")}>
         <span className={cx("notice-info--explain__title")}>공고 설명</span>
-        <p className={cx("notice-info--explain__content")}>
-          {shopData.description}
-        </p>
+        <p className={cx("notice-info--explain__content")}>{shopData.description}</p>
       </div>
     </section>
   );

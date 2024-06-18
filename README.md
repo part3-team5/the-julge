@@ -1,40 +1,19 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## 🧑‍💻 Team
+|<img src="https://avatars.githubusercontent.com/u/60869993?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/115205098?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/157354719?v=4" width="150" height="150"/>|<img src="https://avatars.githubusercontent.com/u/57613101?v=4" width="150" height="150"/>|
+|:-:|:-:|:-:|:-:|
+|김은재<br/>[@rladmswo1715](https://github.com/rladmswo1715)|우지석(팀장)<br/>[@jisurk](https://github.com/jisurk)|이순구<br/>[@LeeSG98](https://github.com/LeeSG98)|조혜진<br/>[@MEGUMMY1](https://github.com/MEGUMMY1)|(https://github.com/GoldenHamsterK)|
 
-## Getting Started
+<br>
 
-First, run the development server:
+## 🔮 웹 구인구직 서비스 `더 줄게`
+### ✨ 개발 기간 : 2024.05.30 ~ 2024.06.17
+### ✨ 서비스 링크 : [https://the-julge-5.vercel.app/](https://the-julge-5.vercel.app/)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/69864dc1-ffee-45a9-99dc-c577e698fcbf)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/1f6c756a-bf71-4e34-ae79-436eeb0de5ec)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/aad94d02-27ad-4c4f-9f9f-fe7b416c20a8)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/f69375dd-3db2-499a-aebb-fb44bef7cd45)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/695c017b-53c0-4730-9aad-6200ad15502a)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/7aa00d7a-19b2-42ce-a82a-5c885d7eb1b7)
+![image](https://github.com/part3-team5/the-julge/assets/57613101/bf7bd865-f7a1-483a-95f8-5b4f418d4b1d)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br>
